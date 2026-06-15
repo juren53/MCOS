@@ -2,19 +2,20 @@
 
 MCIS will be a free, open source collections management system designed for small museums, historical societies, and specialized collections that need professional-grade tools without the cost or complexity of commercial software such as PastPerfect, Argus, or The Museum System (TMS).
 
-## What it will do
+## Overview
 
-MCIS will be built on a two-tier architecture:
+MCIS separates public discovery from private operations through a two-tier architecture:
 
 - **Public tier** — selected records and images published to the museum's Internet Archive collection for free, permanent public access
 - **Private tier** — full operational data maintained in a secure, self-hosted PostgreSQL database covering collections, loans, donors, members, and inventory
+
+Staff will install a lightweight desktop client on their workstations and connect to a PostgreSQL database running on one machine the museum already owns. No web server or cloud subscription required.
 
 ## Key principles
 
 - Free and open source — no licensing fees
 - Runs on modest hardware the museum already owns
 - Low training curve for volunteers and part-time staff with high turnover
-- Multi-user client/server — PySide6 desktop clients connecting to a shared database
 - Modular — museums can adopt only the modules they need and expand over time
 - Data portable — museums own their data; no vendor lock-in; standard SQL exports
 - Internet Archive publishing as a first-class feature, not an afterthought
@@ -22,13 +23,13 @@ MCIS will be built on a two-tier architecture:
 
 ## Technology stack
 
-| Layer           | Technology                      |
-| :-------------- | :------------------------------ |
-| Desktop client  | Python / PySide6                |
-| Database        | PostgreSQL                      |
-| ORM             | SQLAlchemy                      |
-| IA publishing   | internetarchive Python library  |
-| Packaging       | PyInstaller (Windows and Linux) |
+| Layer          | Technology                     |
+| :------------- | :----------------------------- |
+| Desktop client | Python / PySide6               |
+| Database       | PostgreSQL                     |
+| Database layer | SQLAlchemy                     |
+| IA publishing  | internetarchive Python library |
+| Packaging      | PyInstaller (Windows, Linux)   |
 
 ## Project status
 
@@ -44,8 +45,8 @@ We are looking for:
 - Contributors familiar with Python, PySide6, or PostgreSQL
 - Museum professionals who can advise on collections workflow requirements
 
-Open an issue or start a discussion to get involved.
+Visit the [GitHub repository](https://github.com/juren53/MCIS) to open an issue or start a discussion.
 
 ## License
 
-License to be determined — MIT or GPL v3 under consideration. See the [project plan](docs/MCIS_High_Level_Plan.md) for the licensing rationale.
+License will be MIT or GPL v3 — decision expected before the first code release. See the [project plan](docs/MCIS_High_Level_Plan.md) for the licensing rationale.
