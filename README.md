@@ -151,6 +151,13 @@ Grow MCIS into a community-supported open source project.
 *   Contributor onboarding and community governance model
 *   Plugin/extension API for community-contributed modules
 
+### 7.6 Data Conversion
+Tools and processes for migrating existing museum data from spreadsheets, legacy systems, or other formats into MCIS.
+
+*   CSV/Excel import utility with configurable field mapping
+*   Support for common museum data standards (e.g., LIDO, CIDOC CRM) where applicable
+*   Batch image import and association with object records
+
 ## 8. Competitive Landscape
 
 | System                     | Cost                | Target Size | Open Source | IA Integration   |
