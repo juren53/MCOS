@@ -9,7 +9,7 @@ MCIS separates public discovery from private operations through a two-tier archi
 - **Public tier** — selected records and images published to the museum's Internet Archive collection for free, permanent public access
 - **Private tier** — full operational data maintained in a secure, self-hosted PostgreSQL database covering collections, loans, donors, members, and inventory
 
-Staff will install a lightweight desktop client on their workstations and connect to a PostgreSQL database running on one machine the museum already owns. No web server or cloud subscription required.
+A lightweight desktop client can be installed on a laptop or workstation and connect to a PostgreSQL database running on one machine the museum already owns. No web server or cloud subscription required.
 
 ## Key principles
 
