@@ -54,14 +54,14 @@ Documents are listed in the phase when they are expected to be drafted. All date
 
 | Document | Audience | Description |
 | :--- | :--- | :--- |
-| **User Guide: Locations, Loans & Donors** | Registrars, Staff | How to use the Locations, Loans, and Donors modules: managing the location hierarchy, recording object movements, creating and managing loan agreements, recording condition-out/in, donor records and acknowledgment letters |
+| **User Guide: Members, Donors, Locations & Loans** | Registrars, Staff | How to use the Members, Donors, Locations, and Loans modules: managing the location hierarchy, recording object movements, creating and managing loan agreements, recording condition-out/in, donor records and acknowledgment letters, membership tiers and renewal tracking |
 | **Internet Archive Publisher Guide** | Registrars, Admins | Full Phase 2 IA publishing workflow: setting up an Internet Archive account and collection; configuring field mapping (MCIS fields → IA metadata); managing the batch publish queue; publishing, updating, and unpublishing records. Basic Phase 1 IA publishing is covered in the User Guide: Collections & Objects. |
 
 ### Phase 3 — Operations Modules
 
 | Document | Audience | Description |
 | :--- | :--- | :--- |
-| **User Guide: Members & Inventory** | Staff | How to use the Members/Comms and Inventory modules: membership tiers and renewal tracking, lapsed-member lists, equipment and supply records, maintenance schedules |
+| **User Guide: Inventory** | Staff | How to use the Inventory module: equipment and supply records, maintenance schedules |
 
 ### Phase 4 — Community & Sustainability
 

@@ -67,18 +67,18 @@ The foundation of any collections management system — with the feature that se
 - Complete audit trail of every record creation, edit, and deletion, with user attribution and before/after field values
 - **Basic IA Publisher** — Registrar flags objects for publication; Admin approves; the system uploads the object record with its primary image and core metadata (title, maker, date, description, rights statement) to the museum's Internet Archive collection; IA identifier is written back to the object record; publication status is visible on every object
 
-### Locations, Loans & Donors
+### Members, Donors, Locations & Loans
 
 The operational core for a working museum or historical society, paired with a full-featured IA publisher.
 
+- **Members / Comms** — Membership tiers, renewal tracking, lapsed-member outreach lists, newsletter distribution
+- **Donors** — Individual and organization donor records; link donated objects to their donors; gift restrictions; acknowledgment letter generation; anonymous donor flag with public suppression; deactivation for deceased or lapsed donors
 - **Locations** — Hierarchical location tree (building → room → case → shelf); record where every object is; full movement history; off-site and loan-destination locations
 - **Loans** — Outgoing and incoming loan agreements with multi-object support; condition-out / condition-in recording; insurance value and currency; return deadlines and overdue alerts; loan status (Pending, Active, Returned, Cancelled)
-- **Donors** — Individual and organization donor records; link donated objects to their donors; gift restrictions; acknowledgment letter generation; anonymous donor flag with public suppression; deactivation for deceased or lapsed donors
 - **Full IA Publisher** — Configurable field mapping UI (MCIS fields → IA metadata); batch publish queue management and dashboard; update and unpublish support; multi-image upload
 
 ### Operations Modules
 
-- **Members / Comms** — Membership tiers, renewal tracking, lapsed-member outreach lists, newsletter distribution
 - **Inventory** — Equipment and supply records, vendor contacts, maintenance schedules
 
 ### Data Migration
@@ -131,7 +131,7 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 *Establish the repository, documentation, and schema design before any application code is written.*
 
 - GitHub repository created, README and project documentation published
-- Full database schema designed and documented for Phase 1 (Collections, Objects, Media, Users, Audit) and Phase 2 (Locations, Loans, Donors)
+- Full database schema designed and documented for Phase 1 (Collections, Objects, Media, Users, Audit) and Phase 2 (Members, Donors, Locations, Loans)
 - A collection of use cases documenting operational workflows for every module
 - Advisory board [TBD] — formation underway
 
