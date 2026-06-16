@@ -43,6 +43,7 @@ Represents physical and logical places where objects are stored or displayed. Su
 | :--------------- | :----------- | :------------------------------------------------------------------- | :----------------------------------------------------------------- |
 | location_id      | SERIAL       | PRIMARY KEY                                                          |                                                                    |
 | name             | VARCHAR(255) | NOT NULL                                                             | Display name, e.g. "Gallery A", "Case 3", "Off-site Storage Unit" |
+| location_code    | VARCHAR(50)  | UNIQUE                                                               | Short code for labelling and signage, e.g. "GA-C3-P5". Optional.  |
 | location_type    | VARCHAR(20)  | NOT NULL CHECK (location_type IN ('Room','Case','Storage','Offsite'))| Physical classification of the location                            |
 | parent_location_id | INTEGER    | REFERENCES locations(location_id) ON DELETE RESTRICT                 | Parent location in the hierarchy. NULL for top-level locations.    |
 | description      | TEXT         |                                                                      | Narrative description of the location                              |
@@ -61,6 +62,7 @@ Represents physical and logical places where objects are stored or displayed. Su
 - `ON DELETE RESTRICT` on the self-referential FK prevents deleting a parent location while child locations exist.
 - Objects on loan are assigned to the borrower's location record (a location of type `Offsite`), not tracked separately. The Loans table carries the borrower contact details.
 - Setting `is_active = FALSE` retires a location without removing its history from object location records.
+- `name` has no uniqueness constraint. Duplicate names under the same parent are technically allowed. Consider enforcing uniqueness at the application level, or adding `UNIQUE (name, parent_location_id)` noting that PostgreSQL treats two NULLs as distinct, so duplicate top-level names would not be caught by that constraint.
 
 ---
 
@@ -77,10 +79,11 @@ Records an outgoing or incoming loan agreement at the header level. The specific
 | start_date          | DATE           | NOT NULL                                                                               | Date the loan begins                                                 |
 | end_date            | DATE           |                                                                                        | Expected return date. NULL for open-ended loans.                     |
 | insurance_value     | NUMERIC(12,2)  |                                                                                        | Declared insurance value covering all objects in the loan            |
-| insurance_currency  | CHAR(3)        | NOT NULL DEFAULT 'USD'                                                                 | ISO 4217 currency code                                               |
+| insurance_currency  | CHAR(3)        | DEFAULT 'USD'                                                                          | ISO 4217 currency code. NULL when insurance_value is not recorded.   |
 | agreement_ref       | VARCHAR(255)   |                                                                                        | Loan agreement document reference number or filename                 |
 | agreement_notes     | TEXT           |                                                                                        | Notes about special terms or conditions in the agreement             |
-| status              | VARCHAR(10)    | NOT NULL DEFAULT 'Pending' CHECK (status IN ('Pending','Active','Returned','Overdue','Cancelled')) | Lifecycle status of the loan                          |
+| purpose             | TEXT           |                                                                                        | Purpose of the loan, e.g. "Travelling exhibition", "Conservation study" |
+| status              | VARCHAR(10)    | NOT NULL DEFAULT 'Pending' CHECK (status IN ('Pending','Active','Returned','Cancelled'))           | Lifecycle status. Overdue is computed on-the-fly: `end_date < CURRENT_DATE AND status = 'Active'` |
 | created_at          | TIMESTAMPTZ    | NOT NULL DEFAULT NOW()                                                                 |                                                                      |
 | updated_at          | TIMESTAMPTZ    | NOT NULL DEFAULT NOW()                                                                 |                                                                      |
 
@@ -93,7 +96,8 @@ Records an outgoing or incoming loan agreement at the header level. The specific
 **Notes:**
 - `counterparty_name` and `counterparty_contact` store the external party for both loan types. For outgoing loans this is the borrower; for incoming loans this is the lender.
 - `insurance_value` covers the full loan. Per-object insurance values, if needed, are a future enhancement on `loan_objects`.
-- `status = 'Overdue'` is set by the application when `end_date` has passed and the loan has not been returned. The application is responsible for running periodic checks and updating this field.
+- `insurance_value` and `insurance_currency` are both nullable. When `insurance_value` is set, `insurance_currency` should also be set; the application enforces this pairing.
+- Overdue state is not stored — it is computed on-the-fly as `end_date < CURRENT_DATE AND status = 'Active'`. This avoids a stored value drifting out of sync with the actual date.
 - Loan agreements (PDF files) should be stored in the media directory and referenced by `agreement_ref`, not stored as BLOBs in the database.
 
 ---
@@ -111,10 +115,13 @@ Junction table linking loans to the specific objects they cover. Also records th
 | condition_out_notes| TEXT         |                                                                               | Narrative condition notes at departure                              |
 | condition_in       | VARCHAR(20)  | CHECK (condition_in IN ('Excellent','Good','Fair','Poor','Unknown'))           | Condition grade recorded when object was returned                   |
 | condition_in_notes | TEXT         |                                                                               | Narrative condition notes at return                                 |
+| notes              | TEXT         |                                                                               | Per-object handling instructions for this loan, e.g. "display upright only" |
 | returned_at        | TIMESTAMPTZ  |                                                                               | Timestamp the object was checked back in. NULL while still on loan. |
+| created_at         | TIMESTAMPTZ  | NOT NULL DEFAULT NOW()                                                        | When this object was added to the loan                              |
+
+**Table constraint:** `UNIQUE (loan_id, object_id)` — an object cannot appear twice on the same loan.
 
 **Indexes:**
-- `(loan_id, object_id)` — UNIQUE; an object cannot appear twice on the same loan
 - `object_id` — find all loans (past and present) for a given object
 
 **Notes:**
@@ -132,8 +139,9 @@ Contact records for individuals and organisations who have donated objects to th
 | Column               | Type         | Constraints              | Description                                                                   |
 | :------------------- | :----------- | :----------------------- | :---------------------------------------------------------------------------- |
 | donor_id             | SERIAL       | PRIMARY KEY              |                                                                               |
-| name                 | VARCHAR(255) | NOT NULL                 | Full name of the donor or organisation                                        |
-| organization         | VARCHAR(255) |                          | Institution or organisation name if the donor represents one                 |
+| donor_type           | VARCHAR(20)  | NOT NULL DEFAULT 'Individual' CHECK (donor_type IN ('Individual','Organization')) | Distinguishes person from institution |
+| name                 | VARCHAR(255) | NOT NULL                 | Full name for Individual donors; institution name for Organization donors     |
+| organization         | VARCHAR(255) |                          | Employing institution for Individual donors; not used for Organization donors |
 | email                | VARCHAR(255) |                          | Contact email — PII; subject to data retention policy                        |
 | phone                | VARCHAR(50)  |                          | Contact phone — PII; subject to data retention policy                        |
 | address              | TEXT         |                          | Mailing address — PII; subject to data retention policy                      |
@@ -141,6 +149,7 @@ Contact records for individuals and organisations who have donated objects to th
 | gift_restrictions    | TEXT         |                          | Any restrictions placed by the donor on use or display of donated objects     |
 | acknowledgment_sent  | BOOLEAN      | NOT NULL DEFAULT FALSE   | Whether a formal acknowledgment letter has been sent                          |
 | acknowledgment_date  | DATE         |                          | Date the acknowledgment letter was sent                                       |
+| is_active            | BOOLEAN      | NOT NULL DEFAULT TRUE    | Inactive donors (deceased, dissolved) are retained for historical reference   |
 | notes                | TEXT         |                          | Internal notes about the donor relationship                                   |
 | created_at           | TIMESTAMPTZ  | NOT NULL DEFAULT NOW()   |                                                                               |
 | updated_at           | TIMESTAMPTZ  | NOT NULL DEFAULT NOW()   |                                                                               |
@@ -154,6 +163,7 @@ Contact records for individuals and organisations who have donated objects to th
 - `is_anonymous` suppresses the donor name in public-facing contexts (IA publishing, public labels) but the full record is retained internally.
 - `gift_restrictions` applies to all objects donated by this donor. Per-object restrictions are tracked in `objects.provenance` at this stage; a separate `restrictions` table is a future enhancement.
 - `acknowledgment_sent` / `acknowledgment_date` track the most recent acknowledgment. A donor who makes multiple gifts will need the acknowledgment flags reset after each new gift — a full gift history table is a Phase 4 candidate.
+- Add table-level CHECK: `CHECK (acknowledgment_date IS NULL OR acknowledgment_sent = TRUE)` to prevent `acknowledgment_date` being set without `acknowledgment_sent`.
 - The link from a donated object back to its donor is `objects.donor_id` (added by Phase 2 migration above). Multiple donors per object is not supported in Phase 2.
 
 ---
@@ -161,29 +171,21 @@ Contact records for individuals and organisations who have donated objects to th
 ## Entity relationships (Phase 2, cumulative)
 
 ```
+users ──── audit_log (user_id → users.user_id, nullable)
+
 donors
-  │
   └── objects (donor_id → donors.donor_id, SET NULL on delete)
 
-locations
-  │
-  ├── locations (parent_location_id → locations.location_id, self-referential)
-  │
+locations ──── locations (parent_location_id, self-referential, RESTRICT)
   └── objects (location_id → locations.location_id, RESTRICT on delete)
 
 collections
-  │
   └── objects (collection_id → collections.collection_id, RESTRICT on delete)
-        │
-        ├── media (object_id → objects.object_id, CASCADE on delete)
-        │
-        └── loan_objects (object_id → objects.object_id, RESTRICT on delete)
-              │
-              └── loans (loan_id → loans.loan_id, RESTRICT on delete)
+        └── media (object_id → objects.object_id, CASCADE on delete)
 
-users
-  │
-  └── audit_log (user_id → users.user_id, nullable)
+loans ──┐
+        ├── loan_objects (loan_id → loans, RESTRICT; object_id → objects, RESTRICT)
+objects ┘
 ```
 
 ---
@@ -197,4 +199,4 @@ The following are out of scope for Phase 2 and will be addressed in the Phase 3 
 
 ---
 
-_2026-06-16-1110_
+_2026-06-16-1123_
