@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-16-1517] — Plan Critique Fixes (v0.7)
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — six critique points addressed; version bumped to 0.7:
+  - Removed "CI pipeline configuration" row from §8 status table — developer jargon irrelevant to this audience
+  - Replaced "Docker Compose deployment option" with plain-language description in §10 Risks
+  - Replaced "SQLite fallback" with "single-file database option" in §6 Technology
+  - Fixed advisory board [TBD] consistency — §8 narrative and §10 Risk mitigations now use forward-looking language ("once formed") rather than implying the board is currently active
+  - Phase 0 heading changed from "(In Progress)" to "(Complete)"; milestone line updated to "Milestone reached"
+  - Added Dublin Core to §11 Glossary — was referenced in §5 Standards but absent from the glossary
+  - Removed "IA configuration" implementation-detail bullet from Phase 1 in §7
+
+---
+
 ## [2026-06-16-1455] — Add GitHub Repository Section to Plan (v0.6)
 
 ### Changed

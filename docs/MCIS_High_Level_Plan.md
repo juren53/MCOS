@@ -1,6 +1,6 @@
 # MCIS — Museum Collections Information System
 
-_High Level Project Plan — Draft Version 0.6 — 2026-06-16-1455_
+_High Level Project Plan — Draft Version 0.7 — 2026-06-16-1517_
 
 ---
 
@@ -116,7 +116,7 @@ MCIS is a desktop application — not a web application. This is a deliberate ch
 | IA Publishing | Internet Archive API | The official Internet Archive tool for metadata and file upload — ensures compatibility with IA's current and future API. |
 | Packaging | PyInstaller | Staff install MCIS like any other desktop application. No Python installation or technical knowledge required on their machines. |
 
-**Single-user option:** A SQLite fallback is planned for very small institutions with only one user — in this mode, no separate database server is required at all. The database lives in a single file alongside the application.
+**Single-user option:** A single-file database option is planned for very small institutions with only one user — in this mode, no separate database server is required at all. The database lives in a single file alongside the application.
 
 **Data ownership:** All data lives in a PostgreSQL database on hardware the museum controls. Export the full database at any time in standard SQL format. There is no cloud sync, no vendor account required, and no data stored outside the museum's own infrastructure.
 
@@ -126,7 +126,7 @@ MCIS is a desktop application — not a web application. This is a deliberate ch
 
 Development proceeds in phases. Each phase produces a testable, usable milestone — a pilot institution can begin using MCIS from Phase 1 onward and benefit from each subsequent phase without waiting for the full roadmap to complete.
 
-### Phase 0 — Project Infrastructure *(In Progress)*
+### Phase 0 — Project Infrastructure *(Complete)*
 
 *Establish the repository, documentation, and schema design before any application code is written.*
 
@@ -135,7 +135,7 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 - A collection of use cases documenting operational workflows for every module
 - Advisory board [TBD] — formation underway
 
-*Milestone: Schema documented and reviewed, repository public, use cases complete.*
+*Milestone reached: Schema documented and reviewed, repository public, use cases complete.*
 
 ### Phase 1 — Core Framework + Basic IA Publishing
 
@@ -146,7 +146,6 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 - Objects module: full accession record with image and document attachment
 - Audit log: complete change history with user attribution and before/after field values
 - **Basic IA Publisher:** Registrar flags object for publication; Admin approves; system uploads object record with primary image and core metadata (title, maker, date, description, rights statement) to the museum's IA collection; IA identifier written back to the object record; publication status tracked per object
-- IA configuration: IA account credentials and target collection identifier stored in application settings
 
 *Milestone: A registrar can log in, accession objects with images, and publish an approved record to Internet Archive.*
 
@@ -207,11 +206,10 @@ MCIS is in **Phase 0 — Project Infrastructure**.
 | Phase 2 database schema | Complete |
 | Use case library (42 use cases) | Complete |
 | Open source license | In progress |
-| CI pipeline configuration | Pending |
 | Advisory board [TBD] engagement | In progress |
 | Phase 1 application development | Not yet started |
 
-The schema and use case work is complete. The next step is beginning Phase 1 application development, with advisory board [TBD] review of the schema documents happening in parallel.
+The schema and use case work is complete. The next step is beginning Phase 1 application development, with advisory board [TBD] review of the schema documents planned for the same period.
 
 **Project Repository:** MCIS is publicly hosted at [https://github.com/juren53/MCIS](https://github.com/juren53/MCIS). GitHub is a widely used platform for open source software development. For MCIS it serves several purposes: it stores all project files with a complete history of every change; it provides a public issue tracker where museum professionals and developers can report problems, request features, and discuss design questions; and it makes the codebase freely accessible to anyone who wants to contribute. No GitHub account is required to browse the repository or read the documentation — an account is only needed to open an issue or submit code.
 
@@ -235,10 +233,10 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 
 | Risk | Mitigation |
 | :--- | :--- |
-| Single developer | Clear documentation, modular architecture, and open source community building reduce dependency on any one person. Advisory board [TBD] support strengthens the sustainability and grant case. |
-| Adoption by target institutions | Pilot museum programme; realistic demo database for evaluation; advisory board [TBD] endorsement lends credibility to early adopters |
+| Single developer | Clear documentation, modular architecture, and open source community building reduce dependency on any one person. Advisory board [TBD], once formed, will strengthen the sustainability and grant case. |
+| Adoption by target institutions | Pilot museum programme; realistic demo database for evaluation; advisory board [TBD] endorsement, once formed, will lend credibility to early adopters |
 | Schema decisions diverge from practice | Advisory board [TBD] review before Phase 1 development begins; use case library documents the expected behaviour at every step |
-| PostgreSQL complexity for non-technical staff | Docker Compose deployment option; step-by-step setup guide; SQLite single-user fallback |
+| PostgreSQL complexity for non-technical staff | Guided installation wizard (planned); step-by-step setup guide; single-file database option for institutions with only one user |
 | Internet Archive API changes | The publishing component is designed to be updated independently if the Internet Archive API changes; pin to a stable, tested version. |
 | Scope creep | Strict module boundaries and phased roadmap |
 | Data loss | Deployment guide includes automated daily backup schedules and off-site backup instructions; aligns with IMLS data stewardship guidance |
@@ -251,6 +249,7 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 | Term | Definition |
 | :--- | :--- |
 | AAM | American Alliance of Museums — the primary professional association for museums in the United States. |
+| Dublin Core | A widely adopted standard for describing digital resources — fifteen core elements including title, creator, date, description, and rights. Used as the basis for Internet Archive metadata. |
 | GLAM | Galleries, Libraries, Archives, and Museums — the cultural heritage sector collectively. |
 | IA | Internet Archive (archive.org) — a non-profit digital library offering free, permanent storage and public access. |
 | IMLS | Institute of Museum and Library Services — the primary federal grant-making agency for US museums and libraries. |
@@ -260,4 +259,4 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
 
-_2026-06-16-1455_
+_2026-06-16-1517_
