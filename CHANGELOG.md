@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-16-1437] — Documentation Plan
+
+### Added
+- `docs/MCIS_Documentation_Plan.md` — tracks all project documentation: 6 complete, 10 planned across Phases 1–5; includes Deployment Guide, System Architecture Document, Administrator Guide, User Guides, IA Publisher Guide, Contributing Guide, Extension Developer Guide, and Data Migration Guide
+
+### Changed
+- `README.md` — added Documentation Plan to documentation table; updated use case count from 36 to 42; updated "Accessible by Design" principle to drop stale WCAG reference
+
+---
+
 ## [2026-06-16-1417] — Address Second Plan Critique Pass (v0.5)
 
 ### Changed

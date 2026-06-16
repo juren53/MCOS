@@ -19,7 +19,7 @@ A lightweight desktop client can be installed on a laptop or workstation and con
 - Modular — museums can adopt only the modules they need and expand over time
 - Data portable — museums own their data; no vendor lock-in; standard SQL exports
 - Internet Archive publishing as a first-class feature, not an afterthought
-- Accessible by design — UI will meet WCAG 2.1 AA keyboard navigation and screen reader standards
+- Accessible by design — consistent, intuitive interface operable without specialist training
 
 ## Technology stack
 
@@ -44,7 +44,8 @@ For the full project plan — including module architecture, phased roadmap, ent
 | [High Level Plan](docs/MCIS_High_Level_Plan.md) | Full project plan: architecture, phases, entity model, risks, glossary |
 | [Phase 1 Schema](docs/schema_phase1.md) | Database schema — Collections, Objects, Media, Users, AuditLog |
 | [Phase 2 Schema](docs/schema_phase2.md) | Database schema — Locations, Loans, Donors; Phase 1 migrations |
-| [Use Cases](docs/use_cases/index.md) | 36 use cases for validating schema correctness and UI behaviour across Phases 1 and 2 |
+| [Use Cases](docs/use_cases/index.md) | 42 use cases documenting operational workflows for every module across Phases 1 and 2 |
+| [Documentation Plan](docs/MCIS_Documentation_Plan.md) | All project documentation — complete, in progress, and planned |
 
 ## Getting involved
 
