@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-16-1309] — Remove Stale HTML Source
+
+### Removed
+- `docs/MCIS_High_Level_Plan.html` — original LibreOffice export; superseded by `docs/MCIS_High_Level_Plan.md` which is the living document going forward
+
+---
+
 ## [2026-06-16-1302] — Phase 1 Schema Critique Fixes
 
 ### Changed
