@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [2026-06-16] — Use Case Critique Fixes + Schema Update
+## [2026-06-16-1220] — Use Case Critique Fixes + Schema Update
 
 ### Added
 - `docs/use_cases/UC-Phase1-Users.md` — UC-USR-008: successful login updates `last_login`; UC-USR-009: user changes password (hash excluded from audit log); UC-USR-010: Admin reviews audit log (filter by table, user, date range)
@@ -40,14 +40,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [2026-06-16] — README Documentation Table
+## [2026-06-16-1202] — README Documentation Table
 
 ### Changed
 - `README.md` — added Documentation section: a table linking all key project documents (high-level plan, Phase 1 schema, Phase 2 schema, use cases index)
 
 ---
 
-## [2026-06-16] — Use Cases
+## [2026-06-16-1159] — Use Cases
 
 ### Added
 - `docs/use_cases/index.md` — master index of all 36 use cases with module, actor, and file references; includes sources and references section (schema documents, high-level plan, *Museum Registration Methods* AAM 5th ed., Collections Trust SPECTRUM standard)
@@ -61,7 +61,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [2026-06-16] — Schema Design Phase 2 + Critique Fixes
+## [2026-06-16-1115] — Schema Design Phase 2 + Critique Fixes
 
 ### Added
 - `docs/schema_phase2.md` — Phase 2 schema design covering `locations`, `loans`, `loan_objects`, and `donors`; includes Phase 1 migrations (location_id FK, donor_id on objects), full column definitions with types, constraints, indexes, entity relationship diagram, and deferred-to-Phase-3 section
@@ -108,7 +108,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [2026-06-15] — Phase 1 Schema Design
+## [2026-06-15-0319] — Phase 1 Schema Design
 
 ### Added
 - `docs/schema_phase1.md` — Phase 1 schema design covering `collections`, `objects`, `media`, `users`, and `audit_log`; includes conventions table, full column definitions with types/constraints/notes, indexes, design decision rationale, entity relationships diagram, and deferred-to-Phase-2 section
@@ -118,7 +118,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [2026-06-14] — Project Documentation
+## [2026-06-14-2200] — Project Documentation
 
 ### Added
 - `docs/MCIS_High_Level_Plan.md` — full high-level project plan converted from HTML source; covers project overview, goals and guiding principles, target users, system architecture, module architecture, core database entities, phased development plan (Phases 0–6), competitive landscape, risks and mitigations, immediate next steps, and glossary
