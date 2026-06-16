@@ -33,14 +33,16 @@ Represents a named grouping of objects managed under a common accession policy. 
 | name             | VARCHAR(255)  | NOT NULL UNIQUE          | Display name of the collection                           |
 | description      | TEXT          |                          | Narrative description of scope and content               |
 | accession_policy | TEXT          |                          | Rules governing what is accepted into this collection    |
-| finding_aid      | TEXT          |                          | Free text or URL pointing to a finding aid document      |
+| finding_aid      | TEXT          |                          | Free text description or URL pointing to a finding aid document          |
+| finding_aid_is_url | BOOLEAN     | NOT NULL DEFAULT FALSE   | TRUE when finding_aid contains a URL; FALSE when it is free text. Controls whether the UI renders it as a hyperlink. |
 | created_at       | TIMESTAMPTZ   | NOT NULL DEFAULT NOW()   |                                                          |
 | updated_at       | TIMESTAMPTZ   | NOT NULL DEFAULT NOW()   |                                                          |
 
 **Indexes:** unique index on `name` (implied by UNIQUE constraint)
 
 **Notes:**
-- `finding_aid` is intentionally free-form at this stage; a URL to an external document is the common case.
+- `finding_aid` holds either a URL or descriptive free text. `finding_aid_is_url` tells the UI which it is, avoiding brittle URL-detection heuristics. Both fields are set together by the application.
+- A museum with a single collection is fully supported. The UI should handle the single-collection case gracefully — for example, by pre-selecting the only collection when creating a new object rather than requiring the user to choose from a one-item list.
 
 ---
 
@@ -54,6 +56,7 @@ The central entity — one row per catalogued item. This table will be the most 
 | collection_id    | INTEGER       | NOT NULL REFERENCES collections(collection_id) ON DELETE RESTRICT           | Parent collection — deletion blocked while objects exist                    |
 | accession_number | VARCHAR(100)  | NOT NULL UNIQUE                                                             | Museum-assigned identifier, e.g. "2024.001.001"                             |
 | title            | VARCHAR(500)  | NOT NULL                                                                    | Display title                                                               |
+| maker            | VARCHAR(255)  |                                                                             | Artist, maker, manufacturer, or creator of the object, e.g. "Unknown", "Eastman Kodak Co." |
 | description      | TEXT          |                                                                             | Narrative description of the object                                         |
 | date_made        | VARCHAR(100)  |                                                                             | Date the object was created by its maker. VARCHAR to support fuzzy dates ("circa 1920", "early 20th century") |
 | accession_date   | DATE          |                                                                             | Date the object was formally accessioned into the collection                |
@@ -61,6 +64,7 @@ The central entity — one row per catalogued item. This table will be the most 
 | dimensions       | VARCHAR(255)  |                                                                             | Physical size, e.g. "12 × 18 in."                                          |
 | condition        | VARCHAR(20)   | CHECK (condition IN ('Excellent','Good','Fair','Poor','Unknown'))           | Condition grade at time of last assessment                                  |
 | condition_notes  | TEXT          |                                                                             | Narrative notes from the most recent condition assessment                   |
+| condition_date   | DATE          |                                                                             | Date of the most recent condition assessment. Allows queries such as "objects not assessed since 2020". |
 | provenance       | TEXT          |                                                                             | Ownership and acquisition history                                           |
 | credit_line      | TEXT          |                                                                             | Attribution text for public display, e.g. "Gift of John Smith, 2024"       |
 | location_id      | INTEGER       | (FK constraint added in Phase 2 when locations table exists)                | Current storage or display location. NULL until Phase 2.                    |
@@ -79,13 +83,16 @@ The central entity — one row per catalogued item. This table will be the most 
 - `(title)` — full-text search candidate; consider `tsvector` index in a later phase
 
 **Notes:**
+- `maker` is free text — museums use widely varying conventions (last name only, full name, "Unknown", manufacturer name). Controlled vocabulary or authority files are a future enhancement.
 - `date_made` captures when the object was created by its maker, not when it was acquired. VARCHAR is intentional — museum dates are commonly approximate or expressed as ranges.
 - `accession_date` is a strict `DATE` field for the formal accession event, which always has a known calendar date.
 - `location_id` is included as a nullable INTEGER in Phase 1 with no FK constraint. The `locations` table and the FK constraint are added in Phase 2.
 - `condition` uses a CHECK constraint rather than a lookup table for simplicity at this stage. A full condition report history (separate table, multiple assessments per object) is a candidate Phase 2 enhancement.
+- `condition_date` records when the assessment was made. The assessor is captured via `audit_log` (the user_id who performed the UPDATE). Do not embed assessment dates in `condition_notes` free text.
 - `credit_line` is distinct from `provenance` — provenance is an ownership history; credit_line is the short attribution string displayed publicly alongside the object.
 - `rights_statement` is nullable at this stage but must be populated before an object can be published to Internet Archive (Phase 3 requirement).
 - `ia_queued` and `ia_published` are separate flags: `ia_queued` means "approved and waiting for upload"; `ia_published` means "confirmed live on IA." The Phase 3 publisher queries `WHERE ia_queued = TRUE AND ia_published = FALSE`, uploads the record, then sets `ia_published = TRUE` and `ia_queued = FALSE`.
+- `ia_identifier` is NULL until the Phase 3 upload succeeds. The identifier is assigned by the IA API at upload time — it is not set by the registrar in advance. The application writes it back to the row after a successful upload.
 
 ---
 
@@ -97,7 +104,7 @@ One or more image or document files associated with an object. Multiple media re
 | :---------------- | :------------ | :----------------------------------------------- | :----------------------------------------------------------------------- |
 | media_id          | SERIAL        | PRIMARY KEY                                      |                                                                          |
 | object_id         | INTEGER       | NOT NULL REFERENCES objects(object_id) ON DELETE CASCADE | Parent object                                                  |
-| file_path         | VARCHAR(1000) | NOT NULL                                         | Path to the file relative to the configured media root directory         |
+| file_path         | VARCHAR(1000) | NOT NULL UNIQUE                                  | Path to the file relative to the configured media root directory. UNIQUE prevents two records referencing the same physical file. |
 | original_filename | VARCHAR(255)  |                                                  | Original filename at time of import; retained for reference and deduplication |
 | file_type         | VARCHAR(50)   | NOT NULL                                         | MIME type, e.g. "image/jpeg", "image/tiff", "application/pdf"           |
 | file_size         | BIGINT        |                                                  | File size in bytes; useful for storage management and upload progress    |
@@ -112,11 +119,11 @@ One or more image or document files associated with an object. Multiple media re
 
 **Notes:**
 - `ON DELETE CASCADE` means deleting an object automatically deletes all its associated media records.
-- `file_path` is stored as a path relative to a configurable media root so the database is portable across machines with different directory layouts.
+- `file_path` is stored as a path relative to a configurable media root so the database is portable across machines with different directory layouts. The UNIQUE constraint prevents two `media` rows pointing at the same file — a situation that would cause incorrect storage accounting and could lead to a file being deleted from disk when one row is removed while the other still references it.
 - `original_filename` is the name of the file as supplied by the user at import time. It is not used to locate the file on disk — `file_path` is the authoritative path.
 - `sort_order` defaults to 0; the UI should allow drag-to-reorder and persist changes to this field.
 - The partial unique index on `(object_id) WHERE is_primary = TRUE` is a PostgreSQL feature. Application code must also enforce this invariant when the database is SQLite (single-user fallback).
-- The application layer is responsible for validating MIME types and file extensions before insert.
+- The application layer is responsible for validating MIME types and file extensions before insert. Accepted types for Phase 1: `image/jpeg`, `image/tiff`, `image/png`, `image/gif`, `application/pdf`. Video and audio formats are deferred to a later phase. Any type outside this list should be rejected at the UI before the file is written to disk.
 
 ---
 
@@ -153,6 +160,7 @@ Staff, volunteers, and administrators who access the system.
 - Users are never hard-deleted. Setting `is_active = FALSE` revokes access while preserving the audit trail — AuditLog records that reference the user remain meaningful.
 - Password hashing must use bcrypt with a work factor of at least 12. The application layer is responsible for hashing before insert and for never logging or transmitting plaintext passwords.
 - Role-based capability enforcement is the application's responsibility; the database stores only the role value.
+- Each user holds exactly one role. There is no mechanism for combined roles (e.g. a Registrar who is also an Admin). In a small museum this is rarely needed; if it becomes a requirement, the schema would need a `user_roles` junction table and the application's permission checks would need to be updated accordingly.
 
 ---
 
@@ -214,4 +222,4 @@ The FK constraint linking `objects.location_id` to `locations.location_id` will 
 
 ---
 
-_2026-06-16-1210_
+_2026-06-16-1301_
