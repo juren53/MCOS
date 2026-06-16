@@ -1,6 +1,6 @@
 # MCIS — Museum Collections Information System
 
-_High Level Project Plan — Draft Version 0.5 — 2026-06-16-1417_
+_High Level Project Plan — Draft Version 0.6 — 2026-06-16-1455_
 
 ---
 
@@ -213,6 +213,8 @@ MCIS is in **Phase 0 — Project Infrastructure**.
 
 The schema and use case work is complete. The next step is beginning Phase 1 application development, with advisory board [TBD] review of the schema documents happening in parallel.
 
+**Project Repository:** MCIS is publicly hosted at [https://github.com/juren53/MCIS](https://github.com/juren53/MCIS). GitHub is a widely used platform for open source software development. For MCIS it serves several purposes: it stores all project files with a complete history of every change; it provides a public issue tracker where museum professionals and developers can report problems, request features, and discuss design questions; and it makes the codebase freely accessible to anyone who wants to contribute. No GitHub account is required to browse the repository or read the documentation — an account is only needed to open an issue or submit code.
+
 ---
 
 ## 9. Competitive Landscape
@@ -258,4 +260,4 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
 
-_2026-06-16-1417_
+_2026-06-16-1455_

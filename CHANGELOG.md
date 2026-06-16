@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-16-1455] — Add GitHub Repository Section to Plan (v0.6)
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — added GitHub repository paragraph to §8 Current Status: URL, plain-language explanation of GitHub's role in open source development, and note that no account is needed to browse or read documentation; version bumped to 0.6
+
+---
+
 ## [2026-06-16-1451] — README Critique Fixes
 
 ### Changed
