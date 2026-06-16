@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-16] — README Documentation Table
+
+### Changed
+- `README.md` — added Documentation section: a table linking all key project documents (high-level plan, Phase 1 schema, Phase 2 schema, use cases index)
+
+---
+
 ## [2026-06-16] — Use Cases
 
 ### Added
@@ -114,6 +121,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Version History Summary
 
-- **2026-06-16** — Use cases collection added (36 cases, 7 modules, Phases 1–2); Phase 2 schema design added; two critique passes on Phase 2 schema; Phase 1 schema critique pass; deployment model clarified in plan; CHANGELOG added
+- **2026-06-16** — README documentation table added; use cases collection (36 cases, 7 modules, Phases 1–2); Phase 2 schema design; two critique passes on Phase 2 schema; Phase 1 schema critique pass; deployment model clarified in plan; CHANGELOG added
 - **2026-06-15** — Phase 1 schema design (collections, objects, media, users, audit_log) added; README deployment wording improved
 - **2026-06-14** — Project launched: high-level plan converted from HTML and fully revised; README written and refined; critique passes on both documents
