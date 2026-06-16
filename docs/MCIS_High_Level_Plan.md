@@ -1,6 +1,6 @@
 # MCIS — Museum Collections Information System
 
-_High Level Project Plan — Draft Version 0.3 — 2026-06-16-1329_
+_High Level Project Plan — Draft Version 0.4 — 2026-06-16-1401_
 
 ---
 
@@ -14,7 +14,7 @@ MCIS is a free, open source museum collections information system designed speci
 
 The system is built on a two-tier public/private architecture:
 
-- **Private Tier** — Full operational data is maintained in a secure, self-hosted database covering collections management, donor records, loans, location tracking, and internal inventory. Data stays on hardware the museum controls — there is no cloud dependency, no subscription, and no vendor who can hold the data hostage.
+- **Private Tier** — Full operational data is maintained in a secure, self-hosted database covering collections management, donor records, loans, location tracking, and internal inventory. Data stays on hardware the museum controls — no cloud dependency, no subscription, no vendor lock-in.
 - **Public Tier** — Selected collection records and artifact images can be published to the museum's Internet Archive (IA) collection, providing free, permanent, searchable public access aligned with the GLAM (Galleries, Libraries, Archives, Museums) open access movement.
 
 ---
@@ -32,7 +32,7 @@ The system is built on a two-tier public/private architecture:
 | Public Access Built In | Internet Archive publishing is a core feature, available from Phase 1. Publishing an approved collection record to the public is a one-step workflow, not a separate project. |
 | Standards Aligned | Field names, controlled vocabularies, and workflows reflect professional collections management standards (see §5). |
 | Grant Friendly | Open access commitment and IMLS-aligned mission supports grant applications from IMLS, NEH, state humanities councils, and private foundations. |
-| Accessible by Design | UI will be cross-platform and standards-based. |
+| Accessible by Design | Designed for users of varying technical ability; interface will be consistent, intuitive, and operable without specialist training. |
 
 ---
 
@@ -55,7 +55,7 @@ MCIS is designed for institutions that are professionally committed to collectio
 
 MCIS is organized into functional modules. Each module integrates into the full MCIS application; smaller institutions can enable only the modules they need.
 
-### Collections, Objects & Internet Archive Publishing — Phase 1
+### Collections, Objects & Internet Archive Publishing
 
 The foundation of the system — and the feature that sets MCIS apart from every other open source collections tool.
 
@@ -67,7 +67,7 @@ The foundation of the system — and the feature that sets MCIS apart from every
 - Complete audit trail of every record creation, edit, and deletion, with user attribution and before/after field values
 - **Basic IA Publisher** — Registrar flags objects for publication; Admin approves; the system uploads the object record with its primary image and core metadata (title, maker, date, description, rights statement) to the museum's Internet Archive collection; IA identifier is written back to the object record; publication status is visible on every object
 
-### Locations, Loans & Donors — Phase 2
+### Locations, Loans & Donors
 
 The operational core for a working museum or historical society, paired with a full-featured IA publisher.
 
@@ -76,12 +76,12 @@ The operational core for a working museum or historical society, paired with a f
 - **Donors** — Individual and organization donor records; link donated objects to their donors; gift restrictions; acknowledgment letter generation; anonymous donor flag with public suppression; deactivation for deceased or lapsed donors
 - **Full IA Publisher** — Configurable field mapping UI (MCIS fields → IA metadata); batch publish queue management and dashboard; update and unpublish support; multi-image upload
 
-### Operations Modules — Phase 3
+### Operations Modules
 
 - **Members / Comms** — Membership tiers, renewal tracking, lapsed-member outreach lists, newsletter distribution
 - **Inventory** — Equipment and supply records, vendor contacts, maintenance schedules
 
-### Data Migration — Phase 5
+### Data Migration
 
 - CSV/Excel import with configurable field mapping — for institutions migrating from spreadsheets
 - Support for LIDO and other standard museum data interchange formats
@@ -98,10 +98,10 @@ MCIS field names and controlled vocabularies are informed by established collect
 | **Dublin Core** | Core descriptive fields — title, maker (creator), date made, description, rights statement — map directly to Dublin Core elements; used as the basis for Internet Archive metadata export |
 | **SPECTRUM** (Collections Trust, UK) | Object accession, object entry, location and movement control, loans in/out, condition checking, and the audit trail align with SPECTRUM unit of practice definitions; the workflow design in the use case library explicitly references SPECTRUM procedures |
 | **LIDO** (Lightweight Information Describing Objects) | Phase 5 data migration tools will support LIDO XML import/export for interoperability with digital aggregators |
-| **AAM Core Standards** | Object records include the fields required by American Alliance of Museums Core Standards for Collections Stewardship: unique accession number, title, provenance, rights statement, and condition |
+| **AAM Standards** | Object records include the fields required by the *National Standards and Best Practices for U.S. Museums* (American Alliance of Museums, 2008): unique accession number, title, provenance, rights statement, and condition |
 | **IMLS Data Stewardship** | Audit logging, data export, and backup guidance align with IMLS data stewardship expectations for grantees; the rights statement field is required before any object can be published publicly |
 
-**Note:** MCIS does not claim certification under any of these standards. The alignment documented here reflects best-effort conformance at the schema and workflow level, and will be refined through the advisory review process.
+**Note:** MCIS does not claim certification under any of these standards. The alignment documented here reflects best-effort conformance at the schema and workflow level, and will be refined through the advisory board [TBD] review process.
 
 ---
 
@@ -113,7 +113,7 @@ MCIS is a desktop application — not a web application. This is a deliberate ch
 | :--- | :--- | :--- |
 | Desktop client | Python / PySide6 | Runs on Windows, Linux, and macOS. Free to distribute. Staff install it and use it — no browser required. |
 | Database | PostgreSQL | A mature, professional-grade database. Runs on existing hardware. Concurrent access by multiple staff simultaneously. Free and open source. |
-| IA Publishing | internetarchive library | The official Internet Archive tool for metadata and file upload — ensures compatibility with IA's current and future API. |
+| IA Publishing | Internet Archive API | The official Internet Archive tool for metadata and file upload — ensures compatibility with IA's current and future API. |
 | Packaging | PyInstaller | Staff install MCIS like any other desktop application. No Python installation or technical knowledge required on their machines. |
 
 **Single-user option:** A SQLite fallback is planned for very small institutions with only one user — in this mode, no separate database server is required at all. The database lives in a single file alongside the application.
@@ -133,7 +133,7 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 - GitHub repository created, README and project documentation published
 - Full database schema designed and documented for Phase 1 (Collections, Objects, Media, Users, Audit) and Phase 2 (Locations, Loans, Donors)
 - 42 use cases written to validate schema correctness and guide UI development
-- Advisory board engagement begun
+- Advisory board [TBD] engagement begun
 
 *Milestone: Schema documented and reviewed, repository public, use cases complete.*
 
@@ -176,10 +176,10 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 
 *Grow MCIS into a self-sustaining open source project.*
 
-- Public documentation site (ReadTheDocs or GitHub Pages)
+- Public documentation website
 - Demo database with a realistic fictional museum for evaluation and training
 - Contributor onboarding guide and community governance model
-- Plugin API for community-contributed modules
+- An extension framework allowing other developers to contribute new modules
 
 *Milestone: Documentation site live, demo database available for download, at least one external contributor.*
 
@@ -208,10 +208,10 @@ MCIS is in **Phase 0 — Project Infrastructure**.
 | Use case library (42 use cases) | Complete |
 | Open source license | In progress |
 | CI pipeline configuration | Pending |
-| Advisory board engagement | In progress |
+| Advisory board [TBD] engagement | In progress |
 | Phase 1 application development | Not yet started |
 
-The schema and use case work is complete. The next step is beginning Phase 1 application development, with advisory board review of the schema documents happening in parallel.
+The schema and use case work is complete. The next step is beginning Phase 1 application development, with advisory board [TBD] review of the schema documents happening in parallel.
 
 ---
 
@@ -233,9 +233,9 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 
 | Risk | Mitigation |
 | :--- | :--- |
-| Single developer | Clear documentation, modular architecture, and open source community building reduce dependency on any one person. Advisory board support strengthens the sustainability and grant case. |
-| Adoption by target institutions | Pilot museum programme; realistic demo database for evaluation; advisory board endorsement lends credibility to early adopters |
-| Schema decisions diverge from practice | Advisory board review before Phase 1 development begins; use case library documents the expected behaviour at every step |
+| Single developer | Clear documentation, modular architecture, and open source community building reduce dependency on any one person. Advisory board [TBD] support strengthens the sustainability and grant case. |
+| Adoption by target institutions | Pilot museum programme; realistic demo database for evaluation; advisory board [TBD] endorsement lends credibility to early adopters |
+| Schema decisions diverge from practice | Advisory board [TBD] review before Phase 1 development begins; use case library documents the expected behaviour at every step |
 | PostgreSQL complexity for non-technical staff | Docker Compose deployment option; step-by-step setup guide; SQLite single-user fallback |
 | Internet Archive API changes | Abstract the publish interface so the backend can be swapped; pin to a stable library version |
 | Scope creep | Strict module boundaries and phased roadmap |
@@ -249,7 +249,6 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 | Term | Definition |
 | :--- | :--- |
 | AAM | American Alliance of Museums — the primary professional association for museums in the United States. |
-| CIDOC CRM | Conceptual Reference Model — an ISO standard ontology for cultural heritage information. |
 | GLAM | Galleries, Libraries, Archives, and Museums — the cultural heritage sector collectively. |
 | IA | Internet Archive (archive.org) — a non-profit digital library offering free, permanent storage and public access. |
 | IMLS | Institute of Museum and Library Services — the primary federal grant-making agency for US museums and libraries. |
@@ -257,7 +256,6 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 | PII | Personally Identifiable Information — data that can identify an individual (name, address, contact details). |
 | SPECTRUM | Collections management standard published by Collections Trust (UK) — widely adopted internationally as a benchmark for collections management procedures. |
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
-| VPS | Virtual Private Server — a rented virtual machine hosted in a cloud data centre. |
 ---
 
-_2026-06-16-1347_
+_2026-06-16-1401_

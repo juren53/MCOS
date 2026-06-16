@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-16-1401] — Address Plan Critique Points (v0.4)
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — nine critique points addressed:
+  - "Accessible by Design" principle rewritten: "Designed for users of varying technical ability; interface will be consistent, intuitive, and operable without specialist training"
+  - All "advisory board" references updated to "advisory board [TBD]" — group is planned but not yet formally constituted
+  - "AAM Core Standards" corrected to cite the actual document: *National Standards and Best Practices for U.S. Museums* (AAM, 2008)
+  - "no vendor who can hold the data hostage" replaced with "no cloud dependency, no subscription, no vendor lock-in"
+  - Phase numbers removed from §4 subheadings — eliminates the Phase 3 → Phase 5 gap (Phase 4 is a project phase, not a feature set)
+  - Phase 4 jargon cleaned up: "Plugin API" → "extension framework"; "ReadTheDocs or GitHub Pages" → "public documentation website"
+  - "internetarchive library" → "Internet Archive API" in technology table
+  - CIDOC CRM and VPS removed from glossary — unreferenced in document body
+  - Header and footer timestamps updated; version bumped to 0.4
+
+---
+
 ## [2026-06-16-1347] — Drop WCAG from Glossary
 
 ### Changed
