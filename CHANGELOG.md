@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-16-1312] — High-Level Plan Revised for Advisory Board
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — major revision (v0.1 → v0.2) to target a senior museum director and archivist advisory board audience:
+  - Added "The problem MCIS addresses" framing paragraph to §1
+  - Added "What these institutions have in common" to §3 (Target Institutions)
+  - Restructured §4 as "What MCIS Will Do" — reframed from module names to collections-operations capabilities
+  - **Added §5 Standards Alignment** — SPECTRUM, Dublin Core, LIDO, AAM Core Standards, IMLS Data Stewardship; how MCIS aligns with each
+  - Rewrote §6 Technology Overview — simplified rationale in plain language; added "what it means for your institution" framing; added single-user SQLite fallback note and data ownership paragraph
+  - Updated §7 Phase 0 milestone to reflect current progress (schema and use cases complete)
+  - **Added §8 Current Status** — table showing completion state of each Phase 0 deliverable
+  - **Added §9 Advisory Board** — advisory board role, what members are being asked to review now, and how to provide feedback
+  - Updated §10 Competitive Landscape — more nuanced CollectiveAccess comparison
+  - Added "adoption by target institutions" and "schema decisions diverge from practice" risks to §11
+  - Added AAM, SPECTRUM to §12 Glossary; updated TMS description (Gallery Systems → Axiell)
+  - Renumbered sections (Competitive Landscape is now §10, Risks §11, Glossary §12)
+
+---
+
 ## [2026-06-16-1309] — Remove Stale HTML Source
 
 ### Removed
