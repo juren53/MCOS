@@ -37,6 +37,15 @@ MCIS is in early development, currently in **Phase 0 — Project Infrastructure*
 
 For the full project plan — including module architecture, phased roadmap, entity model, competitive landscape, risks, and glossary — see [docs/MCIS_High_Level_Plan.md](docs/MCIS_High_Level_Plan.md).
 
+## Documentation
+
+| Document | Description |
+| :------- | :---------- |
+| [High Level Plan](docs/MCIS_High_Level_Plan.md) | Full project plan: architecture, phases, entity model, risks, glossary |
+| [Phase 1 Schema](docs/schema_phase1.md) | Database schema — Collections, Objects, Media, Users, AuditLog |
+| [Phase 2 Schema](docs/schema_phase2.md) | Database schema — Locations, Loans, Donors; Phase 1 migrations |
+| [Use Cases](docs/use_cases/index.md) | 36 use cases for validating schema correctness and UI behaviour across Phases 1 and 2 |
+
 ## Getting involved
 
 We are looking for:
