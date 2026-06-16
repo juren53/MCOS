@@ -48,7 +48,7 @@
 **Module:** Locations
 
 ### Preconditions
-- "Main Gallery" (MGAL) exists as a Room location (UC-LOC-001 completed).
+- UC-LOC-001 completed — "Main Gallery" (MGAL) exists as a Room location.
 
 ### Test Data
 | Field          | Value |
@@ -82,8 +82,8 @@
 **Module:** Locations
 
 ### Preconditions
-- Object "2024.001.002" exists with `location_id IS NULL`.
-- "Display Case A" (MGAL-CA) exists.
+- UC-OBJ-001 completed — object "2024.001.002" exists with `location_id IS NULL`.
+- UC-LOC-002 completed — "Display Case A" (MGAL-CA) exists.
 
 ### Steps
 1. Open object "2024.001.002".
@@ -109,8 +109,8 @@
 **Module:** Locations
 
 ### Preconditions
-- Object "2024.001.002" is assigned to "Display Case A".
-- A second location "Archive Shelf 3" (location_code: ARCH-S3, type: Storage) exists.
+- UC-LOC-003 completed — object "2024.001.002" is assigned to "Display Case A".
+- "Archive Shelf 3" (location_code: ARCH-S3, type: Storage) exists (create it first if needed).
 
 ### Steps
 1. Open object "2024.001.002".
@@ -135,8 +135,8 @@
 **Module:** Locations
 
 ### Preconditions
-- "Display Case A" (MGAL-CA) exists and is active.
-- No objects are currently assigned to it (they have been moved).
+- UC-LOC-004 completed — object "2024.001.002" has been moved away from "Display Case A".
+- No objects remain assigned to "Display Case A".
 
 ### Steps
 1. Open "Display Case A" in the Locations module.
@@ -161,7 +161,7 @@
 **Module:** Locations
 
 ### Preconditions
-- "Main Gallery" has at least one child location ("Display Case A").
+- UC-LOC-002 completed — "Main Gallery" has at least one child location ("Display Case A").
 
 ### Steps
 1. Open "Main Gallery" in the Locations module.
@@ -208,3 +208,29 @@
 ### Schema Coverage
 - `locations`: INSERT
 - `objects`: UPDATE (`location_id`) — covered in UC-LOC-003
+
+---
+
+## UC-LOC-008 — List All Objects at a Location
+
+**Actor:** Any authenticated user  
+**Phase:** 2 — Collections Modules  
+**Module:** Locations
+
+### Preconditions
+- UC-LOC-004 completed — object "2024.001.002" is assigned to "Archive Shelf 3".
+- At least one additional object is also assigned to "Archive Shelf 3".
+
+### Steps
+1. Open "Archive Shelf 3" in the Locations module.
+2. Navigate to the **Objects** tab (or equivalent) for this location.
+
+### Expected Outcome
+- All objects where `location_id` = "Archive Shelf 3" are listed.
+- Each row shows at minimum: accession_number, title, condition.
+- Objects assigned to child locations of "Archive Shelf 3" (if any) are **not** included — the list shows only direct assignments unless a "include sub-locations" option is selected.
+- No audit_log entry.
+
+### Schema Coverage
+- `objects`: SELECT (filtered by `location_id`)
+- `locations`: SELECT (joined for display)

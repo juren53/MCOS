@@ -78,9 +78,11 @@
 - `date_made = 'circa 1910'` stored as-is — no parsing, no rejection.
 - `accession_date = '2024-03-15'` stored as a strict DATE.
 - Both fields coexist on the same row without conflict.
+- One new row in `audit_log`: `action = 'CREATE'`, `table_name = 'objects'`
 
 ### Schema Coverage
 - `objects`: INSERT (`date_made VARCHAR`, `accession_date DATE`)
+- `audit_log`: INSERT
 
 ---
 
@@ -91,7 +93,7 @@
 **Module:** Objects
 
 ### Preconditions
-- Object "2024.001.002 — Millbrook Post Office, Exterior View" exists.
+- UC-OBJ-001 completed — object "2024.001.002" exists.
 
 ### Test Data
 | Field       | Old Value   | New Value |
@@ -124,7 +126,7 @@
 **Module:** Objects
 
 ### Preconditions
-- Object "2024.001.002" exists with `condition = 'Good'`.
+- UC-OBJ-001 completed — object "2024.001.002" exists with `condition = 'Good'`.
 
 ### Test Data
 | Field           | Value |
@@ -155,7 +157,7 @@
 **Module:** Objects
 
 ### Preconditions
-- Object "2024.001.002" exists; `credit_line` and `rights_statement` are both NULL.
+- UC-OBJ-001 completed — object "2024.001.002" exists with `credit_line` and `rights_statement` both NULL.
 
 ### Test Data
 | Field            | Value |
@@ -185,7 +187,7 @@
 **Module:** Objects
 
 ### Preconditions
-- Object "2024.001.002" exists.
+- UC-OBJ-003 completed — object "2024.001.002" exists with the updated title "Millbrook Post Office — Elm Street, Exterior".
 
 ### Steps
 1. In the Objects module search bar, enter "2024.001.002".
@@ -208,7 +210,7 @@
 **Module:** Objects
 
 ### Preconditions
-- At least two objects exist with "Millbrook" in the title.
+- UC-OBJ-001 and UC-OBJ-002 completed — objects "2024.001.002" (Millbrook Post Office) and "2024.001.003" (Main Street Looking North) both exist with "Millbrook" in their titles.
 
 ### Steps
 1. In the Objects module, enter "millbrook" in the title search field.
@@ -231,7 +233,7 @@
 **Module:** Objects
 
 ### Preconditions
-- Object with accession_number "2024.001.002" already exists.
+- UC-OBJ-001 completed — object with accession_number "2024.001.002" already exists.
 
 ### Steps
 1. Click **New Object**.
@@ -255,7 +257,8 @@
 **Module:** Objects
 
 ### Preconditions
-- Object "2024.001.002" exists with `rights_statement` populated and `ia_published = FALSE`.
+- UC-OBJ-005 completed — object "2024.001.002" has `rights_statement` populated.
+- `ia_queued = FALSE`, `ia_published = FALSE`.
 
 ### Steps
 1. Open object "2024.001.002".
@@ -263,10 +266,10 @@
 3. Confirm.
 
 ### Expected Outcome
-- `ia_published` flag set in preparation for Phase 3 publish queue.
-- (Actual IA upload is a Phase 3 feature — this use case only tests the flag.)
-- `audit_log` records the change to `ia_published`.
+- `objects.ia_queued = TRUE`; `ia_published` remains FALSE (the object is queued, not yet uploaded).
+- Object now appears in the Phase 3 publish queue filter: `WHERE ia_queued = TRUE AND ia_published = FALSE`.
+- `audit_log`: `action = 'UPDATE'`, `changed_fields = {"ia_queued": {"old": false, "new": true}}`
 
 ### Schema Coverage
-- `objects`: UPDATE (`ia_published`)
+- `objects`: UPDATE (`ia_queued`)
 - `audit_log`: INSERT

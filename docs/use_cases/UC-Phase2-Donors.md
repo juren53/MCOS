@@ -94,8 +94,8 @@
 **Module:** Donors
 
 ### Preconditions
-- Donor "Eleanor Pruitt" exists (`donor_id` assigned).
-- Object "2024.001.002" exists with `donor_id IS NULL`.
+- UC-DNR-001 completed — donor "Eleanor Pruitt" exists.
+- UC-OBJ-001 completed — object "2024.001.002" exists with `donor_id IS NULL`.
 
 ### Steps
 1. Open object "2024.001.002".
@@ -120,7 +120,7 @@
 **Module:** Donors
 
 ### Preconditions
-- Donor "Eleanor Pruitt" exists with `is_anonymous = FALSE`.
+- UC-DNR-001 completed — donor "Eleanor Pruitt" exists with `is_anonymous = FALSE`.
 
 ### Steps
 1. Open Eleanor Pruitt's donor record.
@@ -146,7 +146,7 @@
 **Module:** Donors
 
 ### Preconditions
-- Donor "Eleanor Pruitt" has `acknowledgment_sent = FALSE` and `acknowledgment_date IS NULL`.
+- UC-DNR-001 completed — donor "Eleanor Pruitt" exists with `acknowledgment_sent = FALSE` and `acknowledgment_date IS NULL`.
 
 ### Test Data
 | Field               | Value |
@@ -178,7 +178,7 @@
 **Module:** Donors
 
 ### Preconditions
-- Donor "Eleanor Pruitt" has `acknowledgment_sent = FALSE`.
+- UC-DNR-001 completed — donor "Eleanor Pruitt" exists with `acknowledgment_sent = FALSE`.
 
 ### Steps
 1. Open Eleanor Pruitt's donor record.
@@ -203,7 +203,7 @@
 **Module:** Donors
 
 ### Preconditions
-- Donor "Eleanor Pruitt" is active (`is_active = TRUE`).
+- UC-DNR-001 completed — donor "Eleanor Pruitt" is active (`is_active = TRUE`).
 
 ### Steps
 1. Open Eleanor Pruitt's donor record.
@@ -220,3 +220,31 @@
 ### Schema Coverage
 - `donors`: UPDATE (`is_active`, `notes`)
 - `audit_log`: INSERT
+
+---
+
+## UC-DNR-008 — Search Donors by Name
+
+**Actor:** Any authenticated user  
+**Phase:** 2 — Collections Modules  
+**Module:** Donors
+
+### Preconditions
+- UC-DNR-001 and UC-DNR-002 completed — donors "Eleanor Pruitt" (Individual) and "Millbrook Heritage Trust" (Organization) exist.
+
+### Steps
+1. Open the Donors module.
+2. Enter "pruitt" in the name search field (case-insensitive).
+3. Observe results.
+4. Clear the search; enter "millbrook".
+5. Observe results.
+
+### Expected Outcome
+- Search for "pruitt" returns Eleanor Pruitt only.
+- Search for "millbrook" returns Millbrook Heritage Trust (matched on `name`) and any individual donor with "Millbrook" in their organization field.
+- Results are case-insensitive.
+- Inactive donors (`is_active = FALSE`) are excluded from results by default; a separate "Include inactive" option shows them if needed.
+- No audit_log entry.
+
+### Schema Coverage
+- `donors`: SELECT (filtered by `name`, optionally `organization`, filtered by `is_active`)

@@ -53,8 +53,8 @@
 **Module:** Loans
 
 ### Preconditions
-- Loan "LN-2024-001" exists with `status = 'Pending'`.
-- Objects "2024.001.002" and "2024.001.003" exist and are not on any active loan.
+- UC-LNS-001 completed — loan "LN-2024-001" exists with `status = 'Pending'`.
+- UC-OBJ-001 and UC-OBJ-002 completed — objects "2024.001.002" and "2024.001.003" exist and are not on any active loan.
 
 ### Steps
 1. Open loan "LN-2024-001".
@@ -84,7 +84,7 @@
 **Module:** Loans
 
 ### Preconditions
-- Loan "LN-2024-001" has two objects with `condition_out IS NULL`.
+- UC-LNS-002 completed — loan "LN-2024-001" has two objects with `condition_out IS NULL`.
 
 ### Test Data
 | Object           | condition_out | condition_out_notes |
@@ -118,7 +118,7 @@
 **Module:** Loans
 
 ### Preconditions
-- Loan "LN-2024-001" is Active with two objects; neither has been returned.
+- UC-LNS-003 completed — loan "LN-2024-001" is Active with two objects; neither has been returned.
 
 ### Test Data (for object "2024.001.002")
 | Field           | Value |
@@ -155,7 +155,7 @@
 **Module:** Loans
 
 ### Preconditions
-- Loan "LN-2024-001": object "2024.001.002" already returned; object "2024.001.003" still on loan.
+- UC-LNS-004 completed — loan "LN-2024-001": object "2024.001.002" already returned; object "2024.001.003" still on loan.
 
 ### Test Data (for object "2024.001.003")
 | Field              | Value |
@@ -237,7 +237,7 @@
 **Module:** Loans
 
 ### Preconditions
-- Object "2024.001.003" has a row in `loan_objects` referencing an Active loan.
+- UC-LNS-002 completed — object "2024.001.003" has a row in `loan_objects` referencing an Active loan.
 
 ### Steps
 1. Open object "2024.001.003".
@@ -260,7 +260,7 @@
 **Module:** Loans
 
 ### Preconditions
-- Loan "LN-2024-001" already includes object "2024.001.002".
+- UC-LNS-002 completed — loan "LN-2024-001" already includes object "2024.001.002".
 
 ### Steps
 1. Open loan "LN-2024-001".
@@ -274,3 +274,70 @@
 
 ### Schema Coverage
 - `loan_objects`: INSERT (blocked by UNIQUE constraint)
+
+---
+
+## UC-LNS-010 — Create an Incoming Loan
+
+**Actor:** Registrar  
+**Phase:** 2 — Collections Modules  
+**Module:** Loans
+
+### Preconditions
+- No loan with agreement reference "LN-2024-003" exists.
+
+### Test Data
+| Field                | Value |
+| :------------------- | :---- |
+| loan_type            | Incoming |
+| counterparty_name    | Millbrook Heritage Trust |
+| counterparty_contact | PO Box 212, Millbrook, NY 12545; collections@millbrookheritage.org |
+| start_date           | 2024-11-01 |
+| end_date             | 2025-04-30 |
+| insurance_value      | (blank — lender's insurance covers the object) |
+| insurance_currency   | (blank) |
+| agreement_ref        | LN-2024-003 |
+| purpose              | Short-term display loan for winter exhibition |
+| status               | Pending |
+
+### Steps
+1. Open the Loans module, click **New Loan**.
+2. Set `loan_type` to "Incoming".
+3. Enter counterparty details — here the counterparty is the **lender**, not a borrower.
+4. Leave insurance fields blank (lender carries insurance).
+5. Click **Save**.
+
+### Expected Outcome
+- One new row in `loans` with `loan_type = 'Incoming'`.
+- `insurance_value IS NULL`, `insurance_currency IS NULL`.
+- The counterparty_name reflects the lending institution, not a borrower.
+- `audit_log`: `action = 'CREATE'`, `table_name = 'loans'`
+
+### Schema Coverage
+- `loans`: INSERT (`loan_type = 'Incoming'`, nullable insurance fields)
+- `audit_log`: INSERT
+
+---
+
+## UC-LNS-011 — Find All Loans for a Specific Object
+
+**Actor:** Any authenticated user  
+**Phase:** 2 — Collections Modules  
+**Module:** Loans
+
+### Preconditions
+- UC-LNS-005 completed — object "2024.001.002" has appeared on at least one completed loan.
+
+### Steps
+1. Open object "2024.001.002".
+2. Navigate to the **Loan History** tab (or equivalent).
+
+### Expected Outcome
+- All `loan_objects` rows for this object are displayed, joined to their parent `loans` row.
+- Each entry shows: loan reference, counterparty, dates, status, condition_out, condition_in.
+- Completed and cancelled loans are included in the history — not just active ones.
+- No audit_log entry.
+
+### Schema Coverage
+- `loan_objects`: SELECT (filtered by `object_id`)
+- `loans`: SELECT (joined)

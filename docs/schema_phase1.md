@@ -65,7 +65,8 @@ The central entity — one row per catalogued item. This table will be the most 
 | credit_line      | TEXT          |                                                                             | Attribution text for public display, e.g. "Gift of John Smith, 2024"       |
 | location_id      | INTEGER       | (FK constraint added in Phase 2 when locations table exists)                | Current storage or display location. NULL until Phase 2.                    |
 | rights_statement | TEXT          |                                                                             | Copyright status or license statement. Required for Internet Archive publishing (Phase 3 dependency) |
-| ia_published     | BOOLEAN       | NOT NULL DEFAULT FALSE                                                      | Whether the record has been published to Internet Archive                   |
+| ia_queued        | BOOLEAN       | NOT NULL DEFAULT FALSE                                                      | Approved by registrar for Internet Archive publishing queue. Set TRUE to enqueue; reset to FALSE once ia_published is confirmed (Phase 3). |
+| ia_published     | BOOLEAN       | NOT NULL DEFAULT FALSE                                                      | Whether the record has been successfully published to Internet Archive      |
 | ia_identifier    | VARCHAR(255)  | UNIQUE                                                                      | Internet Archive item identifier, e.g. "mcis-photo-2024-001-001"           |
 | created_at       | TIMESTAMPTZ   | NOT NULL DEFAULT NOW()                                                      |                                                                             |
 | updated_at       | TIMESTAMPTZ   | NOT NULL DEFAULT NOW()                                                      |                                                                             |
@@ -73,7 +74,8 @@ The central entity — one row per catalogued item. This table will be the most 
 **Indexes:**
 - `collection_id` — FK lookup
 - `accession_number` — unique (implied by UNIQUE constraint)
-- `ia_published` — filter for the IA publish queue
+- `ia_queued` — Phase 3 publish queue filter (`WHERE ia_queued = TRUE AND ia_published = FALSE`)
+- `ia_published` — filter for records already live on IA
 - `(title)` — full-text search candidate; consider `tsvector` index in a later phase
 
 **Notes:**
@@ -83,6 +85,7 @@ The central entity — one row per catalogued item. This table will be the most 
 - `condition` uses a CHECK constraint rather than a lookup table for simplicity at this stage. A full condition report history (separate table, multiple assessments per object) is a candidate Phase 2 enhancement.
 - `credit_line` is distinct from `provenance` — provenance is an ownership history; credit_line is the short attribution string displayed publicly alongside the object.
 - `rights_statement` is nullable at this stage but must be populated before an object can be published to Internet Archive (Phase 3 requirement).
+- `ia_queued` and `ia_published` are separate flags: `ia_queued` means "approved and waiting for upload"; `ia_published` means "confirmed live on IA." The Phase 3 publisher queries `WHERE ia_queued = TRUE AND ia_published = FALSE`, uploads the record, then sets `ia_published = TRUE` and `ia_queued = FALSE`.
 
 ---
 
@@ -177,6 +180,7 @@ Append-only record of every create, update, and delete operation on tracked tabl
 - `changed_fields` stores a full row snapshot for CREATE and DELETE actions, and only the changed fields (with old and new values) for UPDATE actions.
 - `user_id` is nullable to support system-initiated actions (e.g. migration imports, scheduled jobs) where no authenticated user session is present.
 - Audit log population will be handled by SQLAlchemy event listeners in the application layer, not database triggers, to keep the logic in Python and fully testable.
+- Cascade-deleted rows (e.g. `media` rows removed when their parent `object` is deleted) are **not** individually logged in `audit_log`. The DELETE entry for the parent object includes a full row snapshot of the object; the cascade is recoverable from that context. Individually logging every cascaded child delete would produce noise without adding recovery value.
 
 ---
 
@@ -210,4 +214,4 @@ The FK constraint linking `objects.location_id` to `locations.location_id` will 
 
 ---
 
-_2026-06-16-1109_
+_2026-06-16-1210_

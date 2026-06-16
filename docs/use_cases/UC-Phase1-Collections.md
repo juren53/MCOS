@@ -52,7 +52,7 @@
 **Module:** Collections
 
 ### Preconditions
-- "Photograph Collection" exists (UC-COL-001 completed).
+- UC-COL-001 completed — "Photograph Collection" exists.
 
 ### Test Data
 | Field       | Old Value               | New Value |
@@ -88,15 +88,18 @@
 **Module:** Collections
 
 ### Preconditions
-- At least two collections exist.
+- UC-COL-001 and UC-COL-002 completed — at least two collections exist: "Historic Photograph Collection" and one other.
 
 ### Steps
 1. Open the Collections module.
 2. Observe the collections list.
+3. Verify sort order.
+4. Delete all collections and observe the empty state.
 
 ### Expected Outcome
-- All rows from `collections` are displayed with name and description.
-- List is sorted alphabetically by name (or by `created_at` — confirm sort order in UI spec).
+- All rows from `collections` are displayed showing at minimum: name and description.
+- List is sorted alphabetically by `name` (A → Z).
+- When all collections are removed, the list displays an empty-state message (e.g. "No collections yet. Click New Collection to get started.") rather than a blank panel or an error.
 - No audit_log entry (read-only operation).
 
 ### Schema Coverage
@@ -111,7 +114,8 @@
 **Module:** Collections
 
 ### Preconditions
-- "Historic Photograph Collection" exists and has at least one object assigned to it.
+- UC-COL-002 completed — "Historic Photograph Collection" exists.
+- UC-OBJ-001 completed — at least one object is assigned to the collection.
 
 ### Steps
 1. Open the Collections module.

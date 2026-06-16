@@ -9,7 +9,7 @@
 **Module:** Media
 
 ### Preconditions
-- Object "2024.001.002 — Millbrook Post Office" exists with no media attached.
+- UC-OBJ-001 completed — object "2024.001.002" exists with no media attached.
 
 ### Test Data
 | Field             | Value |
@@ -53,7 +53,7 @@
 **Module:** Media
 
 ### Preconditions
-- Object "2024.001.002" has one primary image (UC-MED-001 completed).
+- UC-MED-001 completed — object "2024.001.002" has exactly one primary image (post_office_front.tif).
 
 ### Test Data
 | Field             | Value |
@@ -86,7 +86,7 @@
 **Module:** Media
 
 ### Preconditions
-- Object "2024.001.002" already has one image with `is_primary = TRUE`.
+- UC-MED-001 completed — object "2024.001.002" has one image with `is_primary = TRUE`.
 
 ### Steps
 1. Click **Add Image** on object "2024.001.002".
@@ -111,20 +111,19 @@
 **Module:** Media
 
 ### Preconditions
-- Object "2024.001.002" has two images: "post_office_front.tif" (primary) and "post_office_rear.jpg" (non-primary).
+- UC-MED-001 and UC-MED-002 completed — object "2024.001.002" has two images: "post_office_front.tif" (primary) and "post_office_rear.jpg" (non-primary).
 
 ### Steps
 1. Open the media gallery for object "2024.001.002".
 2. Select "post_office_rear.jpg".
 3. Click **Set as Primary**.
-4. Confirm (this implicitly clears the existing primary flag first).
+4. Confirm.
 
 ### Expected Outcome
-- Application updates in a single transaction:
-  - `UPDATE media SET is_primary = FALSE WHERE object_id = ? AND is_primary = TRUE`
-  - `UPDATE media SET is_primary = TRUE WHERE media_id = <rear image>`
-- After the transaction: exactly one row has `is_primary = TRUE` — the rear image.
-- `audit_log` records both UPDATE operations.
+- The rear image (post_office_rear.jpg) is now displayed as the primary image in the gallery and on the object detail view.
+- The front image (post_office_front.tif) is shown as non-primary.
+- No moment exists where both images show as primary, and no moment where neither is primary — the swap is atomic.
+- `audit_log` records two UPDATE entries for `media` (one for each image's `is_primary` change).
 
 ### Schema Coverage
 - `media`: UPDATE ×2 (within a single transaction)
@@ -139,7 +138,7 @@
 **Module:** Media
 
 ### Preconditions
-- Object "2024.001.002" has at least two images.
+- UC-MED-001 and UC-MED-002 completed — object "2024.001.002" has at least two images.
 
 ### Steps
 1. Open the media gallery for object "2024.001.002".
@@ -163,7 +162,7 @@
 **Module:** Media
 
 ### Preconditions
-- Object "2024.001.002" has two images. The non-primary rear image will be deleted.
+- UC-MED-004 completed — object "2024.001.002" has two images; post_office_rear.jpg is currently primary, post_office_front.tif is non-primary. The non-primary front image will be deleted.
 
 ### Steps
 1. Open the media gallery for object "2024.001.002".
@@ -173,7 +172,7 @@
 ### Expected Outcome
 - The `media` row for the rear image is deleted.
 - The remaining image (front) is unchanged and still marked primary.
-- `audit_log`: `action = 'DELETE'`, `table_name = 'media'`
+- `audit_log`: `action = 'DELETE'`, `table_name = 'media'`, `changed_fields` contains a snapshot of the deleted row.
 
 ### Schema Coverage
 - `media`: DELETE
@@ -199,7 +198,7 @@
 - The `objects` row is deleted.
 - Both associated `media` rows are automatically deleted by `ON DELETE CASCADE` on `media.object_id`.
 - No orphaned rows remain in `media`.
-- `audit_log` records the DELETE of the object (media cascade deletes may or may not be separately logged — confirm in implementation).
+- `audit_log` records the DELETE of the object with a full row snapshot. Cascade-deleted `media` rows are **not** individually logged — they are recoverable from the object's snapshot (see schema_phase1.md audit_log notes).
 
 ### Schema Coverage
 - `objects`: DELETE

@@ -49,6 +49,7 @@
 **Module:** Users
 
 ### Preconditions
+- UC-USR-001 completed — an Admin user exists to perform this action.
 - No user with username "tbright" exists.
 
 ### Test Data
@@ -79,7 +80,8 @@
 **Module:** Users
 
 ### Preconditions
-- User "tbright" (Tom Bright) exists and is active.
+- UC-USR-002 completed — user "tbright" (Tom Bright) exists and is active.
+- **Run UC-USR-005 before this UC** — UC-USR-005 requires tbright to be active; deactivating here prevents that.
 
 ### Steps
 1. Open the Users module.
@@ -106,7 +108,7 @@
 **Module:** Users
 
 ### Preconditions
-- User "tbright" has `is_active = FALSE` (UC-USR-003 completed).
+- UC-USR-003 completed — user "tbright" has `is_active = FALSE`.
 
 ### Steps
 1. At the login screen, enter username "tbright" and the correct password.
@@ -130,8 +132,8 @@
 **Module:** Users
 
 ### Preconditions
-- Tom Bright is logged in with role "Volunteer".
-- At least one object exists.
+- UC-USR-002 completed and **run before UC-USR-003** — tbright is active and can log in.
+- UC-OBJ-001 completed — at least one object exists.
 
 ### Steps
 1. Open an object record.
@@ -155,8 +157,8 @@
 **Module:** Users
 
 ### Preconditions
-- User "awyatt" (Anne Wyatt) exists with `role = 'ReadOnly'`.
-- At least one object with media exists.
+- UC-USR-001 completed — an Admin exists to create this user. User "awyatt" (Anne Wyatt, ReadOnly) exists.
+- UC-MED-001 completed — at least one object with a media record exists.
 
 ### Steps
 1. Log in as "awyatt".
@@ -181,8 +183,8 @@
 **Module:** Users / AuditLog
 
 ### Preconditions
-- User "dchen" (David Chen, Registrar) is logged in.
-- Object "2024.001.002" exists.
+- UC-USR-001 completed — Admin user exists and has created "dchen" (David Chen, Registrar).
+- UC-OBJ-004 completed — object "2024.001.002" exists with `condition = 'Fair'`.
 
 ### Steps
 1. Log in as dchen.
@@ -202,3 +204,92 @@
 ### Schema Coverage
 - `audit_log`: SELECT, INSERT
 - `objects`: UPDATE
+
+---
+
+## UC-USR-008 — Successful Login Updates last_login
+
+**Actor:** Any  
+**Phase:** 1 — Core Framework  
+**Module:** Users
+
+### Preconditions
+- UC-USR-001 completed — user "moates" (Margaret Oates, Admin) exists with `is_active = TRUE`.
+- `last_login IS NULL` (first login for this user).
+
+### Steps
+1. At the login screen, enter username "moates" and the correct password.
+2. Click **Login**.
+
+### Expected Outcome
+- Login succeeds; the main application window opens.
+- `users.last_login` updated from NULL to the current timestamp.
+- `updated_at` refreshed on the users row.
+- No audit_log entry for login (authentication events are not collections-change events).
+
+### Schema Coverage
+- `users`: SELECT (credential check), UPDATE (`last_login`, `updated_at`)
+
+---
+
+## UC-USR-009 — User Changes Their Own Password
+
+**Actor:** Any authenticated user  
+**Phase:** 1 — Core Framework  
+**Module:** Users
+
+### Preconditions
+- UC-USR-008 completed — user "moates" is logged in.
+
+### Test Data
+| Field            | Value |
+| :--------------- | :---- |
+| current password | (correct current password) |
+| new password     | (different strong password, min 12 chars) |
+
+### Steps
+1. Open Account Settings (or equivalent).
+2. Enter current password for verification.
+3. Enter new password and confirm.
+4. Save.
+
+### Expected Outcome
+- `users.hashed_password` updated with a new bcrypt hash.
+- Plaintext password is never stored or logged.
+- `audit_log`: `action = 'UPDATE'`, `table_name = 'users'` — the `hashed_password` field must NOT appear in `changed_fields` (password changes are logged as an event but the hash value is excluded).
+- Old password is immediately invalid; a login attempt with the old password is refused.
+
+### Schema Coverage
+- `users`: UPDATE (`hashed_password`, `updated_at`)
+- `audit_log`: INSERT (field name only, no hash value)
+
+---
+
+## UC-USR-010 — Admin Reviews the Audit Log
+
+**Actor:** Admin  
+**Phase:** 1 — Core Framework  
+**Module:** AuditLog
+
+### Preconditions
+- UC-USR-007 completed — at least one audit_log entry exists for table "objects".
+- Multiple audit_log entries exist across different tables and users.
+
+### Steps
+1. Open the Audit Log viewer (Admin only).
+2. Filter by table = "objects".
+3. Observe results; verify entry from UC-USR-007 is present.
+4. Clear the filter; filter by user = "dchen".
+5. Observe results; verify only dchen's actions are shown.
+6. Filter by date range: today only.
+7. Click an entry and view its full `changed_fields` detail.
+
+### Expected Outcome
+- Filter by table returns only rows where `table_name = 'objects'`.
+- Filter by user returns only rows where `user_id` matches dchen.
+- Filter by date range returns only rows where `logged_at` falls within the range.
+- Detail view shows the full `changed_fields` JSON (old and new values for each changed field).
+- Read-only — no write to `audit_log` from this operation.
+
+### Schema Coverage
+- `audit_log`: SELECT (filtered by `table_name`, `user_id`, `logged_at`; detail view of `changed_fields`)

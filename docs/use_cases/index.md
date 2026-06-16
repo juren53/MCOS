@@ -45,11 +45,14 @@ All test data uses a fictional institution: **Millbrook Historical Society**, wi
 | UC-MED-007  | Delete an object and verify media cascade     | Admin             | [Media](UC-Phase1-Media.md) |
 | UC-USR-001  | Create an Admin user                          | Admin             | [Users](UC-Phase1-Users.md) |
 | UC-USR-002  | Create a Volunteer user                       | Admin             | [Users](UC-Phase1-Users.md) |
-| UC-USR-003  | Deactivate a user                             | Admin             | [Users](UC-Phase1-Users.md) |
+| UC-USR-003  | Deactivate a user *(run after UC-USR-005)*    | Admin             | [Users](UC-Phase1-Users.md) |
 | UC-USR-004  | **[NEGATIVE]** Login with deactivated account | —                 | [Users](UC-Phase1-Users.md) |
-| UC-USR-005  | **[NEGATIVE]** Volunteer attempts to delete   | Volunteer         | [Users](UC-Phase1-Users.md) |
+| UC-USR-005  | **[NEGATIVE]** Volunteer attempts to delete *(run before UC-USR-003)* | Volunteer | [Users](UC-Phase1-Users.md) |
 | UC-USR-006  | ReadOnly user views object details            | ReadOnly          | [Users](UC-Phase1-Users.md) |
 | UC-USR-007  | Audit log captures a record change            | Any               | [Users](UC-Phase1-Users.md) |
+| UC-USR-008  | Successful login updates last_login           | Any               | [Users](UC-Phase1-Users.md) |
+| UC-USR-009  | User changes their own password               | Any               | [Users](UC-Phase1-Users.md) |
+| UC-USR-010  | Admin reviews the audit log                   | Admin             | [Users](UC-Phase1-Users.md) |
 
 ## Phase 2 — Collections Modules
 
@@ -62,6 +65,7 @@ All test data uses a fictional institution: **Millbrook Historical Society**, wi
 | UC-LOC-005  | Retire a location                                 | Admin             | [Locations](UC-Phase2-Locations.md) |
 | UC-LOC-006  | **[NEGATIVE]** Delete a parent location with children | Admin         | [Locations](UC-Phase2-Locations.md) |
 | UC-LOC-007  | Create an off-site location for a borrowed object | Registrar         | [Locations](UC-Phase2-Locations.md) |
+| UC-LOC-008  | List all objects at a location                    | Any               | [Locations](UC-Phase2-Locations.md) |
 | UC-LNS-001  | Create an outgoing loan                           | Registrar         | [Loans](UC-Phase2-Loans.md) |
 | UC-LNS-002  | Add multiple objects to a loan                    | Registrar         | [Loans](UC-Phase2-Loans.md) |
 | UC-LNS-003  | Record condition-out for each loan object         | Registrar         | [Loans](UC-Phase2-Loans.md) |
@@ -71,6 +75,8 @@ All test data uses a fictional institution: **Millbrook Historical Society**, wi
 | UC-LNS-007  | Cancel a pending loan                             | Registrar         | [Loans](UC-Phase2-Loans.md) |
 | UC-LNS-008  | **[NEGATIVE]** Delete an object on active loan    | Admin             | [Loans](UC-Phase2-Loans.md) |
 | UC-LNS-009  | **[NEGATIVE]** Add same object twice to a loan    | Registrar         | [Loans](UC-Phase2-Loans.md) |
+| UC-LNS-010  | Create an incoming loan                           | Registrar         | [Loans](UC-Phase2-Loans.md) |
+| UC-LNS-011  | Find all loans for a specific object              | Any               | [Loans](UC-Phase2-Loans.md) |
 | UC-DNR-001  | Add an individual donor                           | Registrar         | [Donors](UC-Phase2-Donors.md) |
 | UC-DNR-002  | Add an organization donor                         | Registrar         | [Donors](UC-Phase2-Donors.md) |
 | UC-DNR-003  | Link a donated object to its donor                | Registrar         | [Donors](UC-Phase2-Donors.md) |
@@ -78,3 +84,4 @@ All test data uses a fictional institution: **Millbrook Historical Society**, wi
 | UC-DNR-005  | Record acknowledgment sent and date               | Registrar, Staff  | [Donors](UC-Phase2-Donors.md) |
 | UC-DNR-006  | **[NEGATIVE]** Set acknowledgment_date without sent flag | Registrar  | [Donors](UC-Phase2-Donors.md) |
 | UC-DNR-007  | Deactivate a deceased donor                       | Registrar         | [Donors](UC-Phase2-Donors.md) |
+| UC-DNR-008  | Search donors by name                             | Any               | [Donors](UC-Phase2-Donors.md) |
