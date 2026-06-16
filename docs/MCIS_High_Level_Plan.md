@@ -46,7 +46,7 @@ The system will be built on a two-tier public/private architecture:
 
 ### 4.2 Deployment Model
 
-The SQL database server will run on one dedicated machine the museum already owns (or an inexpensive VPS). Staff and volunteers will install the lightweight PySide6 client on their individual workstations. No web browser, no web server, and no complex middleware will be required.
+The MCIS database will be able to run on a computer the organization already owns but will run in a virtual isolated environment on that machine. Staff and volunteers will be able to install lightweight PySide6 client apps on their individual workstations using standard OS-specific installation processes. No web browser, no web server, and no complex middleware will be required.
 
 The Internet Archive publishing module will run as part of the desktop client, batching approved records and images to the museum's IA collection via the official API.
 
