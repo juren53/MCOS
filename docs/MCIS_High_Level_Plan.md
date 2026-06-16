@@ -229,42 +229,7 @@ The schema and use case work is complete. The next step is beginning Phase 1 app
 
 ---
 
-## 9. Advisory Board
-
-A small group of senior museum directors and archivists is serving as an informal advisory board during the early development phases. Their practical experience and professional perspective is essential to ensuring that MCIS reflects how museums actually work — not how a software developer imagines they work.
-
-### Role of the Advisory Board
-
-- Validate that field structures, workflows, and controlled vocabularies in the schema reflect real registrarial and curatorial practice
-- Identify use cases or edge cases not yet covered in the schema or use case documentation
-- Review user interface and interaction design as prototypes become available
-- Advise on standards alignment (§5) — particularly where SPECTRUM, AAM, or local practice suggests a different approach
-- Help identify pilot institutions willing to test pre-release versions of MCIS
-- Advise on grant strategy, community governance, and long-term sustainability as the project matures
-
-### What Advisory Board Members Are Being Asked to Do Now
-
-The most valuable input at this stage comes from reviewing the schema and use case documents before Phase 1 development begins. Decisions made now are much cheaper to change than decisions embedded in working code.
-
-**Specifically:**
-
-1. **Review the Phase 1 schema** (`docs/schema_phase1.md`) — Collections, Objects, Media, Users, and AuditLog. Do the fields, controlled vocabulary values, and field relationships reflect how your institution records this information? Is anything important missing?
-
-2. **Review the Phase 2 schema** (`docs/schema_phase2.md`) — Locations, Loans, and Donors. Does the loans workflow match your loan agreement practice? Does the donor record structure accommodate your acknowledgment and restriction tracking?
-
-3. **Review the use case library** (`docs/use_cases/`) — 42 step-by-step use cases covering every module. Do the workflows match how your staff and volunteers actually work? Are there scenarios your institution encounters regularly that are not covered?
-
-4. **Flag anything that would be a deal-breaker** — fields that are missing, vocabulary that is wrong, workflows that don't match practice. This is the time to catch those issues.
-
-### How to Provide Feedback
-
-Advisory board input is welcomed in any format — annotated documents, email, or a conversation. Substantive feedback will be tracked as GitHub Issues by the project lead and referenced when schema or use case changes are made.
-
-Advisory board members do not need a GitHub account to participate.
-
----
-
-## 10. Competitive Landscape
+## 9. Competitive Landscape
 
 | System | Cost | Target Size | Open Source | IA Integration |
 | :--- | :--- | :--- | :--- | :--- |
@@ -278,7 +243,7 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 
 ---
 
-## 11. Risks & Mitigations
+## 10. Risks & Mitigations
 
 | Risk | Mitigation |
 | :--- | :--- |
@@ -293,7 +258,7 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 
 ---
 
-## 12. Glossary
+## 11. Glossary
 
 | Term | Definition |
 | :--- | :--- |
@@ -311,4 +276,4 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 
 ---
 
-_2026-06-16-1311_
+_2026-06-16-1316_

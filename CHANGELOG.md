@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-16-1316] — Remove Advisory Board Section from Plan
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — removed §9 Advisory Board (group is informal and dynamic; no need to document it in the plan); renumbered Competitive Landscape, Risks, and Glossary as §9–11
+
+---
+
 ## [2026-06-16-1312] — High-Level Plan Revised for Advisory Board
 
 ### Changed
