@@ -32,7 +32,7 @@ The system is built on a two-tier public/private architecture:
 | Public Access Built In | Internet Archive publishing is a core feature. Publishing an approved collection record to the public is a one-step workflow, not a separate project. |
 | Standards Aligned | Field names, controlled vocabularies, and workflows reflect professional collections management standards (see §5). |
 | Grant Friendly | Open access commitment and IMLS-aligned mission supports grant applications from IMLS, NEH, state humanities councils, and private foundations. |
-| Accessible by Design | User interface meets WCAG 2.1 AA keyboard navigation and screen reader standards. |
+| Accessible by Design | UI will be cross-platform and standards-based. |
 
 ---
 
@@ -276,4 +276,4 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 
 ---
 
-_2026-06-16-1316_
+_2026-06-16-1324_

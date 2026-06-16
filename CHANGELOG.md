@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-16-1324] — Simplify Accessible by Design Principle
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — "Accessible by Design" principle reworded to "UI will be cross-platform and standards-based"; removed WCAG 2.1 AA reference (web standard, not applicable to a desktop app; jargon for this audience)
+
+---
+
 ## [2026-06-16-1316] — Remove Advisory Board Section from Plan
 
 ### Changed
