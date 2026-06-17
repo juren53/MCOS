@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-17-1246] — Update Documentation Plan for QR Code Generator (v0.6)
+
+### Added
+- `docs/MCIS_Documentation_Plan.md` — QR Code Generator README added to Complete section: standalone module overview at github.com/juren53/qr-code-generator
+- `docs/MCIS_Documentation_Plan.md` — User Guide: QR Code Generator added as Phase 1 planned document: label generation workflow, format and size options, batch printing, physical display considerations
+- `docs/MCIS_Documentation_Plan.md` — Complete count updated 7 → 8; Planned count updated 15 → 16; version bumped to 0.6
+
+---
+
 ## [2026-06-17-1243] — Add QR Code Generator to High Level Plan (v0.11)
 
 ### Added

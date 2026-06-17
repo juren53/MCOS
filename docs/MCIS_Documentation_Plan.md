@@ -1,6 +1,6 @@
 # MCIS Documentation Plan
 
-_Draft Version 0.5 — 2026-06-17-1201_
+_Draft Version 0.6 — 2026-06-17-1246_
 
 This document tracks all MCIS documentation — completed, in progress, and planned. Each document is assigned a target phase, a primary audience, and a brief description of its scope.
 
@@ -10,9 +10,9 @@ This document tracks all MCIS documentation — completed, in progress, and plan
 
 | Status | Count |
 | :--- | :--- |
-| Complete | 7 |
+| Complete | 8 |
 | In Progress | 0 |
-| Planned | 15 |
+| Planned | 16 |
 
 ---
 
@@ -27,6 +27,7 @@ This document tracks all MCIS documentation — completed, in progress, and plan
 | README | `README.md` | All | Concise project summary; links to all key documents |
 | CHANGELOG | `CHANGELOG.md` | All | Running record of all notable project changes with datetime-stamped entries |
 | Documentation Plan | `docs/MCIS_Documentation_Plan.md` | All | This document — tracks all project documentation: complete, in progress, and planned |
+| QR Code Generator README | [`github.com/juren53/qr-code-generator`](https://github.com/juren53/qr-code-generator) | All | Standalone module overview: origin, prototype findings (WHM ship's bell and bridge clock), testing results, open questions on backend, artifact numbering, and physical display |
 
 ---
 
@@ -53,6 +54,7 @@ Documents are listed in the phase when they are expected to be drafted. All date
 | **Administrator Guide** | Admin users | User management (create, edit, deactivate); role assignment; system configuration; database backup and restore procedures; troubleshooting common issues |
 | **User Guide: Collections & Objects** | Registrars, Staff, Volunteers | How to use the Collections and Objects modules: creating collections, accessioning objects, attaching images and documents with IPTC/EXIF metadata embedding, condition assessments, searching and browsing the catalogue, flagging objects for Internet Archive publication. Includes the Phase 1 basic IA publishing workflow (flag → approve → publish → status). |
 | **Quick Start Guide** | Registrars, Staff, Volunteers | First-session walkthrough: logging in, creating a collection, accessioning a first object, attaching an image, and publishing a record to Internet Archive. Designed for new users with no prior MCIS experience. |
+| **User Guide: QR Code Generator** | Registrars, Staff | How to generate and print QR code labels: triggering generation after an object is published to IA, label format and size options, batch printing for large sets, and physical display considerations for the Museum environment. |
 
 ### Phase 2 — Operational Modules
 
@@ -90,4 +92,4 @@ Documents are listed in the phase when they are expected to be drafted. All date
 
 ---
 
-_2026-06-17-1201_
+_2026-06-17-1246_
