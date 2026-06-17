@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-17-1304] — Fold SQLite single-user option into tech stack table (v0.15)
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — §6 technology stack: Database row updated to "PostgreSQL (multi-user) / SQLite (single-user)"; multi-user and single-user distinctions consolidated into one row; redundant "Single-user option" paragraph removed; version bumped to 0.15
+
+---
+
 ## [2026-06-17-1302] — Remove advisory board from Phase 0 scope (v0.14)
 
 ### Changed

@@ -1,6 +1,6 @@
 # MCIS — Museum Collections Information System
 
-_High Level Project Plan — Draft Version 0.14 — 2026-06-17-1302_
+_High Level Project Plan — Draft Version 0.15 — 2026-06-17-1304_
 
 ---
 
@@ -118,12 +118,10 @@ MCIS is a desktop application — not a web application. This is a deliberate ch
 | Component | Technology | What It Means for Your Institution |
 | :--- | :--- | :--- |
 | Desktop client | Python / PySide6 | Runs on Windows, Linux, and macOS. Free to distribute. Staff install it and use it — no browser required. |
-| Database | PostgreSQL | A mature, professional-grade database. Runs on existing hardware. Concurrent access by multiple staff simultaneously. Free and open source. |
+| Database | PostgreSQL (multi-user) / SQLite (single-user) | Multi-user: PostgreSQL runs on existing hardware with concurrent access for multiple staff simultaneously. Single-user option: SQLite — no separate database server required; the database lives in a single file alongside the application. Both are free and open source. |
 | IA Publishing | Internet Archive API | The official Internet Archive tool for metadata and file upload — ensures compatibility with IA's current and future API. |
 | Image Metadata | ExifTool | Embeds IPTC/EXIF metadata directly into attached image files at ingest — accession number, rights statement, credit, and collection. Ensures images carry provenance data within the file regardless of where they are copied or published. Bundled with the application; no separate installation required. |
 | Packaging | PyInstaller | Staff install MCIS like any other desktop application. No Python installation or technical knowledge required on their machines. |
-
-**Single-user option:** A single-file database option is planned for very small institutions with only one user — in this mode, no separate database server is required at all. The database lives in a single file alongside the application.
 
 **Data ownership:** All data lives in a PostgreSQL database on hardware the museum controls. Export the full database at any time in standard SQL format. There is no cloud sync, no vendor account required, and no data stored outside the museum's own infrastructure.
 
@@ -321,4 +319,4 @@ Testing confirmed that printed QR codes scan measurably faster than codes displa
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
 
-_2026-06-17-1302_
+_2026-06-17-1304_
