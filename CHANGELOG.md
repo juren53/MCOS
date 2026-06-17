@@ -36,6 +36,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `docs/MCIS_High_Level_Plan.md` — §2 "Grant Friendly" principle: subject-verb agreement fixed ("supports" → "support")
 - `docs/MCIS_High_Level_Plan.md` and `CHANGELOG.md` — Whitehead Home Museum renamed to Weston Historical Museum throughout (WHM abbreviation unchanged)
 - `docs/MCIS_High_Level_Plan.md` — §11 QR Code Generator prototype reworded; count corrected from two to six QR codes; version bumped to 0.16
+---
+
+## [2026-06-17-1725] — Correct WHM prototype artifact names (v0.17)
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — §11 QR Code Generator prototype: artifact names corrected from "ship's bell and bridge clock" to "steamboat bell and anchor bracket and steamboat drum alarm clock", consistent with content files in the qr-code-generator repository; version bumped to 0.17
 
 ---
 
