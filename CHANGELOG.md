@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-17-1201] — Address 13-Point Critique of Documentation Plan (v0.5)
+
+### Added
+- `docs/MCIS_Documentation_Plan.md` — Quick Start Guide added as Phase 1 planned document: first-session walkthrough for new users
+- `docs/MCIS_Documentation_Plan.md` — SECURITY.md added as Phase 1 planned document: security disclosure policy and responsible reporting procedure
+- `docs/MCIS_Documentation_Plan.md` — Release Notes added as Phase 1 planned document: plain-language per-release summaries for non-technical stakeholders
+- `docs/MCIS_Documentation_Plan.md` — Phase 2 Database Schema (Members/Comms) added as Phase 2 planned document: schema not yet drafted
+
+### Changed
+- `docs/MCIS_Documentation_Plan.md` — Use Case Library: hardcoded "42 use cases" count removed from description
+- `docs/MCIS_Documentation_Plan.md` — Phase 2 Database Schema entry renamed to clarify scope (Locations, Loans, Donors); Members/Comms split into separate planned entry
+- `docs/MCIS_Documentation_Plan.md` — Contributing Guide moved from Phase 4 to Phase 1
+- `docs/MCIS_Documentation_Plan.md` — Extension Developer Guide: note added that document is contingent on extension framework design
+- `docs/MCIS_Documentation_Plan.md` — Phase 2 section heading: "Collections Modules" → "Operational Modules"
+- `docs/MCIS_Documentation_Plan.md` — Notes section: updated to acknowledge Members/Comms schema gap
+- `docs/MCIS_Documentation_Plan.md` — System Architecture Document: ExifTool image metadata embedding added to description
+- `docs/MCIS_Documentation_Plan.md` — User Guide: Collections & Objects: IPTC/EXIF metadata embedding added to description
+- `docs/MCIS_Documentation_Plan.md` — Data Migration Guide: IPTC metadata extraction added to batch image import description
+- `docs/MCIS_Documentation_Plan.md` — Planned count updated 11 → 15; version bumped to 0.5
+
+---
+
 ## [2026-06-17-1148] — Address 12-Point Critique of High Level Plan (v0.9)
 
 ### Changed
@@ -395,7 +417,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Version History Summary
 
-- **2026-06-17** — High Level Plan v0.9: 12-point critique resolved (Phase 2/3 inconsistencies, cross-section fixes, Members/Comms schema gap flagged, hardcoded use case count removed); HSTL prior work woven throughout plan (v0.8): §11 Prior Work & Related Projects added (HPM, Tag Writer, ATW); IPTC and ExifTool added to standards and technology tables
+- **2026-06-17** — Documentation Plan v0.5: 13-point critique resolved (Contributing Guide moved to Phase 1, Quick Start/SECURITY.md/Release Notes added, Members/Comms schema gap flagged, Phase 2 heading corrected, ExifTool/IPTC added to descriptions, planned count 11 → 15); High Level Plan v0.9: 12-point critique resolved (Phase 2/3 inconsistencies, cross-section fixes, Members/Comms schema gap flagged, hardcoded use case count removed); HSTL prior work woven throughout plan (v0.8): §11 Prior Work & Related Projects added (HPM, Tag Writer, ATW); IPTC and ExifTool added to standards and technology tables
 - **2026-06-16** — Documentation Plan v0.4: Test Plan added, descriptions revised, Planned count corrected; Phase 2 restructured to Members, Donors, Locations & Loans in both plan and documentation plan; Documentation Plan critique file added; Phase 1 schema critique fixes (maker, condition_date, file_path UNIQUE, finding_aid_is_url, MIME types, single-role note); CHANGELOG timestamps updated to HHMM; use case critique fixes (42 cases, 6 new UCs); ia_queued added to Phase 1 schema; README documentation table; use cases collection (36 cases initial); Phase 2 schema design and critique passes; deployment model clarified; CHANGELOG added
 - **2026-06-15** — Phase 1 schema design (collections, objects, media, users, audit_log) added; README deployment wording improved
 - **2026-06-14** — Project launched: high-level plan converted from HTML and fully revised; README written and refined; critique passes on both documents
