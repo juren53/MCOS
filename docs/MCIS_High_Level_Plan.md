@@ -1,6 +1,6 @@
 # MCIS — Museum Collections Information System
 
-_High Level Project Plan — Draft Version 0.7 — 2026-06-16-1517_
+_High Level Project Plan — Draft Version 0.8 — 2026-06-17-1116_
 
 ---
 
@@ -16,6 +16,8 @@ The system is built on a two-tier public/private architecture:
 
 - **Private Tier** — Full operational data is maintained in a secure, self-hosted database covering collections management, donor records, loans, location tracking, and internal inventory. Data stays on hardware the museum controls — no cloud dependency, no subscription, no vendor lock-in.
 - **Public Tier** — Selected collection records and artifact images can be published to the museum's Internet Archive (IA) collection, providing free, permanent, searchable public access aligned with the GLAM (Galleries, Libraries, Archives, Museums) open access movement.
+
+MCIS is not a greenfield project. It builds directly on production metadata tools developed for the Harry S. Truman Presidential Library — tools that have already solved problems MCIS will face: archival metadata schema design, IPTC/EXIF embedding in image files, batch processing pipelines, and field mapping to public publishing targets. See §12 for detail.
 
 ---
 
@@ -61,7 +63,7 @@ The foundation of any collections management system — with the feature that se
 
 - Create and manage named collections with accession policies and finding aids (free text or URL)
 - Accession individual objects with full cataloguing fields: title, maker, date made, medium, dimensions, provenance, credit line, rights statement, condition grade, condition notes, and structured condition assessment date
-- Attach multiple images and documents (JPEG, TIFF, PNG, PDF) per object, with primary image designation and sort order
+- Attach multiple images and documents (JPEG, TIFF, PNG, PDF) per object, with primary image designation, sort order, and IPTC/EXIF metadata embedding via ExifTool — ensuring attached images carry accession number, rights statement, and credit information within the file itself
 - Field-specific and full-text search across the entire catalogue
 - Role-based access control: Admin, Registrar, Staff, Volunteer, and Read-Only — each role has appropriate capabilities
 - Complete audit trail of every record creation, edit, and deletion, with user attribution and before/after field values
@@ -96,6 +98,7 @@ MCIS field names and controlled vocabularies are informed by established collect
 | Standard | How MCIS Aligns |
 | :--- | :--- |
 | **Dublin Core** | Core descriptive fields — title, maker (creator), date made, description, rights statement — map directly to Dublin Core elements; used as the basis for Internet Archive metadata export |
+| **IPTC** (International Press Telecommunications Council) | Image metadata fields — headline (title), caption (description), object name (accession number), byline (photographer), credit, source (collection), copyright notice (restrictions) — are embedded directly in attached image files using ExifTool; field mapping proven in the HSTL photo pipeline and Tag Writer |
 | **SPECTRUM** (Collections Trust, UK) | Object accession, object entry, location and movement control, loans in/out, condition checking, and the audit trail align with SPECTRUM unit of practice definitions; the workflow design in the use case library explicitly references SPECTRUM procedures |
 | **LIDO** (Lightweight Information Describing Objects) | Phase 5 data migration tools will support LIDO XML import/export for interoperability with digital aggregators |
 | **AAM Standards** | Object records include the fields required by the *National Standards and Best Practices for U.S. Museums* (American Alliance of Museums, 2008): unique accession number, title, provenance, rights statement, and condition |
@@ -114,6 +117,7 @@ MCIS is a desktop application — not a web application. This is a deliberate ch
 | Desktop client | Python / PySide6 | Runs on Windows, Linux, and macOS. Free to distribute. Staff install it and use it — no browser required. |
 | Database | PostgreSQL | A mature, professional-grade database. Runs on existing hardware. Concurrent access by multiple staff simultaneously. Free and open source. |
 | IA Publishing | Internet Archive API | The official Internet Archive tool for metadata and file upload — ensures compatibility with IA's current and future API. |
+| Image Metadata | ExifTool | Embeds IPTC/EXIF metadata directly into attached image files at ingest — accession number, rights statement, credit, and collection. Ensures images carry provenance data within the file regardless of where they are copied or published. Bundled with the application; no separate installation required. |
 | Packaging | PyInstaller | Staff install MCIS like any other desktop application. No Python installation or technical knowledge required on their machines. |
 
 **Single-user option:** A single-file database option is planned for very small institutions with only one user — in this mode, no separate database server is required at all. The database lives in a single file alongside the application.
@@ -186,9 +190,9 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 
 *Help institutions that already have data bring it in.*
 
-- CSV/Excel import with configurable field mapping
+- CSV/Excel import with configurable field mapping — drawing on batch processing and Unicode handling experience from the HSTL photo and audio metadata pipelines
 - LIDO and other standard interchange format support
-- Batch image import with automatic object association
+- Batch image import with IPTC metadata extraction and automatic object association
 
 *Milestone: A museum can import a full spreadsheet or PastPerfect data export and review the results in MCIS.*
 
@@ -244,7 +248,39 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 
 ---
 
-## 11. Glossary
+## 11. Prior Work & Related Projects
+
+MCIS grows from production tools built for the Harry S. Truman Presidential Library (HSTL). Each tool addresses a problem MCIS will face — and each represents working code, field-tested metadata schemas, and proven workflows that can be adapted rather than rebuilt from scratch.
+
+### HPM — HSTL Photo Metadata Framework
+
+A Python/PyQt6 desktop application that orchestrates an 8-step batch pipeline: Excel metadata spreadsheet → CSV conversion → Unicode cleanup → TIFF processing → IPTC/EXIF metadata embedding (via ExifTool) → JPEG conversion → resizing → watermarking for restricted images. The pipeline prepares photos for upload to the NARA catalog. HPM is packaged with PyInstaller, ships as a single Windows executable, and has a full acceptance test suite.
+
+**MCIS relevance:** The ExifTool integration, batch image processing pipeline, IPTC field mapping, and PyInstaller packaging approach are all directly applicable to the MCIS Objects module and the Phase 5 Data Migration tools.
+
+**Repository:** [github.com/juren53/HST-Metadata](https://github.com/juren53/HST-Metadata)
+
+### Tag Writer
+
+A Python/PyQt6 image metadata editor for cases where batch processing is not applicable — a registrar or archivist needs to view or correct the metadata on a single image. Tag Writer edits IPTC/XMP/EXIF fields with a form-based UI, includes a full-size image viewer, bundles ExifTool for fast image paging, and supports multiple color themes and JSON export/import.
+
+The HSTL IPTC field set Tag Writer implements — headline (title), caption-abstract (description), object name (accession number), byline (photographer), credit, source (collection), copyright notice (restrictions) — is the direct basis for the MCIS object metadata schema and its mapping to Internet Archive metadata fields.
+
+**MCIS relevance:** The IPTC field set and its Dublin Core alignment directly inform the MCIS Objects module schema and the IA metadata export. The single-record editing workflow is the model for the MCIS object record form.
+
+**Repository:** [github.com/juren53/tag-writer](https://github.com/juren53/tag-writer)
+
+### Audio Tag Writer (ATW)
+
+A Python/PyQt6 audio metadata editor with three modes: Archival Recording, Music, and Scientific. The Archival Recording mode writes the complete HSTL ID3v2.3 frame set — title, description, accession number, speakers, date recorded, restrictions, location, production/copyright, collection, source URL — with cross-schema aliases for iTunes, XMP, and Windows Media compatibility. ATW supports MP3 and WAV read/write and is packaged as a Windows executable.
+
+**MCIS relevance:** The HSTL archival metadata profile demonstrates a complete, production-validated archival schema. The accession-number-centric structure, rights/restrictions handling, and collection hierarchy directly parallel the MCIS object and media attachment models. The JSON export/import pattern is applicable to MCIS data portability requirements.
+
+**Repository:** [github.com/juren53/audio-tag-writer](https://github.com/juren53/audio-tag-writer)
+
+---
+
+## 12. Glossary
 
 | Term | Definition |
 | :--- | :--- |
@@ -259,4 +295,4 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
 
-_2026-06-16-1517_
+_2026-06-17-1116_
