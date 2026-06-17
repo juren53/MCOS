@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-17-1243] — Add QR Code Generator to High Level Plan (v0.11)
+
+### Added
+- `docs/MCIS_High_Level_Plan.md` — §4: QR Code Generator added as a standalone module subsection; describes label generation triggered by IA publish, Phase 2 batch support, and links to github.com/juren53/qr-code-generator
+- `docs/MCIS_High_Level_Plan.md` — §7 Phase 1: QR Code Generator bullet added after Basic IA Publisher; Phase 1 milestone updated to include printing a QR code label
+- `docs/MCIS_High_Level_Plan.md` — §8 Current Status: QR Code Generator module repository added as Complete; version bumped to 0.11
+
+---
+
 ## [2026-06-17] — Add QR Code Generator module reference
 
 ### Added
