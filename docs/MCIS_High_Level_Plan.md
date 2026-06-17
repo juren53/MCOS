@@ -1,6 +1,6 @@
 # MCIS — Museum Collections Information System
 
-_High Level Project Plan — Draft Version 0.10 — 2026-06-17-1210_
+_High Level Project Plan — Draft Version 0.11 — 2026-06-17-1243_
 
 ---
 
@@ -85,6 +85,15 @@ The operational core for a working museum or historical society, paired with a f
 
 - **Inventory** — Equipment and supply records, vendor contacts, maintenance schedules
 
+### QR Code Generator
+
+A standalone module — maintained in a separate repository — that generates printable QR codes linking physical Museum artifacts to their Internet Archive records.
+
+- When an object is published to IA via the Basic IA Publisher and an `ia_identifier` is assigned, the QR Code Generator produces a printable label (PNG or PDF) for that artifact
+- The printed code is displayed beside the artifact in the Museum; visitors scan it with a smartphone camera — no app required — and reach the artifact's IA page directly, with its image, title, description, and metadata
+- Phase 2: batch label generation for large sets of objects published via the Full IA Publisher
+- Module repository: [github.com/juren53/qr-code-generator](https://github.com/juren53/qr-code-generator)
+
 ### Data Migration
 
 - CSV/Excel import with configurable field mapping — drawing on batch processing and Unicode handling experience from the HSTL photo and audio metadata pipelines
@@ -152,8 +161,9 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 - Objects module: full accession record with image and document attachment
 - Audit log: complete change history with user attribution and before/after field values
 - **Basic IA Publisher:** Registrar flags object for publication; Admin approves; system uploads object record with primary image and core metadata (title, maker, date, description, rights statement) to the museum's IA collection; IA identifier written back to the object record; publication status tracked per object
+- **QR Code Generator** *(standalone module)* — Once an IA identifier is assigned, generate a printable QR code label (PNG or PDF) for display beside the artifact in the Museum; see [github.com/juren53/qr-code-generator](https://github.com/juren53/qr-code-generator)
 
-*Milestone: A registrar can log in, accession objects with images, and publish an approved record to Internet Archive.*
+*Milestone: A registrar can log in, accession objects with images, publish an approved record to Internet Archive, and print a QR code label for display beside the artifact.*
 
 ### Phase 2 — Operational Modules
 
@@ -214,6 +224,7 @@ MCIS is in **Phase 0 — Project Infrastructure**.
 | Phase 2 database schema (Locations, Loans, Donors) | Complete |
 | Phase 2 database schema (Members/Comms) | Not yet started |
 | Use case library | Complete |
+| QR Code Generator module repository | Complete |
 | Open source license | In progress |
 | Advisory board [TBD] engagement | In progress |
 | Phase 1 application development | Not yet started |
@@ -310,4 +321,4 @@ A proof-of-concept project managing the musical holdings at the Harry S. Truman 
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
 
-_2026-06-17-1210_
+_2026-06-17-1243_
