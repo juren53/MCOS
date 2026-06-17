@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-17] — Add QR Code Generator module reference
+
+### Added
+- `README.md` — Modules section added; references the QR Code Generator as the first standalone MCIS module ([juren53/qr-code-generator](https://github.com/juren53/qr-code-generator)); generates printable QR codes linking physical Museum artifacts to their Internet Archive records
+
+---
+
 ## [2026-06-17-1210] — Add Truman Home Music Collection to Prior Work (v0.10)
 
 ### Changed

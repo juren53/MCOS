@@ -47,6 +47,14 @@ For the full project plan — including module architecture, phased roadmap, dat
 | [Use Cases](docs/use_cases/index.md) | 42 use cases documenting operational workflows for every module across Phases 1 and 2 |
 | [Documentation Plan](docs/MCIS_Documentation_Plan.md) | All project documentation — complete, in progress, and planned |
 
+## Modules
+
+MCIS is modular by design. The following standalone modules are available as separate repositories:
+
+| Module | Repository | Description |
+| :----- | :--------- | :---------- |
+| QR Code Generator | [juren53/qr-code-generator](https://github.com/juren53/qr-code-generator) | Generates printable QR codes linking physical Museum artifacts to their Internet Archive records |
+
 ## Getting involved
 
 We are looking for:
