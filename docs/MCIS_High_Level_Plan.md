@@ -1,6 +1,6 @@
 # MCIS — Museum Collections Information System
 
-_High Level Project Plan — Draft Version 0.11 — 2026-06-17-1243_
+_High Level Project Plan — Draft Version 0.12 — 2026-06-17-1255_
 
 ---
 
@@ -266,7 +266,7 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 
 ## 11. Prior Work & Related Projects
 
-MCIS grows from production tools built for the Harry S. Truman Presidential Library (HSTL). Each tool addresses a problem MCIS will face — and each represents working code, field-tested metadata schemas, and proven workflows that can be adapted rather than rebuilt from scratch.
+MCIS grows from production tools and prototypes built for the Harry S. Truman Presidential Library (HSTL) and Whitehead Home Museum (WHM). Each project addresses a problem MCIS will face — and each represents working code, field-tested metadata schemas, and proven workflows that can be adapted rather than rebuilt from scratch.
 
 ### HPM — HSTL Photo Metadata Framework
 
@@ -304,6 +304,16 @@ A proof-of-concept project managing the musical holdings at the Harry S. Truman 
 
 **Live collection:** [archive.org/details/trumanhomemusic](https://archive.org/details/trumanhomemusic)
 
+### QR Code Generator — WHM Prototype
+
+A prototype QR code module developed for Whitehead Home Museum (WHM), arising from a suggestion by Shelly Franklin to provide contextual information for artifacts currently on display with no information label. Two QR codes were generated and linked to placeholder records uploaded to the Internet Archive — a ship's bell and a bridge clock — demonstrating the end-to-end workflow: upload artifact record to IA, generate a QR code, print and display it beside the artifact, visitor scans with a smartphone camera and reaches the artifact's IA page directly.
+
+Testing confirmed that printed QR codes scan measurably faster than codes displayed on screen, and that codes as small as 2 cm (~0.75 inches) scan successfully. Key trade-offs identified for the Museum environment include QR code size, lighting conditions, and visitor phone hardware. The prototype established that the technology is mature and implementation at WHM is very doable with relatively little friction.
+
+**MCIS relevance:** This is the direct prototype for the MCIS QR Code Generator module. It proves out the full visitor-facing workflow — IA record → QR code → printed label → artifact display — and surfaces the practical questions (label size, display format, artifact numbering) that the module must resolve. The prototype has been formalized as a standalone MCIS module.
+
+**Repository:** [github.com/juren53/qr-code-generator](https://github.com/juren53/qr-code-generator)
+
 ---
 
 ## 12. Glossary
@@ -321,4 +331,4 @@ A proof-of-concept project managing the musical holdings at the Harry S. Truman 
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
 
-_2026-06-17-1243_
+_2026-06-17-1255_

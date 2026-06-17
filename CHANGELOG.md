@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-17-1255] — Add QR Code Generator prototype to Prior Work (v0.12)
+
+### Added
+- `docs/MCIS_High_Level_Plan.md` — §11 Prior Work: QR Code Generator WHM Prototype added; describes origin (Shelly Franklin's suggestion at WHM), two test artifacts (ship's bell, bridge clock), testing findings (printed codes scan faster, sub-2cm viable), and practical trade-offs identified; framed as the direct prototype for the MCIS QR Code Generator module
+- `docs/MCIS_High_Level_Plan.md` — §11 intro updated to acknowledge prior work extends to both HSTL and WHM; version bumped to 0.12
+
+---
+
 ## [2026-06-17-1253] — Establish QR Code Generator as first standalone MCIS module
 
 ### Added
