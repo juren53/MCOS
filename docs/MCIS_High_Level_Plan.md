@@ -1,6 +1,6 @@
 # MCIS — Museum Collections Information System
 
-_High Level Project Plan — Draft Version 0.8 — 2026-06-17-1116_
+_High Level Project Plan — Draft Version 0.9 — 2026-06-17-1148_
 
 ---
 
@@ -17,7 +17,7 @@ The system is built on a two-tier public/private architecture:
 - **Private Tier** — Full operational data is maintained in a secure, self-hosted database covering collections management, donor records, loans, location tracking, and internal inventory. Data stays on hardware the museum controls — no cloud dependency, no subscription, no vendor lock-in.
 - **Public Tier** — Selected collection records and artifact images can be published to the museum's Internet Archive (IA) collection, providing free, permanent, searchable public access aligned with the GLAM (Galleries, Libraries, Archives, Museums) open access movement.
 
-MCIS is not a greenfield project. It builds directly on production metadata tools developed for the Harry S. Truman Presidential Library — tools that have already solved problems MCIS will face: archival metadata schema design, IPTC/EXIF embedding in image files, batch processing pipelines, and field mapping to public publishing targets. See §12 for detail.
+MCIS is not a 'greenfield' project. It builds directly on production metadata tools developed for the Harry S. Truman Presidential Library — tools that have already solved problems MCIS will face: archival metadata schema design, IPTC/EXIF embedding in image files, batch processing pipelines, and field mapping to public publishing targets. See §11 for detail.
 
 ---
 
@@ -29,7 +29,7 @@ MCIS is not a greenfield project. It builds directly on production metadata tool
 | Affordable to Deploy | Runs on hardware the museum already owns, or an inexpensive server. No annual subscription. |
 | Simple to Operate | Designed for volunteers and part-time staff with high turnover. Low training curve is a first-order design requirement — not a nice-to-have. |
 | Multi-User Ready | Multiple staff and volunteers can work simultaneously from their own workstations, connecting to a shared database. |
-| Modular by Design | Museums adopt only the modules they need. Start with Collections and Objects; add Loans, Donors, and Members as capacity and interest grow. |
+| Modular by Design | Museums adopt only the modules they need. Start with Collections and Objects; add Members, Donors, Locations, and Loans as capacity and interest grow. |
 | Data Portable | Museums own their data in a standard, open format. Full export at any time. No vendor lock-in. |
 | Public Access Built In | Internet Archive publishing is a core feature, available from Phase 1. Publishing an approved collection record to the public is a one-step workflow, not a separate project. |
 | Standards Aligned | Field names, controlled vocabularies, and workflows reflect professional collections management standards (see §5). |
@@ -81,13 +81,15 @@ The operational core for a working museum or historical society, paired with a f
 
 ### Operations Modules
 
+*Additional operations modules may be scoped here as requirements emerge.*
+
 - **Inventory** — Equipment and supply records, vendor contacts, maintenance schedules
 
 ### Data Migration
 
-- CSV/Excel import with configurable field mapping — for institutions migrating from spreadsheets
-- Support for LIDO and other standard museum data interchange formats
-- Batch image import with automatic association to object records
+- CSV/Excel import with configurable field mapping — drawing on batch processing and Unicode handling experience from the HSTL photo and audio metadata pipelines
+- LIDO and other standard interchange format support
+- Batch image import with IPTC metadata extraction and automatic object association
 
 ---
 
@@ -110,7 +112,7 @@ MCIS field names and controlled vocabularies are informed by established collect
 
 ## 6. Technology Overview
 
-MCIS is a desktop application — not a web application. This is a deliberate choice. Small museums without IT staff should not need to run a web server, manage SSL certificates, or depend on a cloud subscription. Staff install MCIS like any other application on their Windows or Linux workstations. The database runs on one machine the museum already owns.
+MCIS is a desktop application — not a web application. This is a deliberate choice. Small museums without IT staff should not need to run a web server, manage SSL certificates, or depend on a cloud subscription. Staff install MCIS like any other application on their Windows, Linux, or macOS workstations. The database runs on one machine the museum already owns.
 
 | Component | Technology | What It Means for Your Institution |
 | :--- | :--- | :--- |
@@ -153,27 +155,29 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 
 *Milestone: A registrar can log in, accession objects with images, and publish an approved record to Internet Archive.*
 
-### Phase 2 — Collections Modules + Full IA Publisher
+### Phase 2 — Operational Modules
 
 *Full operational capability and a complete Internet Archive publishing workflow.*
 
+- Members / Comms: membership tiers, renewal tracking, lapsed-member outreach lists, newsletter distribution
+- Donors: records linked to donated objects, gift restrictions, acknowledgment letters
 - Locations: hierarchical location tracking, movement history, off-site locations
 - Loans: outgoing and incoming loan agreements, condition-out/in, insurance, overdue alerts
-- Donors: records linked to donated objects, gift restrictions, acknowledgment letters
 - **Full IA Publisher:** configurable field mapping UI; batch publish queue management and dashboard; update and unpublish support; multi-image upload to IA
 - Cross-module search and reporting
 - Packaged installer for Windows, Linux, and macOS
+
+*Note: Members/Comms schema to be designed before Phase 2 development begins.*
 
 *Milestone: A registrar can record a multi-object loan, track location history, generate a donor acknowledgment letter, and manage the full IA publish queue.*
 
 ### Phase 3 — Operations Modules
 
-*Expand beyond collections into broader museum administration.*
+*Expand beyond collections into broader museum administration. Additional operations modules may be scoped here as requirements emerge.*
 
-- Members / Comms: membership tracking, renewals, mailing lists
 - Inventory: equipment and supplies, maintenance schedules
 
-*Milestone: Member renewals can be tracked and a lapsed-member contact list exported.*
+*Milestone: Equipment and supply records are tracked and a maintenance schedule can be produced.*
 
 ### Phase 4 — Community & Sustainability
 
@@ -207,8 +211,9 @@ MCIS is in **Phase 0 — Project Infrastructure**.
 | GitHub repository | Complete |
 | README and project documentation | Complete |
 | Phase 1 database schema | Complete |
-| Phase 2 database schema | Complete |
-| Use case library (42 use cases) | Complete |
+| Phase 2 database schema (Locations, Loans, Donors) | Complete |
+| Phase 2 database schema (Members/Comms) | Not yet started |
+| Use case library | Complete |
 | Open source license | In progress |
 | Advisory board [TBD] engagement | In progress |
 | Phase 1 application development | Not yet started |
@@ -295,4 +300,4 @@ A Python/PyQt6 audio metadata editor with three modes: Archival Recording, Music
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
 
-_2026-06-17-1116_
+_2026-06-17-1148_
