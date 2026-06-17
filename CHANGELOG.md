@@ -6,6 +6,48 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-17-1116] — Weave HSTL Prior Work into Plan (v0.8)
+
+### Added
+- `docs/MCIS_High_Level_Plan.md` — new §11 Prior Work & Related Projects documenting three production tools built for the Harry S. Truman Presidential Library: HPM (HSTL Photo Metadata Framework), Tag Writer, and Audio Tag Writer (ATW); each entry covers purpose, key capabilities, and MCIS relevance with repository links
+- `docs/MCIS_High_Level_Plan.md` — IPTC added to §5 Standards Alignment table; field mapping proven in HPM and Tag Writer
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — §1 Project Overview: added paragraph noting MCIS builds on production HSTL tools with reference to §11
+- `docs/MCIS_High_Level_Plan.md` — §4 Objects module: media attachment bullet updated to note IPTC/EXIF embedding via ExifTool
+- `docs/MCIS_High_Level_Plan.md` — §6 Technology Overview: ExifTool added as a component for image metadata embedding
+- `docs/MCIS_High_Level_Plan.md` — §7 Phase 5 Data Migration: CSV/Excel import bullet notes HSTL pipeline experience; batch image import bullet notes IPTC metadata extraction
+- `docs/MCIS_High_Level_Plan.md` — old §11 Glossary renumbered to §12; version bumped to 0.8
+
+---
+
+## [2026-06-16-1549] — Documentation Plan v0.4 Critique File
+
+### Added
+- `docs/MCIS_Documentation_Plan_Critique_v04.md` — eight-point critique of the Documentation Plan v0.4: Contributing Guide phase placement, Extension Developer Guide dependency on unscoped work, missing Quick Start / onboarding path, missing SECURITY.md, hardcoded use case count, Phase 2 schema "Complete" status ambiguity, missing Release Notes, and empty In Progress section
+
+---
+
+## [2026-06-16-1527] — Restructure Phase 2: Members, Donors, Locations & Loans
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — §4 Phase 2 section renamed from "Locations, Loans & Donors" to "Members, Donors, Locations & Loans"; Members/Comms bullet moved from Phase 3 (Operations Modules) into Phase 2; Phase 0 schema reference updated to match new Phase 2 scope
+- `docs/MCIS_Documentation_Plan.md` — Phase 2 user guide renamed from "User Guide: Locations, Loans & Donors" to "User Guide: Members, Donors, Locations & Loans"; Phase 3 user guide reduced from "Members & Inventory" to "Inventory" only
+
+---
+
+## [2026-06-16-1526] — Documentation Plan v0.4
+
+### Added
+- `docs/MCIS_Documentation_Plan.md` — Test Plan added as a Phase 1 planned document: test framework and tooling, unit/integration/end-to-end coverage goals, how to run locally, conventions for new tests, CI execution
+
+### Changed
+- `docs/MCIS_Documentation_Plan.md` — Deployment Guide description updated: Docker Compose option replaced with guided setup option; backup language made specific (automated daily schedule and off-site copy instructions)
+- `docs/MCIS_Documentation_Plan.md` — System Architecture Document description simplified; jargon removed; contributor framing clarified
+- `docs/MCIS_Documentation_Plan.md` — Planned count corrected 10 → 11; version bumped to 0.4
+
+---
+
 ## [2026-06-16-1517] — Plan Critique Fixes (v0.7)
 
 ### Changed
@@ -334,6 +376,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Version History Summary
 
-- **2026-06-16** — Phase 1 schema critique fixes (maker, condition_date, file_path UNIQUE, finding_aid_is_url, MIME types, single-role note); CHANGELOG timestamps updated to HHMM; use case critique fixes (42 cases, 6 new UCs); ia_queued added to Phase 1 schema; README documentation table; use cases collection (36 cases initial); Phase 2 schema design and critique passes; deployment model clarified; CHANGELOG added
+- **2026-06-17** — HSTL prior work woven throughout High Level Plan (v0.8): §11 Prior Work & Related Projects added (HPM, Tag Writer, ATW); IPTC and ExifTool added to standards and technology tables
+- **2026-06-16** — Documentation Plan v0.4: Test Plan added, descriptions revised, Planned count corrected; Phase 2 restructured to Members, Donors, Locations & Loans in both plan and documentation plan; Documentation Plan critique file added; Phase 1 schema critique fixes (maker, condition_date, file_path UNIQUE, finding_aid_is_url, MIME types, single-role note); CHANGELOG timestamps updated to HHMM; use case critique fixes (42 cases, 6 new UCs); ia_queued added to Phase 1 schema; README documentation table; use cases collection (36 cases initial); Phase 2 schema design and critique passes; deployment model clarified; CHANGELOG added
 - **2026-06-15** — Phase 1 schema design (collections, objects, media, users, audit_log) added; README deployment wording improved
 - **2026-06-14** — Project launched: high-level plan converted from HTML and fully revised; README written and refined; critique passes on both documents
