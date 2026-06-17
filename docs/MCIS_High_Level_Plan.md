@@ -27,7 +27,7 @@ MCIS is not a 'greenfield' project. It builds directly on production metadata to
 | :--- | :--- |
 | Free & Open Source | No licensing fees, ever. Community-developed and maintained. |
 | Affordable to Deploy | Runs on hardware the museum already owns, or an inexpensive server. No annual subscription. |
-| Simple to Operate | Designed for volunteers and part-time staff with high turnover. Low training curve is a first-order design requirement — not a nice-to-have. |
+| Simple to Operate | Intuitive and easy to use for staff and volunteers experienced in museum and archive work. A low training curve is a first-order design requirement — not a nice-to-have. |
 | Multi-User Ready | Multiple staff and volunteers can work simultaneously from their own workstations, connecting to a shared database. |
 | Modular by Design | Museums adopt only the modules they need. Start with Collections and Objects; add Members, Donors, Locations, and Loans as capacity and interest grow. |
 | Data Portable | Museums own their data in a standard, open format. Full export at any time. No vendor lock-in. |
