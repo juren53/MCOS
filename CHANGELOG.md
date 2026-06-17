@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-17-1148] — Address 12-Point Critique of High Level Plan (v0.9)
+
+### Changed
+- `docs/MCIS_High_Level_Plan.md` — 12 critique points addressed; version bumped to 0.9:
+  - §7 Phase 2 heading renamed from "Collections Modules + Full IA Publisher" to "Operational Modules"
+  - §7 Phase 2 bullet list: Members/Comms added, leading the list; Donors, Locations, Loans reordered to match §4
+  - §7 Phase 3: Members/Comms bullet removed (moved to Phase 2)
+  - §7 Phase 3 milestone rewritten around Inventory only — removed Members reference
+  - §7 Phase 3 description: note added that additional operations modules may be scoped here
+  - §7 Phase 2: note added that Members/Comms schema must be designed before Phase 2 development begins
+  - §1: section reference corrected "§12" → "§11" (Prior Work); 'greenfield' put in single quotes
+  - §2 Modular by Design principle: module order updated to Members, Donors, Locations, and Loans
+  - §6 intro paragraph: macOS added alongside Windows and Linux
+  - §4 Data Migration: wording synced to §7 (HSTL pipeline callout, IPTC metadata extraction note)
+  - §4 Operations Modules: note added that additional modules may be scoped here
+  - §8 Status table: Phase 2 schema row split into two — Locations/Loans/Donors (Complete) and Members/Comms (Not yet started); "42 use cases" count removed from use case library row
+
+---
+
 ## [2026-06-17-1116] — Weave HSTL Prior Work into Plan (v0.8)
 
 ### Added
@@ -376,7 +395,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Version History Summary
 
-- **2026-06-17** — HSTL prior work woven throughout High Level Plan (v0.8): §11 Prior Work & Related Projects added (HPM, Tag Writer, ATW); IPTC and ExifTool added to standards and technology tables
+- **2026-06-17** — High Level Plan v0.9: 12-point critique resolved (Phase 2/3 inconsistencies, cross-section fixes, Members/Comms schema gap flagged, hardcoded use case count removed); HSTL prior work woven throughout plan (v0.8): §11 Prior Work & Related Projects added (HPM, Tag Writer, ATW); IPTC and ExifTool added to standards and technology tables
 - **2026-06-16** — Documentation Plan v0.4: Test Plan added, descriptions revised, Planned count corrected; Phase 2 restructured to Members, Donors, Locations & Loans in both plan and documentation plan; Documentation Plan critique file added; Phase 1 schema critique fixes (maker, condition_date, file_path UNIQUE, finding_aid_is_url, MIME types, single-role note); CHANGELOG timestamps updated to HHMM; use case critique fixes (42 cases, 6 new UCs); ia_queued added to Phase 1 schema; README documentation table; use cases collection (36 cases initial); Phase 2 schema design and critique passes; deployment model clarified; CHANGELOG added
 - **2026-06-15** — Phase 1 schema design (collections, objects, media, users, audit_log) added; README deployment wording improved
 - **2026-06-14** — Project launched: high-level plan converted from HTML and fully revised; README written and refined; critique passes on both documents
