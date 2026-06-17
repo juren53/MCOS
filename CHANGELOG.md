@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-17-1709] — Sync Documentation Plan phasing with High Level Plan (Doc Plan v0.8)
+
+### Fixed
+- `docs/MCIS_Documentation_Plan.md` — Notes: corrected stale "Community & Sustainability (Phase 4)" to Phase 5, reflecting the earlier Phase 4/5 swap
+
+### Changed
+- `docs/MCIS_Documentation_Plan.md` — Phase 1 section heading aligned with the High Level Plan ("Core Framework" → "Core Framework + Basic IA Publishing"); version bumped to 0.8
+
+---
+
 ## [2026-06-17-1659] — Refine guiding principles, add Grant Alignment, rename WHM (v0.16)
 
 ### Added

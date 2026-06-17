@@ -1,6 +1,6 @@
 # MCIS Documentation Plan
 
-_Draft Version 0.7 — 2026-06-17-1300_
+_Draft Version 0.8 — 2026-06-17-1709_
 
 This document tracks all MCIS documentation — completed, in progress, and planned. Each document is assigned a target phase, a primary audience, and a brief description of its scope.
 
@@ -41,7 +41,7 @@ This document tracks all MCIS documentation — completed, in progress, and plan
 
 Documents are listed in the phase when they are expected to be drafted. All dates and phase assignments are subject to revision.
 
-### Phase 1 — Core Framework
+### Phase 1 — Core Framework + Basic IA Publishing
 
 | Document | Audience | Description |
 | :--- | :--- | :--- |
@@ -88,8 +88,8 @@ Documents are listed in the phase when they are expected to be drafted. All date
 
 - User guides will be written module-by-module as each Phase reaches completion, not in advance. Writing user documentation before the UI is final produces documentation that immediately needs rewriting.
 - The Deployment Guide is the highest-priority planned document — it is needed before any pilot institution can begin testing Phase 1.
-- No schema documents are planned for Phases 3–5. The Members/Comms schema (Phase 2) is planned but not yet drafted — see Phase 2 above. Operations and Data Migration modules will be designed when those phases are scoped; Community & Sustainability (Phase 4) involves no new database entities.
+- No schema documents are planned for Phases 3–5. The Members/Comms schema (Phase 2) is planned but not yet drafted — see Phase 2 above. Operations and Data Migration modules will be designed when those phases are scoped; Community & Sustainability (Phase 5) involves no new database entities.
 
 ---
 
-_2026-06-17-1300_
+_2026-06-17-1709_
