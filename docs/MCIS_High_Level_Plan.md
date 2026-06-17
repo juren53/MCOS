@@ -33,7 +33,7 @@ MCIS is not a 'greenfield' project. It builds directly on production metadata to
 | Data Portable | Museums own their data in a standard, open format. Full export at any time. No vendor lock-in. |
 | Public Access Built In | Internet Archive publishing is a core feature, available from Phase 1. Publishing an approved collection record to the public is a one-step workflow, not a separate project. |
 | Standards Aligned | Field names, controlled vocabularies, and workflows reflect professional collections management standards (see §5). |
-| Grant Friendly | Open access commitment and IMLS-aligned mission supports grant applications from IMLS, NEH, state humanities councils, and private foundations. |
+| Grant Friendly | Open access commitment and IMLS-aligned mission support grant applications from IMLS, NEH, state humanities councils, and private foundations. |
 | Accessible by Design | Designed for users of varying technical ability; interface will be consistent, intuitive, and operable without specialist training. |
 
 ---
