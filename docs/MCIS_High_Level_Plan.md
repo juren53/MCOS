@@ -309,7 +309,7 @@ A proof-of-concept project managing the musical holdings at the Harry S. Truman 
 
 ### QR Code Generator — WHM Prototype
 
-A prototype QR code module developed for Weston Historical Museum (WHM), arising from a suggestion by Shelly Franklin to provide contextual information for artifacts currently on display with no information label. Two QR codes were generated and linked to placeholder records uploaded to the Internet Archive — a ship's bell and a bridge clock — demonstrating the end-to-end workflow: upload artifact record to IA, generate a QR code, print and display it beside the artifact, visitor scans with a smartphone camera and reaches the artifact's IA page directly.
+A prototype QR code module developed for Weston Historical Museum (WHM) provides contextual information for artifacts currently on display with no information label. Two QR codes were generated and linked to placeholder records uploaded to the Internet Archive — a ship's bell and a bridge clock — demonstrating the end-to-end workflow: upload artifact record to IA, generate a QR code, print and display it beside the artifact, visitor scans with a smartphone camera and reaches the artifact's IA page directly.
 
 Testing confirmed that printed QR codes scan measurably faster than codes displayed on screen, and that codes as small as 2 cm (~0.75 inches) scan successfully. Key trade-offs identified for the Museum environment include QR code size, lighting conditions, and visitor phone hardware. The prototype established that the technology is mature and implementation at WHM is very doable with relatively little friction.
 
