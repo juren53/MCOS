@@ -1,6 +1,6 @@
 # MCIS — Museum Collections Information System
 
-_High Level Project Plan — Draft Version 0.9 — 2026-06-17-1148_
+_High Level Project Plan — Draft Version 0.10 — 2026-06-17-1210_
 
 ---
 
@@ -283,6 +283,16 @@ A Python/PyQt6 audio metadata editor with three modes: Archival Recording, Music
 
 **Repository:** [github.com/juren53/audio-tag-writer](https://github.com/juren53/audio-tag-writer)
 
+### Truman Home Music Collection
+
+A proof-of-concept project managing the musical holdings at the Harry S. Truman National Historic Site (U.S. National Park Service). Phase 1 is complete — a selection of items from the collection is publicly accessible at [archive.org/details/trumanhomemusic](https://archive.org/details/trumanhomemusic). The code and scripts are prototype-quality rather than production-ready.
+
+**MCIS relevance:** This project is the direct proof of concept for MCIS's core Internet Archive publishing model — a real cultural heritage collection, live on IA, published by the same developer. Where HPM, Tag Writer, and ATW prove out the metadata and tooling side, the Truman Home Music Collection proves out the end-to-end IA publishing workflow: collection setup, item upload, metadata mapping, and public access. MCIS formalizes and generalizes this workflow for any small museum.
+
+**Repository:** [github.com/juren53/TrumanMusicCollection](https://github.com/juren53/TrumanMusicCollection)
+
+**Live collection:** [archive.org/details/trumanhomemusic](https://archive.org/details/trumanhomemusic)
+
 ---
 
 ## 12. Glossary
@@ -300,4 +310,4 @@ A Python/PyQt6 audio metadata editor with three modes: Archival Recording, Music
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
 
-_2026-06-17-1148_
+_2026-06-17-1210_
