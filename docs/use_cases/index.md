@@ -1,4 +1,4 @@
-# MCIS Use Cases — Index
+# MCOS Use Cases — Index
 
 Use cases for validating schema correctness and UI behaviour as each module is developed. Each use case includes specific test data, step-by-step actions, expected database state, and the schema tables exercised.
 
@@ -8,8 +8,8 @@ Negative cases (constraint violations, role denials) are marked **[NEGATIVE]** a
 
 These use cases were derived from:
 
-- **MCIS schema design documents** — `docs/schema_phase1.md` and `docs/schema_phase2.md`. Constraints, FK behaviours, CHECK rules, and column definitions in the use cases reflect those documents directly.
-- **MCIS High Level Project Plan** — `docs/MCIS_High_Level_Plan.md`. Module scope, role definitions (Admin/Registrar/Staff/Volunteer/ReadOnly), and the phased development plan inform which use cases belong to which phase.
+- **MCOS schema design documents** — `docs/schema_phase1.md` and `docs/schema_phase2.md`. Constraints, FK behaviours, CHECK rules, and column definitions in the use cases reflect those documents directly.
+- **MCOS High Level Project Plan** — `docs/MCOS_High_Level_Plan.md`. Module scope, role definitions (Admin/Registrar/Staff/Volunteer/ReadOnly), and the phased development plan inform which use cases belong to which phase.
 - **Standard museum collections management practice** — accession numbering conventions, fuzzy date handling ("circa 1910"), condition vocabulary (Excellent/Good/Fair/Poor/Unknown), loan condition-out/condition-in workflow, and donor acknowledgment practice reflect common registrarial standards as described in *Museum Registration Methods* (5th ed., AAM Press) and the Collections Trust (UK) SPECTRUM standard.
 - **GLAM open access practice** — Internet Archive flagging and anonymous donor display reflect GLAM sector norms for open access publishing.
 

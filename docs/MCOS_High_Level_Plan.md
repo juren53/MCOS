@@ -1,23 +1,23 @@
-# MCIS — Museum Collections Information System
+# MCOS — Museum Collections & Operations System
 
-_High Level Project Plan — Draft Version 0.18 — 2026-06-17-2104_
+_High Level Project Plan — Draft Version 0.19 — 2026-06-17-2125_
 
 ---
 
 ## 1. Project Overview
 
-MCIS is a free, open source museum collections information system designed specifically for small, budget-constrained museums, historical societies, and specialized collections. It will deliver professional-grade collections management without the licensing costs or technical complexity of commercial platforms such as PastPerfect, Argus, or The Museum System (TMS).
+MCOS is a free, open source museum collections information system designed specifically for small, budget-constrained museums, historical societies, and specialized collections. It will deliver professional-grade collections management without the licensing costs or technical complexity of commercial platforms such as PastPerfect, Argus, or The Museum System (TMS).
 
-**The problem MCIS addresses:** Hundreds of small museums, historical societies, and community archives currently manage their collections in Excel spreadsheets, paper registers, or aging standalone software. These institutions cannot afford commercial solutions — many cost thousands of dollars per year in subscription fees — and lack the IT staff to deploy and maintain web-based alternatives. Their collections remain undiscoverable, their data is at risk, and their staff and volunteers face unnecessary administrative burden.
+**The problem MCOS addresses:** Hundreds of small museums, historical societies, and community archives currently manage their collections in Excel spreadsheets, paper registers, or aging standalone software. These institutions cannot afford commercial solutions — many cost thousands of dollars per year in subscription fees — and lack the IT staff to deploy and maintain web-based alternatives. Their collections remain undiscoverable, their data is at risk, and their staff and volunteers face unnecessary administrative burden.
 
-**The MCIS approach:** A free, easy-to-install desktop application that any registrar, staff member, or trained volunteer can learn quickly, backed by a shared database that all workstations connect to simultaneously, with Internet Archive publishing built in from the start.
+**The MCOS approach:** A free, easy-to-install desktop application that any registrar, staff member, or trained volunteer can learn quickly, backed by a shared database that all workstations connect to simultaneously, with Internet Archive publishing built in from the start.
 
 The system is built on a two-tier public/private architecture:
 
 - **Private Tier** — Full operational data is maintained in a secure, self-hosted database covering collections management, donor records, loans, location tracking, and internal inventory. Data stays on hardware the museum controls — no cloud dependency, no subscription, no vendor lock-in.
 - **Public Tier** — Selected collection records and artifact images can be published to the museum's Internet Archive (IA) collection, providing free, permanent, searchable public access aligned with the GLAM (Galleries, Libraries, Archives, Museums) open access movement.
 
-MCIS is not a 'greenfield' project. It builds directly on production metadata tools developed for the Harry S. Truman Presidential Library — tools that have already solved problems MCIS will face: archival metadata schema design, IPTC/EXIF embedding in image files, batch processing pipelines, and field mapping to public publishing targets. See §11 for detail.
+MCOS is not a 'greenfield' project. It builds directly on production metadata tools developed for the Harry S. Truman Presidential Library — tools that have already solved problems MCOS will face: archival metadata schema design, IPTC/EXIF embedding in image files, batch processing pipelines, and field mapping to public publishing targets. See §11 for detail.
 
 ---
 
@@ -40,7 +40,7 @@ MCIS is not a 'greenfield' project. It builds directly on production metadata to
 
 ## 3. Target Institutions
 
-MCIS is designed for institutions that are professionally committed to collections stewardship but cannot afford, or choose not to use, commercial collections management software:
+MCOS is designed for institutions that are professionally committed to collections stewardship but cannot afford, or choose not to use, commercial collections management software:
 
 - Small local historical societies operating on volunteer labor
 - Community art museums and galleries with limited IT support
@@ -53,20 +53,20 @@ MCIS is designed for institutions that are professionally committed to collectio
 
 ---
 
-## 4. What MCIS Will Do
+## 4. What MCOS Will Do
 
-MCIS is organized into functional modules. Each module integrates into the full MCIS application; smaller institutions can enable only the modules they need.
+MCOS is organized into functional modules. Each module integrates into the full MCOS application; smaller institutions can enable only the modules they need.
 
 ### Collections, Objects & Internet Archive Publishing
 
-The foundation of any collections management system — with the feature that sets MCIS apart built in from the first release: direct Internet Archive publishing.
+The foundation of any collections management system — with the feature that sets MCOS apart built in from the first release: direct Internet Archive publishing.
 
 - Create and manage named collections with accession policies and finding aids (free text or URL)
 - Accession individual objects with full cataloguing fields: title, maker, date made, medium, dimensions, provenance, credit line, rights statement, condition grade, condition notes, and structured condition assessment date
 - Attach multiple images and documents (JPEG, TIFF, PNG, PDF) per object, with primary image designation, sort order, and IPTC/EXIF metadata embedding via ExifTool (and/or Exiv2) — ensuring attached images carry accession number, rights statement, and credit information within the file itself
-- **Scanning Module** — An interface layer between existing, proven scanning software and Collections rather than a scanner driver of its own; MCIS does not re-invent functional, well-proven wheels. As images are scanned individually or in batches, the module ingests them, checks for and reports on existing metadata, and facilitates review, correction, and attachment to objects as the user or institution deems necessary. It integrates the pre-existing Tag Writer photo-metadata functions (IPTC/XMP/EXIF editing via the bundled ExifTool and/or Exiv2) so scanned images can be inspected and corrected in the same HSTL field set used throughout MCIS before they are committed to the catalogue
+- **Scanning Module** — An interface layer between existing, proven scanning software and Collections rather than a scanner driver of its own; MCOS does not re-invent functional, well-proven wheels. As images are scanned individually or in batches, the module ingests them, checks for and reports on existing metadata, and facilitates review, correction, and attachment to objects as the user or institution deems necessary. It integrates the pre-existing Tag Writer photo-metadata functions (IPTC/XMP/EXIF editing via the bundled ExifTool and/or Exiv2) so scanned images can be inspected and corrected in the same HSTL field set used throughout MCOS before they are committed to the catalogue
 - Attach audio recordings (MP3, WAV) per object, with archival ID3v2.3 metadata embedding via the Audio Tag Writer (ATW) functions — ensuring attached recordings carry accession number, speakers, date recorded, rights/restrictions, and collection within the file itself, mirroring the image metadata workflow
-- **Audio Ingest Module** — The audio counterpart to the Scanning Module: an interface layer between existing, proven audio digitization and transfer software and Collections rather than a capture tool of its own. As recordings are transferred individually or in batches, the module ingests them, checks for and reports on existing metadata, and facilitates review, correction, and attachment to objects as the user or institution deems necessary. It integrates the pre-existing Audio Tag Writer (ATW) functions (the HSTL ID3v2.3 archival frame set, with cross-schema aliases for iTunes, XMP, and Windows Media) — modules already functioning in production at the Truman Library — so transferred recordings are inspected and corrected in the same archival field set used throughout MCIS before they are committed to the catalogue
+- **Audio Ingest Module** — The audio counterpart to the Scanning Module: an interface layer between existing, proven audio digitization and transfer software and Collections rather than a capture tool of its own. As recordings are transferred individually or in batches, the module ingests them, checks for and reports on existing metadata, and facilitates review, correction, and attachment to objects as the user or institution deems necessary. It integrates the pre-existing Audio Tag Writer (ATW) functions (the HSTL ID3v2.3 archival frame set, with cross-schema aliases for iTunes, XMP, and Windows Media) — modules already functioning in production at the Truman Library — so transferred recordings are inspected and corrected in the same archival field set used throughout MCOS before they are committed to the catalogue
 - Field-specific and full-text search across the entire catalogue
 - Role-based access control: Admin, Registrar, Staff, Volunteer, and Read-Only — each role has appropriate capabilities
 - Complete audit trail of every record creation, edit, and deletion, with user attribution and before/after field values
@@ -81,7 +81,7 @@ The operational core for a working museum or historical society, paired with a f
 - **Donors** — Individual and organization donor records; link donated objects to their donors; gift restrictions; acknowledgment letter generation; anonymous donor flag with public suppression; deactivation for deceased or lapsed donors
 - **Locations** — Hierarchical location tree (building → room → case → shelf); record where every object is; full movement history; off-site and loan-destination locations
 - **Loans** — Outgoing and incoming loan agreements with multi-object support; condition-out / condition-in recording; insurance value and currency; return deadlines and overdue alerts; loan status (Pending, Active, Returned, Cancelled)
-- **Full IA Publisher** — Configurable field mapping UI (MCIS fields → IA metadata); batch publish queue management and dashboard; update and unpublish support; multi-image upload
+- **Full IA Publisher** — Configurable field mapping UI (MCOS fields → IA metadata); batch publish queue management and dashboard; update and unpublish support; multi-image upload
 
 ### Operations Modules
 
@@ -99,9 +99,9 @@ The operational core for a working museum or historical society, paired with a f
 
 ## 5. Standards Alignment
 
-MCIS field names and controlled vocabularies are informed by established collections management standards. Alignment with these standards improves data interoperability, satisfies grant reporting requirements, and means that museums using MCIS are building records that are exportable into future systems.
+MCOS field names and controlled vocabularies are informed by established collections management standards. Alignment with these standards improves data interoperability, satisfies grant reporting requirements, and means that museums using MCOS are building records that are exportable into future systems.
 
-| Standard | How MCIS Aligns |
+| Standard | How MCOS Aligns |
 | :--- | :--- |
 | **Dublin Core** | Core descriptive fields — title, maker (creator), date made, description, rights statement — map directly to Dublin Core elements; used as the basis for Internet Archive metadata export |
 | **IPTC** (International Press Telecommunications Council) | Image metadata fields — headline (title), caption (description), object name (accession number), byline (photographer), credit, source (collection), copyright notice (restrictions) — are embedded directly in attached image files using ExifTool (and/or Exiv2); field mapping proven in the HSTL photo pipeline and Tag Writer |
@@ -110,13 +110,13 @@ MCIS field names and controlled vocabularies are informed by established collect
 | **AAM Standards** | Object records include the fields required by the *National Standards and Best Practices for U.S. Museums* (American Alliance of Museums, 2008): unique accession number, title, provenance, rights statement, and condition |
 | **IMLS Data Stewardship** | Audit logging, data export, and backup guidance align with IMLS data stewardship expectations for grantees; the rights statement field is required before any object can be published publicly |
 
-**Note:** MCIS does not claim certification under any of these standards. The alignment documented here reflects best-effort conformance at the schema and workflow level, and will be refined through the advisory board [TBD] review process.
+**Note:** MCOS does not claim certification under any of these standards. The alignment documented here reflects best-effort conformance at the schema and workflow level, and will be refined through the advisory board [TBD] review process.
 
 ### Grant Alignment
 
-The standards work above is one half of the grant case; the other half is how MCIS maps to what funders actually evaluate. Grant reviewers at IMLS, NEH, state humanities councils, and private foundations consistently weigh public access, rights management, data stewardship, interoperability, and sustainability. MCIS is designed so a small institution can answer each of these with a concrete feature rather than a promise.
+The standards work above is one half of the grant case; the other half is how MCOS maps to what funders actually evaluate. Grant reviewers at IMLS, NEH, state humanities councils, and private foundations consistently weigh public access, rights management, data stewardship, interoperability, and sustainability. MCOS is designed so a small institution can answer each of these with a concrete feature rather than a promise.
 
-| Funder Priority | How MCIS Supports It |
+| Funder Priority | How MCOS Supports It |
 | :--- | :--- |
 | **Public access & dissemination** | Internet Archive publishing is built in from Phase 1 — publishing an approved record is a one-step workflow, not a separate grant deliverable. The Truman Home Music Collection (§11) is a live proof of the end-to-end workflow producing free, permanent public access. |
 | **Rights & permissions** | A rights statement is required before any object can be published publicly, so digitization funded by a grant cannot inadvertently publish material without clear rights. |
@@ -131,7 +131,7 @@ The standards work above is one half of the grant case; the other half is how MC
 
 ## 6. Technology Overview
 
-MCIS is a desktop application — not a web application. This is a deliberate choice. Small museums without IT staff should not need to run a web server, manage SSL certificates, or depend on a cloud subscription. Staff install MCIS like any other application on their Windows, Linux, or macOS workstations. The database runs on one machine the museum already owns.
+MCOS is a desktop application — not a web application. This is a deliberate choice. Small museums without IT staff should not need to run a web server, manage SSL certificates, or depend on a cloud subscription. Staff install MCOS like any other application on their Windows, Linux, or macOS workstations. The database runs on one machine the museum already owns.
 
 | Component | Technology | What It Means for Your Institution |
 | :--- | :--- | :--- |
@@ -139,7 +139,7 @@ MCIS is a desktop application — not a web application. This is a deliberate ch
 | Database | PostgreSQL (multi-user) / SQLite (single-user) | Multi-user: PostgreSQL runs on existing hardware with concurrent access for multiple staff simultaneously. Single-user option: SQLite — no separate database server required; the database lives in a single file alongside the application. Both are free and open source. |
 | IA Publishing | Internet Archive API | The official Internet Archive tool for metadata and file upload — ensures compatibility with IA's current and future API. |
 | Image Metadata | ExifTool (and/or Exiv2) | Embeds IPTC/EXIF metadata directly into attached image files at ingest — accession number, rights statement, credit, and collection. Ensures images carry provenance data within the file regardless of where they are copied or published. Bundled with the application; no separate installation required. |
-| Packaging | PyInstaller | Staff install MCIS like any other desktop application. No Python installation or technical knowledge required on their machines. |
+| Packaging | PyInstaller | Staff install MCOS like any other desktop application. No Python installation or technical knowledge required on their machines. |
 
 **Data ownership:** All data lives in a PostgreSQL database on hardware the museum controls. Export the full database at any time in standard SQL format. There is no cloud sync, no vendor account required, and no data stored outside the museum's own infrastructure.
 
@@ -147,7 +147,7 @@ MCIS is a desktop application — not a web application. This is a deliberate ch
 
 ## 7. Phased Development Plan
 
-Development proceeds in phases. Each phase produces a testable, usable milestone — a pilot institution can begin using MCIS from Phase 1 onward and benefit from each subsequent phase without waiting for the full roadmap to complete.
+Development proceeds in phases. Each phase produces a testable, usable milestone — a pilot institution can begin using MCOS from Phase 1 onward and benefit from each subsequent phase without waiting for the full roadmap to complete.
 
 ### Phase 0 — Project Infrastructure *(Complete)*
 
@@ -204,11 +204,11 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 - LIDO and other standard interchange format support
 - Batch image import with IPTC metadata extraction and automatic object association
 
-*Milestone: A museum can import a full spreadsheet or PastPerfect data export and review the results in MCIS.*
+*Milestone: A museum can import a full spreadsheet or PastPerfect data export and review the results in MCOS.*
 
 ### Phase 5 — Community & Sustainability
 
-*Grow MCIS into a self-sustaining open source project.*
+*Grow MCOS into a self-sustaining open source project.*
 
 - Public documentation website
 - Demo database with a realistic fictional museum for evaluation and training
@@ -221,7 +221,7 @@ Development proceeds in phases. Each phase produces a testable, usable milestone
 
 ## 8. Current Status
 
-MCIS is in **Phase 0 — Project Infrastructure**.
+MCOS is in **Phase 0 — Project Infrastructure**.
 
 | Deliverable | Status |
 | :--- | :--- |
@@ -237,7 +237,7 @@ MCIS is in **Phase 0 — Project Infrastructure**.
 
 The schema and use case work is complete. The next step is beginning Phase 1 application development, with advisory board [TBD] review of the schema documents planned for the same period.
 
-**Project Repository:** MCIS is publicly hosted at [https://github.com/juren53/MCIS](https://github.com/juren53/MCIS). GitHub is a widely used platform for open source software development. For MCIS it serves several purposes: it stores all project files with a complete history of every change; it provides a public issue tracker where museum professionals and developers can report problems, request features, and discuss design questions; and it makes the codebase freely accessible to anyone who wants to contribute. No GitHub account is required to browse the repository or read the documentation — an account is only needed to open an issue or submit code.
+**Project Repository:** MCOS is publicly hosted at [https://github.com/juren53/MCOS](https://github.com/juren53/MCOS). GitHub is a widely used platform for open source software development. For MCOS it serves several purposes: it stores all project files with a complete history of every change; it provides a public issue tracker where museum professionals and developers can report problems, request features, and discuss design questions; and it makes the codebase freely accessible to anyone who wants to contribute. No GitHub account is required to browse the repository or read the documentation — an account is only needed to open an issue or submit code.
 
 ---
 
@@ -249,9 +249,9 @@ The schema and use case work is complete. The next step is beginning Phase 1 app
 | Argus | Enterprise pricing | Mid–Large | No | No |
 | The Museum System (TMS) | Enterprise pricing | Large | No | No |
 | CollectiveAccess | Free | Small–Large | Yes | No |
-| MCIS *(in development)* | Free | Small | Yes | Yes — Phase 1 |
+| MCOS *(in development)* | Free | Small | Yes | Yes — Phase 1 |
 
-CollectiveAccess is the closest open source peer — a capable, mature system with a strong community. It is, however, a web application requiring a PHP web server, database server, and ongoing server administration. For a small historical society with no IT staff, that deployment burden is often prohibitive regardless of software cost. MCIS offers a simpler path: download the installer, point it at the database, and begin cataloguing — with Internet Archive publishing available from the first release.
+CollectiveAccess is the closest open source peer — a capable, mature system with a strong community. It is, however, a web application requiring a PHP web server, database server, and ongoing server administration. For a small historical society with no IT staff, that deployment burden is often prohibitive regardless of software cost. MCOS offers a simpler path: download the installer, point it at the database, and begin cataloguing — with Internet Archive publishing available from the first release.
 
 ---
 
@@ -272,7 +272,7 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 
 ## 11. Prior Work & Related Projects
 
-MCIS grows from production tools and prototypes built for the Harry S. Truman Presidential Library (HSTL) and Weston Historical Museum (WHM). Each project addresses a problem MCIS will face — and each represents working code, field-tested metadata schemas, and proven workflows that can be adapted rather than rebuilt from scratch.
+MCOS grows from production tools and prototypes built for the Harry S. Truman Presidential Library (HSTL) and Weston Historical Museum (WHM). Each project addresses a problem MCOS will face — and each represents working code, field-tested metadata schemas, and proven workflows that can be adapted rather than rebuilt from scratch.
 
 Image and audio files processed at the Truman Library using the HPM, Tag Writer, and Audio Tag Writer (ATW) code have been uploaded to and validated in the U.S. National Archives (NARA) Catalog, and are currently available online — concrete proof that these metadata schemas and tools produce records accepted and published by a national repository, not just in a developer's test environment.
 
@@ -280,7 +280,7 @@ Image and audio files processed at the Truman Library using the HPM, Tag Writer,
 
 A Python/PyQt6 desktop application that orchestrates an 8-step batch pipeline: Excel metadata spreadsheet → CSV conversion → Unicode cleanup → TIFF processing → IPTC/EXIF metadata embedding (via ExifTool and/or Exiv2) → JPEG conversion → resizing → watermarking for restricted images. The pipeline prepares photos for upload to the NARA catalog. HPM is packaged with PyInstaller, ships as a single Windows executable, and has a full acceptance test suite.
 
-**MCIS relevance:** The ExifTool (and/or Exiv2) integration, batch image processing pipeline, IPTC field mapping, and PyInstaller packaging approach are all directly applicable to the MCIS Objects module and the Phase 5 Data Migration tools.
+**MCOS relevance:** The ExifTool (and/or Exiv2) integration, batch image processing pipeline, IPTC field mapping, and PyInstaller packaging approach are all directly applicable to the MCOS Objects module and the Phase 5 Data Migration tools.
 
 **Repository:** [github.com/juren53/HST-Metadata](https://github.com/juren53/HST-Metadata)
 
@@ -288,9 +288,9 @@ A Python/PyQt6 desktop application that orchestrates an 8-step batch pipeline: E
 
 A Python/PyQt6 image metadata editor for cases where batch processing is not applicable — a registrar or archivist needs to view or correct the metadata on a single image. Tag Writer edits IPTC/XMP/EXIF fields with a form-based UI, includes a full-size image viewer, bundles ExifTool (and/or Exiv2) for fast image paging, and supports multiple color themes and JSON export/import.
 
-The HSTL IPTC field set Tag Writer implements — headline (title), caption-abstract (description), object name (accession number), byline (photographer), credit, source (collection), copyright notice (restrictions) — is the direct basis for the MCIS object metadata schema and its mapping to Internet Archive metadata fields.
+The HSTL IPTC field set Tag Writer implements — headline (title), caption-abstract (description), object name (accession number), byline (photographer), credit, source (collection), copyright notice (restrictions) — is the direct basis for the MCOS object metadata schema and its mapping to Internet Archive metadata fields.
 
-**MCIS relevance:** The IPTC field set and its Dublin Core alignment directly inform the MCIS Objects module schema and the IA metadata export. The single-record editing workflow is the model for the MCIS object record form.
+**MCOS relevance:** The IPTC field set and its Dublin Core alignment directly inform the MCOS Objects module schema and the IA metadata export. The single-record editing workflow is the model for the MCOS object record form.
 
 **Repository:** [github.com/juren53/tag-writer](https://github.com/juren53/tag-writer)
 
@@ -298,7 +298,7 @@ The HSTL IPTC field set Tag Writer implements — headline (title), caption-abst
 
 A Python/PyQt6 audio metadata editor with three modes: Archival Recording, Music, and Scientific. The Archival Recording mode writes the complete HSTL ID3v2.3 frame set — title, description, accession number, speakers, date recorded, restrictions, location, production/copyright, collection, source URL — with cross-schema aliases for iTunes, XMP, and Windows Media compatibility. ATW supports MP3 and WAV read/write and is packaged as a Windows executable.
 
-**MCIS relevance:** The HSTL archival metadata profile demonstrates a complete, production-validated archival schema. The accession-number-centric structure, rights/restrictions handling, and collection hierarchy directly parallel the MCIS object and media attachment models. The JSON export/import pattern is applicable to MCIS data portability requirements.
+**MCOS relevance:** The HSTL archival metadata profile demonstrates a complete, production-validated archival schema. The accession-number-centric structure, rights/restrictions handling, and collection hierarchy directly parallel the MCOS object and media attachment models. The JSON export/import pattern is applicable to MCOS data portability requirements.
 
 **Repository:** [github.com/juren53/audio-tag-writer](https://github.com/juren53/audio-tag-writer)
 
@@ -306,7 +306,7 @@ A Python/PyQt6 audio metadata editor with three modes: Archival Recording, Music
 
 A proof-of-concept project managing the musical holdings at the Harry S. Truman National Historic Site (U.S. National Park Service). Phase 1 is complete — a selection of items from the collection is publicly accessible at [archive.org/details/trumanhomemusic](https://archive.org/details/trumanhomemusic). The code and scripts are prototype-quality rather than production-ready.
 
-**MCIS relevance:** This project is the direct proof of concept for MCIS's core Internet Archive publishing model — a real cultural heritage collection, live on IA, published by the same developer. Where HPM, Tag Writer, and ATW prove out the metadata and tooling side, the Truman Home Music Collection proves out the end-to-end IA publishing workflow: collection setup, item upload, metadata mapping, and public access. MCIS formalizes and generalizes this workflow for any small museum.
+**MCOS relevance:** This project is the direct proof of concept for MCOS's core Internet Archive publishing model — a real cultural heritage collection, live on IA, published by the same developer. Where HPM, Tag Writer, and ATW prove out the metadata and tooling side, the Truman Home Music Collection proves out the end-to-end IA publishing workflow: collection setup, item upload, metadata mapping, and public access. MCOS formalizes and generalizes this workflow for any small museum.
 
 **Repository:** [github.com/juren53/TrumanMusicCollection](https://github.com/juren53/TrumanMusicCollection)
 
@@ -318,7 +318,7 @@ A prototype QR code module developed for Weston Historical Museum (WHM) provides
 
 Testing confirmed that printed QR codes scan measurably faster than codes displayed on screen, and that codes as small as 2 cm (~0.75 inches) scan successfully. Key trade-offs identified for the Museum environment include QR code size, lighting conditions, and visitor phone hardware. The prototype established that the technology is mature and implementation at WHM is very doable with relatively little friction.
 
-**MCIS relevance:** This is the direct prototype for the MCIS QR Code Generator module. It proves out the full visitor-facing workflow — IA record → QR code → printed label → artifact display — and surfaces the practical questions (label size, display format, artifact numbering) that the module must resolve. The prototype has been formalized as a standalone MCIS module.
+**MCOS relevance:** This is the direct prototype for the MCOS QR Code Generator module. It proves out the full visitor-facing workflow — IA record → QR code → printed label → artifact display — and surfaces the practical questions (label size, display format, artifact numbering) that the module must resolve. The prototype has been formalized as a standalone MCOS module.
 
 **Repository:** [github.com/juren53/qr-code-generator](https://github.com/juren53/qr-code-generator)
 

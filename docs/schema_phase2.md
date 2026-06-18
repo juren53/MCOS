@@ -1,4 +1,4 @@
-# MCIS Phase 2 Schema Design
+# MCOS Phase 2 Schema Design
 
 _Draft Version 0.1 — 2026-06-16_
 

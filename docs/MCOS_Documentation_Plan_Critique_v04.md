@@ -1,4 +1,4 @@
-# MCIS Documentation Plan v0.4 — Critique
+# MCOS Documentation Plan v0.4 — Critique
 
 _2026-06-16_
 
