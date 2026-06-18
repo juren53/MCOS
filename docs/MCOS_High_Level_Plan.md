@@ -266,6 +266,7 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 | Scope creep | Strict module boundaries and phased roadmap |
 | Data loss | Deployment guide includes automated daily backup schedules and off-site backup instructions; aligns with IMLS data stewardship guidance |
 | Donor and member PII | Encrypted database connections required; deployment guide covers encryption-at-rest options and data retention policy |
+| Data security | Sensitive data is handled exclusively through well-audited Python security libraries — `cryptography` for encryption, `bcrypt` or `argon2-cffi` for password hashing, and the standard `ssl` module for encrypted database connections — avoiding custom cryptographic code; deployment guide covers encryption-at-rest configuration for both PostgreSQL and SQLite deployments |
 
 ---
 
