@@ -13,6 +13,7 @@ All SynchroSoft PyQt6 apps draw from a set of shared modules that live as siblin
 |---|---|---|
 | Icon Manager Module | `~/Projects/Icon_Manager_Module/` | Cross-platform icon loading, Windows taskbar / AppUserModelID fix |
 | ThemeManager | `~/Projects/ThemeManager/` | 6-theme `QPalette` system, `QSettings` persistence |
+| ZoomManager | `~/Projects/zoom-manager/` | Singleton font-scaling zoom (75%–200%), discrete levels, `QSettings` persistence, `zoom_changed` signal |
 | pyqt-app-info | `~/Projects/pyqt-app-info/` | App identity dataclass, About dialog |
 | version-checker-module | `~/Projects/version-checker-module/` | Update checking |
 
@@ -30,27 +31,47 @@ Both the QR Code app and Tag Writer started with a local `theme.py` that duplica
 
 ### 2. Module initialization order is load-bearing
 
-The correct startup sequence for every app is strict and must not be reordered:
+Four constraints are absolute, regardless of which icon strategy the app uses:
 
 ```
-1. Module-level path setup + imports
-      ↳ IMM import fires _init_win32() here — before QApplication exists
-2. QApplication(sys.argv)
-3. app.setOrganizationName() / app.setApplicationName()
-      ↳ This scopes QSettings — must happen before any QSettings read
-4. app.setWindowIcon(get_app_icon())
-5. MainWindow.__init__()
-      ↳ Reads QSettings for persisted theme — org/app name must already be set
-6. window.show()
-7. _app_icons.set_taskbar_icon(window, APP_USER_MODEL_ID)
-      ↳ Requires a visible window with a valid native handle (winId())
+A. Windows App User Model ID set  ←── before QApplication()
+B. QApplication(sys.argv)
+C. app.setOrganizationName() / app.setApplicationName()  ←── before any QSettings read
+D. MainWindow.__init__()  ←── reads theme from QSettings or config; org/app name must already be set
+E. window.show()
+F. Taskbar icon assigned to window  ←── after show(); requires a valid native handle (winId())
 ```
 
-Any deviation causes silent failures: wrong taskbar icon, QSettings reading the wrong scope, or the wrong theme restored on first launch.
+How each step is implemented depends on whether the app uses the Icon Manager Module or a local `platform.py`:
 
-### 3. `APP_USER_MODEL_ID` belongs in `constants.py`
+| Step | Using IMM (QR Code Generator) | Using local `platform.py` (TW, ATW) |
+|---|---|---|
+| **A** | IMM import at module level fires `_init_win32()` automatically | Explicit `set_app_user_model_id()` call at top of `main()` |
+| **B–C** | same | same |
+| **D** | `MainWindow.__init__()` reads `QSettings` for theme | `MainWindow.__init__()` reads JSON config for theme |
+| **E** | same | same |
+| **F** | `_app_icons.set_taskbar_icon(window, APP_USER_MODEL_ID)` | `set_windows_taskbar_icon(int(window.winId()))` |
 
-Tag Writer hardcodes `APP_USER_MODEL_ID = "SynchroSoft.TagWriter.TW.0.2.5"` in constants. That is the right location — the `.spec` file and any future Windows installer need to reference it from one place. Convention: `"SynchroSoft.<AppShortName>"` (version-free so it stays stable across releases).
+App icon (`app.setWindowIcon()`): IMM apps call `_app_icons.get_app_icon()`; local apps call `QIcon(_get_icon_path())`. Both are called after step C and before `MainWindow.__init__()`.
+
+Any deviation from the A–F ordering causes silent failures: wrong taskbar icon, QSettings reading the wrong scope, or the wrong theme on first launch.
+
+### 3. `APP_USER_MODEL_ID` must be version-free
+
+The Windows App User Model ID is used by the shell to group taskbar buttons and support pinned shortcuts. **Including the version number breaks taskbar pinning on every release** — Windows treats each versioned string as a different application.
+
+Correct format: `"SynchroSoft.<AppShortName>"` — stable across all releases.
+
+```python
+# constants.py — correct
+APP_USER_MODEL_ID = "SynchroSoft.QRG"        # QR Code Generator
+APP_USER_MODEL_ID = "SynchroSoft.TagWriter"   # Tag Writer
+APP_USER_MODEL_ID = "SynchroSoft.ATW"         # Audio Tag Writer
+```
+
+The QR Code Generator gets this right: it constructs the ID at call time from `APP_ORGANIZATION` and `APP_SHORT_NAME` so no separate constant is needed and the value is inherently version-free. Tag Writer and Audio Tag Writer currently embed the version (`"SynchroSoft.TagWriter.TW.0.2.6"`) and should be updated.
+
+The ID belongs in `constants.py` — the `.spec` file and any future Windows installer need to reference it from one place.
 
 ### 4. `resources/icons/` is always generated, never hand-crafted
 
@@ -64,30 +85,83 @@ __pycache__/
 !resources/icons/*.png
 ```
 
-### 5. `theme.py` is always a thin wrapper — 25 lines, not 250
+### 5. `theme.py` is always a thin wrapper — never a reimplementation
 
-The correct pattern, established in the QR Code app and to be followed by all future modules:
+**Base template** (all apps):
 
 ```python
 # theme.py
+from __future__ import annotations
+import os, sys
+
 _TM_PATH = os.path.expanduser("~/Projects/ThemeManager")
 if os.path.isdir(_TM_PATH) and _TM_PATH not in sys.path:
     sys.path.insert(0, _TM_PATH)
 
-from theme_manager import get_theme_registry, get_fusion_palette, detect_system_theme  # noqa: F401
+from theme_manager import (  # noqa: F401
+    ThemeColors, UIPalette, Theme, ThemeCategory,
+    get_theme_registry, get_fusion_palette, detect_system_theme,
+)
 
 DEFAULT_THEME = "light"
+
+# Keep in sync with every dark theme registered below
 _DARK_THEMES = {"dark", "solarized_dark", "dracula"}
 
 def is_dark_theme(name: str) -> bool:
     return name in _DARK_THEMES
+```
 
+**Optional: `canvas_color()` helper** — needed only by apps with a content preview area (QR Code Generator, HST-Metadata):
+
+```python
 def canvas_color(name: str) -> str:
     theme = get_theme_registry().get_theme(name)
     return theme.ui_palette.base_color if theme else "#ffffff"
 ```
 
-The `canvas_color()` helper is needed only by apps with a content preview area (QR Code Generator, HST-Metadata). Apps without one omit it.
+**Optional: custom theme registration** — when the app needs themes beyond ThemeManager's six built-ins, register them at module import time so they are available to the whole registry:
+
+```python
+def _register_app_themes() -> None:
+    registry = get_theme_registry()
+    registry.register_theme(Theme(
+        name="warm_light",
+        display_name="Warm Light",
+        content_colors=ThemeColors(...),
+        ui_palette=UIPalette(
+            window_color="#eee9e0", window_text_color="#504741",
+            base_color="#f0ebe2", alternate_base_color="#e6e1d7",
+            text_color="#504741", button_color="#e6e1d7",
+            button_text_color="#504741", highlight_color="#6699cc",
+            highlighted_text_color="#ffffff", secondary_highlight_color="#cc6666",
+        ),
+        description="Warm neutral light theme",
+        is_built_in=False,
+        category=ThemeCategory.CUSTOM,
+    ))
+    # ... additional themes
+
+_register_app_themes()
+```
+
+Add any registered dark themes to `_DARK_THEMES` — that set is the sole source of truth for `is_dark_theme()`.
+
+**Optional: `LEGACY_NAME_MAP`** — required when migrating an app that previously stored human-readable theme names (e.g., `"Default Light"`, `"GitHub Dark"`) in its config file. Maps old display names to ThemeManager internal registry keys so existing config files are upgraded silently on first load:
+
+```python
+LEGACY_NAME_MAP: dict[str, str] = {
+    "Default Light":   "light",
+    "Dark":            "dark",
+    "Solarized Light": "solarized_light",
+    "Solarized Dark":  "solarized_dark",
+    "High Contrast":   "high_contrast",
+    "Monokai":         "monokai",
+    "GitHub Dark":     "github_dark",
+}
+```
+
+Use this map in `config.py`'s `load_config()` (Pattern B) or the QSettings load block (Pattern A). New apps starting from scratch do not need it — the registry keys are used directly from day one.
 
 ### 6. `apply_theme()` uses `QPalette`, not `setStyleSheet()`
 
@@ -96,27 +170,55 @@ ThemeManager's `get_fusion_palette()` returns a `QPalette` configured for Qt's F
 ```python
 def apply_theme(self):
     QApplication.instance().setPalette(get_fusion_palette(self.current_theme))
-    QSettings().setValue("theme/current", self.current_theme)
     if hasattr(self, "dark_mode_action"):
         self.dark_mode_action.setChecked(is_dark_theme(self.current_theme))
 ```
 
-Never call `app.setStyleSheet()` for whole-app theming — it fights the palette and produces inconsistent results on different widget types. Widget-scoped stylesheets (e.g., the scroll area canvas color) remain fine.
+`apply_theme()` only sets the palette. Persistence (saving the chosen theme) is the caller's responsibility — see Lesson 7.
 
-### 7. Theme persistence is two lines
+Never call `app.setStyleSheet()` for whole-app theming — it fights the palette and produces inconsistent results on different widget types. Widget-scoped stylesheets (e.g., the scroll area canvas color, zoom font-size CSS) remain fine.
 
-Save on change (in `apply_theme()`):
+### 7. Theme persistence — use whatever config the app already owns
+
+The right persistence mechanism depends on what the app already uses for its other settings. Do not introduce a second mechanism just for theme.
+
+**Pattern A — QSettings** (new modules, apps with no existing config file):
+
+Save on change:
 ```python
 QSettings().setValue("theme/current", self.current_theme)
 ```
-
-Load on startup (in `MainWindow.__init__()`):
+Load on startup (after `app.setOrganizationName()` / `app.setApplicationName()`):
 ```python
 saved = QSettings().value("theme/current", DEFAULT_THEME)
 self.current_theme = saved if get_theme_registry().get_theme(saved) else DEFAULT_THEME
 ```
 
-The validation guard (`get_theme_registry().get_theme(saved)`) protects against stale keys if the theme set changes between versions.
+**Pattern B — JSON config** (apps that already persist settings to a `~/.app_config.json`):
+
+Save on change (via the app's existing `config.save_config()`):
+```python
+config.current_theme = self.current_theme
+config.save_config()
+```
+Load on startup — apply a migration dict in `load_config()` to convert any legacy display-name keys:
+```python
+_THEME_MIGRATION = {
+    "Default Light": "light", "Dark": "dark",
+    "Solarized Light": "solarized_light", ...
+}
+
+raw_theme = data.get('current_theme', DEFAULT_THEME)
+self.current_theme = _THEME_MIGRATION.get(raw_theme, raw_theme)
+```
+
+**Both patterns** need the same validation guard to protect against stale keys when the theme set changes between versions:
+```python
+if not get_theme_registry().get_theme(self.current_theme):
+    self.current_theme = DEFAULT_THEME
+```
+
+QR Code Generator uses Pattern A. Tag Writer and Audio Tag Writer use Pattern B.
 
 ### 8. PySide6 compatibility is already handled
 
@@ -154,6 +256,9 @@ MCOS targets PySide6; the sibling standalone apps use PyQt6. Both ThemeManager a
       help.py                  # HelpMixin (README, Changelog, About)
       theme.py                 # thin ThemeManager wrapper
       <domain>.py              # app-specific, Qt-free business logic
+      dialogs/
+        __init__.py
+        theme_dialog.py        # ThemeDialog — category-grouped combo + palette swatch preview
   tests/
   CHANGELOG.md
   .gitignore
@@ -171,7 +276,8 @@ Work through this list in order. The goal is a window that opens with the correc
   python ~/Projects/Icon_Manager_Module/generate_icons.py ICON_<module>.png
   ```
 - [ ] **Fill `constants.py`** — all six identity fields; set `APP_USER_MODEL_ID = "SynchroSoft.<AppShortName>"`
-- [ ] **Copy `theme.py` wrapper** — identical across modules; only `canvas_color()` is optional
+- [ ] **Copy `theme.py` wrapper** — base template is identical across modules; add custom theme registration and `LEGACY_NAME_MAP` only if needed (see Lesson 5)
+- [ ] **Copy `dialogs/theme_dialog.py`** — the implementation is the same for every app; only the module path import block at the top changes
 - [ ] **Scaffold `main.py`**
   - IMM path setup + `IconLoader` at module level
   - ThemeManager import (via `theme.py`)
@@ -189,7 +295,7 @@ Work through this list in order. The goal is a window that opens with the correc
 2. Add UI in the appropriate mixin file
 3. Wire menu actions in `menu.py`
 4. **Verify icon** — taskbar, title bar, Alt-Tab switcher, About dialog
-5. **Verify all 6 themes** — cycle through each; confirm dark-mode toggle; restart and confirm persistence
+5. **Verify all registered themes** — cycle through each in the ThemeDialog; confirm the palette swatch preview updates; confirm dark-mode toggle; restart and confirm persistence
 6. Bump `APP_VERSION` and `APP_TIMESTAMP` in `constants.py` and launcher header comment
 7. Update `CHANGELOG.md` before committing the bump
 
@@ -204,11 +310,11 @@ Work through this list in order. The goal is a window that opens with the correc
 
 ---
 
-## Apps Still to Migrate
+## Module Migration Status
 
-| App | IMM | ThemeManager | pyqt-app-info |
-|---|---|---|---|
-| QR Code Generator | ✅ v0.2.1 | ✅ v0.2.2 | ✅ |
-| Tag Writer | ❌ local | ❌ local (8-theme CSS) | — |
-| Audio Tag Writer | ❌ local | ❌ local | — |
-| HST-Metadata | — | — | — |
+| App | IMM | ThemeManager | ZoomManager | pyqt-app-info |
+|---|---|---|---|---|
+| QR Code Generator | ✅ v0.2.2 | ✅ v0.2.2 | — | ✅ |
+| Tag Writer | ❌ local `platform.py` | ✅ v0.2.6 | ❌ local CSS | — |
+| Audio Tag Writer | ❌ local `platform.py` | ✅ v0.7.10 | ❌ local CSS | — |
+| HST-Metadata | — | — | — | — |
