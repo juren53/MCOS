@@ -315,6 +315,6 @@ Work through this list in order. The goal is a window that opens with the correc
 | App | IMM | ThemeManager | ZoomManager | AUMID | pyqt-app-info |
 |---|---|---|---|---|---|
 | QR Code Generator | ✅ v0.2.2 | ✅ v0.2.2 | — | ✅ version-free | ✅ |
-| Tag Writer | ❌ local `platform.py` | ✅ v0.2.7 | ❌ local CSS | ✅ v0.2.7 | — |
-| Audio Tag Writer | ❌ local `platform.py` | ✅ v0.7.11 | ❌ local CSS | ✅ v0.7.11 | — |
+| Tag Writer | ✅ v0.2.8 | ✅ v0.2.8 | ❌ local CSS | ✅ v0.2.8 | — |
+| Audio Tag Writer | ✅ v0.7.12 | ✅ v0.7.12 | ❌ local CSS | ✅ v0.7.12 | — |
 | HST-Metadata | — | — | — | — | — |
