@@ -1,6 +1,6 @@
 # MCOS — Museum Collections & Operations System
 
-_High Level Project Plan — Draft Version 0.20 — 2026-06-21-1613_
+_High Level Project Plan — Draft Version 0.21 — 2026-06-21-1648_
 
 ---
 
@@ -345,7 +345,7 @@ A full, multi-user MCOS deployment — one where a shared PostgreSQL database se
 | IMLS | Institute of Museum and Library Services — the primary federal grant-making agency for US museums and libraries. |
 | LIDO | Lightweight Information Describing Objects — an XML schema for museum object data exchange and aggregation. |
 | PII | Personally Identifiable Information — data that can identify an individual (name, address, contact details). |
-| SPECTRUM | Collections management standard published by Collections Trust (UK) — widely adopted internationally as a benchmark for collections management procedures. |
+| SPECTRUM | Collections management standard published by Collections Trust (UK), currently at version 5.1 (September 2022). Defines 21 procedures covering the full range of collections management activity — from object entry and accessioning through loans, location control, condition checking, rights management, and deaccessioning. Required standard for UK Arts Council Accreditation; widely adopted internationally as a benchmark for professional collections stewardship. |
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
 
