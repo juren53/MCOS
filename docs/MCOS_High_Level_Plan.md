@@ -265,7 +265,7 @@ CollectiveAccess is the closest open source peer — a capable, mature system wi
 | Internet Archive API changes | The publishing component is designed to be updated independently if the Internet Archive API changes; pin to a stable, tested version. |
 | Scope creep | Strict module boundaries and phased roadmap |
 | Data loss | Deployment guide includes automated daily backup schedules and off-site backup instructions; aligns with IMLS data stewardship guidance |
-| Donor and member PII | Encrypted database connections required; deployment guide covers encryption-at-rest options and data retention policy |
+| Donor and member PII | Role-based access control limits donor and member records to authorized roles (Admin, Registrar, Staff) — Volunteer and Read-Only roles have no access to PII. The anonymous donor flag suppresses personal details from all public-facing records and IA exports. No donor or member PII is included in any Internet Archive publication. Encrypted database connections are required; deployment guide covers encryption-at-rest options, data retention schedules, and recommended deletion procedures for lapsed members and deceased donors. |
 | Data security | Sensitive data is handled exclusively through well-audited Python security libraries — `cryptography` for encryption, `bcrypt` or `argon2-cffi` for password hashing, and the standard `ssl` module for encrypted database connections — avoiding custom cryptographic code; deployment guide covers encryption-at-rest configuration for both PostgreSQL and SQLite deployments |
 
 ---
