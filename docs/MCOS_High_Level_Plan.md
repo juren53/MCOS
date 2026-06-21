@@ -280,7 +280,7 @@ Image and audio files processed at the Truman Library using the HPM, Tag Writer,
 
 A Python/PyQt6 desktop application that orchestrates an 8-step batch pipeline: Excel metadata spreadsheet → CSV conversion → Unicode cleanup → TIFF processing → IPTC/EXIF metadata embedding (via ExifTool and/or Exiv2) → JPEG conversion → resizing → watermarking for restricted images. The pipeline prepares photos for upload to the NARA catalog. HPM is packaged with PyInstaller, ships as a single Windows executable, and has a full acceptance test suite.
 
-**MCOS relevance:** The ExifTool (and/or Exiv2) integration, batch image processing pipeline, IPTC field mapping, and PyInstaller packaging approach are all directly applicable to the MCOS Objects module and the Phase 5 Data Migration tools.
+**MCOS relevance:** The ExifTool (and/or Exiv2) integration, batch image processing pipeline, IPTC field mapping, and PyInstaller packaging approach are all directly applicable to the MCOS Objects module and the Phase 5 Data Migration tools. The HPM pattern of ingesting a CSV export from an existing spreadsheet or database and mapping its columns to a defined metadata schema is the direct model for MCOS's CSV data import feature — allowing institutions to migrate records from Excel, PastPerfect exports, or other legacy systems by mapping their existing field names to the MCOS data structure at import time.
 
 **Repository:** [github.com/juren53/HST-Metadata](https://github.com/juren53/HST-Metadata)
 
