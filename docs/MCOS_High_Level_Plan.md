@@ -30,7 +30,7 @@ MCOS is not a 'greenfield' project. It builds directly on production metadata to
 | Simple to Operate | Intuitive and easy to use for staff and volunteers experienced in museum and archive work. A low training curve is a first-order design requirement — not a nice-to-have. |
 | Multi-User Ready | Multiple staff and volunteers can work simultaneously from their own workstations, connecting to a shared database. |
 | Modular by Design | Museums adopt only the modules they need. Start with Collections and Objects; add Members, Donors, Locations, and Loans as capacity and interest grow. |
-| Data Portable | Museums own their data in a standard, open format. Full export at any time. No vendor lock-in. |
+| Data Portable | Museums own their data in a standard, open format. Full import and export of data at any time. No vendor lock-in. |
 | Public Access Built In | Internet Archive publishing is a core feature, available from Phase 1. Publishing an approved collection record to the public is a one-step workflow, not a separate project. |
 | Standards Aligned | Field names, controlled vocabularies, and workflows reflect professional collections management standards (see §5). |
 | Grant Friendly | Open access commitment and IMLS-aligned mission support grant applications from IMLS, NEH, state humanities councils, and private foundations. |
