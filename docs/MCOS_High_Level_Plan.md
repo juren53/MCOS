@@ -1,6 +1,6 @@
 # MCOS — Museum Collections & Operations System
 
-_High Level Project Plan — Draft Version 0.19 — 2026-06-17-2125_
+_High Level Project Plan — Draft Version 0.20 — 2026-06-21-1613_
 
 ---
 
@@ -326,7 +326,15 @@ Testing confirmed that printed QR codes scan measurably faster than codes displa
 
 ---
 
-## 12. Glossary
+## 12. Implementing MCOS
+
+MCOS is designed to be as accessible as possible for small institutions with limited technical resources, but a realistic picture of what implementation actually involves is important. Many of the standalone modules — the QR Code Generator, Tag Writer, and Audio Tag Writer — can be downloaded, installed, and running within minutes by following the step-by-step documentation in each module's GitHub repository. These tools are self-contained and require no database setup or network configuration. The simpler single-user MCOS configuration, where the entire database lives in a single file on one workstation using SQLite, is also fully self-contained and requires no separate database server — making it accessible even for institutions with minimal technical support.
+
+A full, multi-user MCOS deployment — one where a shared PostgreSQL database serves multiple staff and volunteer workstations simultaneously — involves additional steps that will require some IT familiarity or outside support. Installing and configuring a PostgreSQL database server, setting up user accounts and role-based access, and connecting workstations across a local network are well-documented tasks, but they are not click-and-go operations for users without prior experience. Institutions without in-house IT capability should expect to involve a technically experienced volunteer, a local IT professional, or a peer institution with relevant experience for initial setup. MCOS will provide a guided installation wizard, detailed setup documentation, and worked configuration examples for both deployment paths to make that process as straightforward as possible. Everything required to install, configure, and run MCOS and its modules — installation packages, schema files, setup guides, a demo database with realistic fictional data, and a community issue tracker for questions — will be freely available on the MCOS GitHub repository, with the goal that no institution should need to pay a consulting fee to get started.
+
+---
+
+## 13. Glossary
 
 | Term | Definition |
 | :--- | :--- |
