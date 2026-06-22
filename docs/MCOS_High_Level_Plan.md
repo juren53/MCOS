@@ -1,6 +1,6 @@
 # MCOS — Museum Collections & Operations System
 
-_High Level Project Plan — Draft Version 0.22 — 2026-06-21-1703_
+_High Level Project Plan — Draft Version 0.23 — 2026-06-22-0557_
 
 ---
 
