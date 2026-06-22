@@ -339,12 +339,14 @@ A full, multi-user MCOS deployment — one where a shared PostgreSQL database se
 | Term | Definition |
 | :--- | :--- |
 | AAM | American Alliance of Museums — the primary professional association for museums in the United States, founded 1906. Publishes the Core Standards for Museums, which defines the minimum object documentation fields — unique accession number, title, provenance, rights statement, and condition record — that MCOS implements on every object record. |
+| Curator | The staff member responsible for the intellectual and scholarly stewardship of the collection: deciding what to acquire, interpreting objects for exhibitions and publications, and developing the museum's collecting focus. In small institutions this is typically a designated position — often the director or a subject-area specialist. |
 | Dublin Core | A widely adopted standard for describing digital resources — fifteen core elements including title, creator, date, description, and rights. Used as the basis for Internet Archive metadata. |
 | GLAM | Galleries, Libraries, Archives, and Museums — the cultural heritage sector collectively. |
 | IA | Internet Archive (archive.org) — a non-profit digital library offering free, permanent storage and public access. |
 | IMLS | Institute of Museum and Library Services — the primary federal grant-making agency for US museums and libraries. |
 | LIDO | Lightweight Information Describing Objects — an XML schema for museum object data exchange and aggregation. |
 | PII | Personally Identifiable Information — data that can identify an individual (name, address, contact details). |
+| Registrar | The staff member responsible for the legal and physical custody of the collection: accessioning objects, maintaining documentation (provenance, condition, location), managing loans, and tracking rights. In large institutions this is a dedicated position; in small museums and historical societies — MCOS's primary audience — there is rarely a designated Registrar, and these responsibilities typically fall to the director, the curator, or a trained volunteer. MCOS uses "Registrar" as a system role name for whichever person performs these functions. |
 | SPECTRUM | Collections management standard published by Collections Trust (UK), currently at version 5.1 (September 2022). Defines 21 procedures covering the full range of collections management activity — from object entry and accessioning through loans, location control, condition checking, rights management, and deaccessioning. Required standard for UK Arts Council Accreditation; widely adopted internationally as a benchmark for professional collections stewardship. |
 | TMS | The Museum System — a commercial collections management platform by Gallery Systems (now Axiell). |
 ---
