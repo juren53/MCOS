@@ -1,6 +1,6 @@
 # MCOS — Museum Collections & Operations System
 
-_High Level Project Plan — Draft Version 0.29 — 2026-06-22-0629_
+_High Level Project Plan — Draft Version 0.30 — 2026-06-22-0857_
 
 ---
 
@@ -10,7 +10,7 @@ MCOS is a free, open source museum collections information system designed speci
 
 **The problem MCOS addresses:** Hundreds of small museums, historical societies, and community archives currently manage their collections in Excel spreadsheets, paper registers, or aging standalone software. These institutions cannot afford commercial solutions — many cost thousands of dollars per year in subscription fees — and lack the IT staff to deploy and maintain web-based alternatives. Their collections remain undiscoverable, their data is at risk, and their staff and volunteers face unnecessary administrative burden.
 
-**The MCOS approach:** A free, easy-to-install desktop application that any registrar, staff member, or trained volunteer can learn quickly, backed by a shared database that all workstations connect to simultaneously, with Internet Archive publishing built in from the start.
+**The MCOS approach:** A free, easy-to-use desktop application that any registrar, staff member, or trained volunteer can learn quickly, backed by a shared database that all workstations connect to simultaneously, with Internet Archive publishing built in from the start.
 
 The system is built on a two-tier public/private architecture:
 
@@ -383,4 +383,4 @@ The metadata fields and upload interface that govern how items are submitted to 
 
 ---
 
-_2026-06-22-0629_
+_2026-06-22-0857_
