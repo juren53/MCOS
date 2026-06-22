@@ -1,6 +1,6 @@
 # MCOS — Museum Collections & Operations System
 
-_High Level Project Plan — Draft Version 0.31 — 2026-06-22-1654_
+_High Level Project Plan — Draft Version 0.32 — 2026-06-22-1659_
 
 ---
 
@@ -383,4 +383,4 @@ The metadata fields and upload interface that govern how items are submitted to 
 
 ---
 
-_2026-06-22-1654_
+_2026-06-22-1659_
