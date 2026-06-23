@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-23-1503] — Add controlled vocabulary guide
+
+### Added
+- `docs/controlled_vocabulary.md` — new document defining controlled vocabularies for all MCOS fields: field inventory by priority and phase; external authority sources (Getty AAT, RightsStatements.org, SPECTRUM); MCOS-defined term lists for condition, accession method, media role, loan status, and location type; schema storage patterns (CHECK constraints vs. `cv_*` lookup tables); and term governance covering proposal, approval, retirement, and migration
+- `docs/MCOS_Documentation_Plan.md` — Controlled Vocabulary Guide added to the Complete table; complete count bumped from 8 to 9; footer date updated
+
+---
+
 ## [2026-06-23-1501] — Remove 'and validated in' from NARA reference in §11
 
 ### Changed
