@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [2026-06-24-0315] — Rename 'Tag Writer' to 'Photo Tag Writer' in §11
+
+### Changed
+- `docs/MCOS_High_Level_Plan.md` — §11 Prior Work: all six references to "Tag Writer" renamed to "Photo Tag Writer" (section heading, body text, IPTC table, and three cross-references); "Audio Tag Writer (ATW)" left unchanged
+
+---
+
 ## [2026-06-23-1510] — Tighten NARA proof sentence in §11
 
 ### Changed
