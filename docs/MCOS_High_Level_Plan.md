@@ -1,6 +1,6 @@
 # MCOS — Museum Collections & Operations System
 
-_High Level Project Plan — Draft Version 0.32 — 2026-06-22-1659_
+_High Level Project Plan — Draft Version 0.33 — 2026-06-25-0858_
 
 ---
 
@@ -16,6 +16,73 @@ The system is built on a two-tier public/private architecture:
 
 - **Private Tier** — Full operational data is maintained in a secure, self-hosted database covering collections management, donor records, loans, location tracking, and internal inventory. Data stays on hardware the museum controls — no cloud dependency, no subscription, no vendor lock-in.
 - **Public Tier** — Selected collection records and artifact images can be published to the museum's Internet Archive (IA) collection, providing free, permanent, searchable public access aligned with the GLAM (Galleries, Libraries, Archives, Museums) open access movement.
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                           MCOS DESKTOP CLIENT                                │
+│                    Python / PySide6  ·  Windows · Linux · macOS              │
+└────────────────────────────────┬─────────────────────────────────────────────┘
+                                 │
+             ┌───────────────────┴──────────────────────┐
+             │                                          │
+┌────────────▼──────────────────────────────┐  ┌───────▼──────────────────────┐
+│               PRIVATE TIER                │  │         PUBLIC TIER           │
+│                                           │  │                               │
+│  ┌────────────────────────────────────┐   │  │  ┌─────────────────────────┐  │
+│  │       Collections & Objects        │   │  │  │      IA Publisher        │  │
+│  │  Collections · Objects · Accession │   │  │  │  Basic · Full · Batch    │  │
+│  │  Images · Documents · Attachments  │   │  │  │  Field Mapping · Queue   │  │
+│  └────────────────────────────────────┘   │  │  └────────────┬────────────┘  │
+│                                           │  │               │               │
+│  ┌──────────────────────────────────┐     │  │  ┌────────────▼────────────┐  │
+│  │           Media Ingest           │     │  │  │    QR Code Generator    │  │
+│  │  ┌─────────────┐ ┌────────────┐  │     │  │  │  PNG · PDF labels       │  │
+│  │  │ Photo Ingest│ │Audio Ingest│  │     │  │  └─────────────────────────┘  │
+│  │  │ IPTC · EXIF │ │ ID3 · ATW  │  │     │  │                               │
+│  │  └─────────────┘ └────────────┘  │     │  └───────────────┬───────────────┘
+│  └──────────────────────────────────┘     │                  │
+│                                           │                  ▼
+│  ┌──────────────────────────────────┐     │     ┌────────────────────────────┐
+│  │           Operations             │     │     │      INTERNET ARCHIVE      │
+│  │  ┌──────────┐  ┌──────────────┐  │     │     │        archive.org         │
+│  │  │ Members  │  │    Donors    │  │     │     │  Free · Permanent · Public │
+│  │  │  /Comms  │  └──────────────┘  │     │     └────────────────────────────┘
+│  │  └──────────┘  ┌──────────────┐  │     │
+│  │                │   Locations  │  │     │
+│  │                └──────────────┘  │     │
+│  │                ┌──────────────┐  │     │
+│  │                │    Loans     │  │     │
+│  │                └──────────────┘  │     │
+│  │                ┌──────────────┐  │     │
+│  │                │  Inventory   │  │     │
+│  │                └──────────────┘  │     │
+│  └──────────────────────────────────┘     │
+│                                           │
+│  ┌──────────────────────────────────┐     │
+│  │         Data Migration           │     │
+│  │    CSV/Excel · LIDO · Batch      │     │
+│  └──────────────────────────────────┘     │
+│                                           │
+│  ┌──────────────────────────────────┐     │
+│  │    Role-Based Access Control     │     │
+│  │  Admin · Registrar · Staff       │     │
+│  │  Volunteer · Read-Only           │     │
+│  └──────────────────────────────────┘     │
+│                                           │
+│  ┌──────────────────────────────────┐     │
+│  │            Audit Log             │     │
+│  │  Every change · User attribution │     │
+│  │  Before / after field values     │     │
+│  └──────────────────────────────────┘     │
+│                                           │
+│  ┌──────────────────────────────────┐     │
+│  │            DATABASE              │     │
+│  │  PostgreSQL  (multi-user)        │     │
+│  │  SQLite      (single-user)       │     │
+│  └──────────────────────────────────┘     │
+│                                           │
+└───────────────────────────────────────────┘
+```
 
 MCOS is not a 'greenfield' project. It builds directly on production metadata tools developed for the Harry S. Truman Presidential Library — tools that have already solved problems MCOS will face: archival metadata schema design, IPTC/EXIF embedding in image files, batch processing pipelines, and field mapping to public publishing targets. See §11 for detail.
 
@@ -383,4 +450,4 @@ The metadata fields and upload interface that govern how items are submitted to 
 
 ---
 
-_2026-06-22-1659_
+_2026-06-25-0858_
