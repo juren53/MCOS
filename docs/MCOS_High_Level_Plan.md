@@ -1,6 +1,6 @@
 # MCOS — Museum Collections & Operations System
 
-_High Level Project Plan — Draft Version 0.33 — 2026-06-25-0858_
+_High Level Project Plan — Draft Version 0.34 — 2026-06-25-0906_
 
 ---
 
@@ -26,20 +26,20 @@ The system is built on a two-tier public/private architecture:
              ┌───────────────────┴──────────────────────┐
              │                                          │
 ┌────────────▼──────────────────────────────┐  ┌───────▼──────────────────────┐
-│               PRIVATE TIER                │  │         PUBLIC TIER           │
-│                                           │  │                               │
-│  ┌────────────────────────────────────┐   │  │  ┌─────────────────────────┐  │
-│  │       Collections & Objects        │   │  │  │      IA Publisher        │  │
-│  │  Collections · Objects · Accession │   │  │  │  Basic · Full · Batch    │  │
-│  │  Images · Documents · Attachments  │   │  │  │  Field Mapping · Queue   │  │
-│  └────────────────────────────────────┘   │  │  └────────────┬────────────┘  │
-│                                           │  │               │               │
-│  ┌──────────────────────────────────┐     │  │  ┌────────────▼────────────┐  │
-│  │           Media Ingest           │     │  │  │    QR Code Generator    │  │
-│  │  ┌─────────────┐ ┌────────────┐  │     │  │  │  PNG · PDF labels       │  │
-│  │  │ Photo Ingest│ │Audio Ingest│  │     │  │  └─────────────────────────┘  │
-│  │  │ IPTC · EXIF │ │ ID3 · ATW  │  │     │  │                               │
-│  │  └─────────────┘ └────────────┘  │     │  └───────────────┬───────────────┘
+│               PRIVATE TIER                │  │         PUBLIC TIER          │
+│                                           │  │                              │
+│  ┌────────────────────────────────────┐   │  │  ┌────────────────────────┐  │
+│  │       Collections & Objects        │   │  │  │      IA Publisher      │  │
+│  │  Collections · Objects · Accession │   │  │  │  Basic · Full · Batch  │  │
+│  │  Images · Documents · Attachments  │   │  │  │  Field Mapping · Queue │  │
+│  └────────────────────────────────────┘   │  │  └────────────┬───────────┘  │
+│                                           │  │               │              │
+│  ┌──────────────────────────────────┐     │  │  ┌────────────▼───────────┐  │
+│  │           Media Ingest           │     │  │  │    QR Code Generator   │  │
+│  │  ┌─────────────┐ ┌────────────┐  │     │  │  │  PNG · PDF labels      │  │
+│  │  │ Photo Ingest│ │Audio Ingest│  │     │  │  └────────────────────────┘  │
+│  │  │ IPTC · EXIF │ │ ID3 · ATW  │  │     │  │                              │
+│  │  └─────────────┘ └────────────┘  │     │  └───────────────┬──────────────┘
 │  └──────────────────────────────────┘     │                  │
 │                                           │                  ▼
 │  ┌──────────────────────────────────┐     │     ┌────────────────────────────┐
@@ -450,4 +450,4 @@ The metadata fields and upload interface that govern how items are submitted to 
 
 ---
 
-_2026-06-25-0858_
+_2026-06-25-0906_
