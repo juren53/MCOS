@@ -1,6 +1,6 @@
 # MCOS — Museum Collections & Operations System
 
-_High Level Project Plan — Draft Version 0.34 — 2026-06-25-0906_
+_High Level Project Plan — Draft Version 0.35 — 2026-06-25-0912_
 
 ---
 
@@ -84,7 +84,7 @@ The system is built on a two-tier public/private architecture:
 └───────────────────────────────────────────┘
 ```
 
-MCOS is not a 'greenfield' project. It builds directly on production metadata tools developed for the Harry S. Truman Presidential Library — tools that have already solved problems MCOS will face: archival metadata schema design, IPTC/EXIF embedding in image files, batch processing pipelines, and field mapping to public publishing targets. See §11 for detail.
+MCOS is not a 'greenfield' project. It builds on production metadata tools developed for the Harry S. Truman Presidential Library — tools that have already solved some of the problems MCOS will face: archival metadata schema design, IPTC/EXIF embedding in image files, batch processing pipelines, and field mapping to public publishing targets. See §11 for detail.
 
 ---
 
@@ -450,4 +450,4 @@ The metadata fields and upload interface that govern how items are submitted to 
 
 ---
 
-_2026-06-25-0906_
+_2026-06-25-0912_
